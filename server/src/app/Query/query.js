@@ -1,11 +1,27 @@
 //------------- DML Query -------------------------------
+
+//-------------------------user related query----------------
+
 const getUser = " SELECT * FROM Users WHERE email = $1 ";
 
 const isEmailExist =
   " SELECT COUNT(*) AS email_count FROM Users WHERE email= $1";
 
 const InsertUser =
-  " INSERT INTO Users(username , email,password) VALUES($1,$2,$3)";
+  " INSERT INTO Users(username , email,password) VALUES($1,$2,$3) ";
+
+//---------------------------orders related query--------------------
+
+const createOrderId =
+  " INSERT INTO Orders(customer_id,total_amount,status) VALUES($1,$2,$3) RETURNING orderId ";
+
+const addingItem =
+  " INSERT INTO OrderItem(order_id , product_id , quantity , price_per_unit , total_price) VALUES($1 , $2, $3 ,$4, $5)  ";
+
+const getAllActiveOrder = " SELECT * FROM Orders WHERE status = 'Active' ";
+
+const updateTheOrder =
+  " UPDATE Orders SET total_amount = $1 , status  = $2 WHERE orderId = $3 ";
 
 //--------------------- query for creating new tabel in databse  DDL Query -----------------------------------------
 const createTabel =
@@ -28,4 +44,8 @@ module.exports = {
   createOrderItme,
   createOrderTabel,
   productDetailTabel,
+  createOrderId,
+  addingItem,
+  getAllActiveOrder,
+  updateTheOrder,
 };

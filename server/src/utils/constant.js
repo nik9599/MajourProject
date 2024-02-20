@@ -10,5 +10,8 @@ module.exports={
     EMAIL_ALREADY_EXIST :"Email address is already exist",
     USER_SIGNIN : "User signIn successfully",
     TABEL_CREATED_ERROR : "Tabel createation failed",
-    TABEL_CREATED : "Tabel created succesfully"
+    TABEL_CREATED : "Tabel created succesfully",
+    ORDER_ID : "Your order id created",
+    ORDER_PLACED_SUCCESSFULLY : "Your Order placed successfully",
+    ORDER_DETAIL_UPDATED :"Your order updated successfully"
 }

@@ -85,7 +85,7 @@ const loginUser = (req, res) => {
     //-------------------------comparing hash password with user input password------------
 
     const dbpassword = result.rows[0].password;
-
+    const userID = result.rows[0].userid;
     bcrypt.compare(password, dbpassword, (err, result) => {
       if (err) {
         console.log(`Error  => ${err.message}`);
@@ -95,6 +95,7 @@ const loginUser = (req, res) => {
       } else if (result) {
         return res.status(200).json({
           msg: constant.USER_SIGNIN,
+          userID: userID,
           token: token(email, password),
           email: email,
           success: true,
