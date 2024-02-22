@@ -13,5 +13,8 @@ module.exports={
     TABEL_CREATED : "Tabel created succesfully",
     ORDER_ID : "Your order id created",
     ORDER_PLACED_SUCCESSFULLY : "Your Order placed successfully",
-    ORDER_DETAIL_UPDATED :"Your order updated successfully"
+    ORDER_DETAIL_UPDATED :"Your order updated successfully",
+    PLEASE_ENTER_THE_MISSING_VALUE :"Please enter the missing value",
+    PRODUCT_SAVED : "Product hase been saved",
+    PRODUCT_UPDATED : "Product Updated successfully"
 }

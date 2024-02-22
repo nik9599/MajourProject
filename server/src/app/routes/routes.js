@@ -8,6 +8,12 @@ const {
   getActiveOrder,
   updateOrder,
 } = require("../controller/order-controller.js");
+const {
+  getAllProducts,
+  getCategoryProduct,
+  insertProduct,
+  getUpdateProduct,
+} = require("../controller/product-controller.js");
 const Routes = express.Router();
 
 //------Declaring All The Routes-------
@@ -21,6 +27,12 @@ Routes.post("/order", orderId);
 Routes.post("/addingItem", addOrderItem);
 Routes.get("/activeOrder", getActiveOrder);
 Routes.put("/updateOrder", updateOrder);
+
+//----------product routes----------------
+Routes.get("/getAllProduct", getAllProducts);
+Routes.get("/getCategroyProduct/:category", getCategoryProduct);
+Routes.post("/insertProduct", insertProduct);
+Routes.put("/updateProduct", getUpdateProduct);
 
 Routes.get("/createTabel", createTabel);
 

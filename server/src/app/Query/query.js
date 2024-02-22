@@ -23,6 +23,21 @@ const getAllActiveOrder = " SELECT * FROM Orders WHERE status = 'Active' ";
 const updateTheOrder =
   " UPDATE Orders SET total_amount = $1 , status  = $2 WHERE orderId = $3 ";
 
+
+//----------------------Product related Query------------------------------------------------------------
+
+const InsertProduct =
+" INSERT INTO Products( Product_Name ,  Product_Image , Product_Price , Quantity ,  Category ) VALUES( $1 , $2 , $3 , $4 , $5 ) ";
+
+const getALLProduct = 
+" SELECT * from Products ";
+
+const getCategoriesProduct=
+" SELECT * from Products WHERE Category = $1 ";
+
+const updateProduct=
+" UPDATE Products SET Product_Name = $1 ,  Product_Image = $2 , Product_Price = $3 , Quantity =$4 ,  Category = $5  WHERE product_Id = $6  ";
+
 //--------------------- query for creating new tabel in databse  DDL Query -----------------------------------------
 const createTabel =
   " CREATE TABLE Users (userID  SERIAL  PRIMARY KEY, username varchar(255) , email varchar(255) , password varchar(255))";
@@ -48,4 +63,8 @@ module.exports = {
   addingItem,
   getAllActiveOrder,
   updateTheOrder,
+  InsertProduct,
+  getALLProduct,
+  getCategoriesProduct,
+  updateProduct,
 };
