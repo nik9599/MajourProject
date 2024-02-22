@@ -1,9 +1,10 @@
 import React from 'react'
+import './SideMenu.css'
 
-export default function SideMenu() {
+export default function SideMenu({items}) {
   return (
-    <div>
-      
+    <div className='SM' >
+      <p>{items}</p>
     </div>
   )
 }

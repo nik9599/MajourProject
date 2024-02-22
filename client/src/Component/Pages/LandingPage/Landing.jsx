@@ -1,7 +1,9 @@
 import React from "react";
 import MenuCard from "../MenuCard/MenuCard";
 import "./Landing.css";
-import sampelImage from "../../Image/smpelImage.jpg"
+import sampelImage from "../../Image/smpelImage.jpg";
+import category from "../../utils/Common Function/category";
+import SideMenu from "../SideMenuCard/SideMenu";
 
 export default function Landing() {
   return (
@@ -24,7 +26,16 @@ export default function Landing() {
         </div>
       </div>
       <div className="LM2">
-        <div className="LM2-Left">THis is category</div>
+        <div className="LM2-Left">{
+          category.map(item=>{
+            return(
+              <div>
+                <SideMenu items={item} />
+                </div>
+            )
+          })
+        }
+        </div>
         <div className="LM2-Mid">
           <div className="LM2-M1"> <p> Sharing Combo </p></div>
           <div className="LM2-M2">
