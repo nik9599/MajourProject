@@ -1,0 +1,75 @@
+.C {
+  background-color: #fbf6f0;
+  height: 100vh;
+  font-family: Speedee, sans-serif;
+}
+
+.CT {
+  height: 100px;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.CT-1 {
+  display: flex;
+  margin-left: 60px;
+  align-items: center;
+}
+
+.CT-2 {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-evenly;
+  width: 500px;
+}
+
+.CT2-1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90px;
+  height: 50px;
+}
+.CT2-B{
+    /* border: 1px solid orange; */
+  padding: 10px;
+  border-radius: 10px;
+  background-color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.CT2-B:hover {
+  border: none;
+  /* padding: 5px; */
+  /* border-radius: 10px; */
+  background-color: orange;
+  color:white;
+  text-decoration: none;
+}
+
+.CT2-2 {
+  min-width: 1px;
+  min-height: 70px;
+  background-color: lightgray;
+}
+
+.CT2-3 button {
+  margin-right: 100px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.CT2-3 button:hover{
+    background-color: blue;
+    color: white;
+}
+
+.CT-3 button{
+
+}

@@ -22,7 +22,7 @@ export default function MenuCard({
       product_id: product_id,
       product_price: product_price,
     };
- 
+  
     cartObservable.addItem(item);
   };
 

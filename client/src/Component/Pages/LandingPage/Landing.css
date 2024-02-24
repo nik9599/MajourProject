@@ -28,6 +28,47 @@
   margin-right: 100px;
 }
 
+form{
+  background: gray;
+ border-radius: 25px;
+ position: relative;
+}
+
+input{
+width:80%;
+height: 100%;
+display: block;
+border-radius: 25px;
+padding: 8px 40px 8px 20px;
+border: none;
+box-shadow: 0 5px 8px 3px lightgray;
+}
+
+input:focus{
+  outline: none;
+}
+
+.LM1-T2 button{
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-size: 18px;
+}
+
+
+.LM1-T2 button i{
+  color: rgb(93,94,95);
+}
+
+.LM1-T2 button :hover{
+  color: rgb(162,163,163);
+}
+
 .LM1-B {
   display: flex;
   margin-top: 20px;
@@ -56,6 +97,10 @@
   border-radius: 20px;
   color: #b69a81;
   border: 2px solid #b69a81;
+}
+
+.LM1-B3{
+  margin-left: 79%;
 }
 
 .LM2 {
@@ -100,3 +145,4 @@ background-color: beige;
 .LM2-Right {
   flex: 1;
 }
+
