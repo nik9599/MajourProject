@@ -13,11 +13,11 @@ export default function Landing() {
 
   useEffect(() => {
     const subscription = cartObservabel.getAllItems().subscribe(items => {
-      setCartSize(items.length);
+      setCartSize(cartObservabel.getTheSizeOfCartItem());
     });
-    
+    // setCartSize(cartObservabel.getTheSizeOfCartItem())
     // Unsubscribe on component unmount
-    return () => {
+    return () => { 
       subscription.unsubscribe();
     };
   }, []);
@@ -81,36 +81,8 @@ export default function Landing() {
                 product_price="20"
                 product_id="1"
               />
-              <MenuCard
-                product_name="cream rool"
-                product_image={sampelImage}
-                product_price="20"
-                product_id="1"
-              />
-              <MenuCard
-                product_name="cream rool"
-                product_image={sampelImage}
-                product_price="20"
-                product_id="1"
-              />
-              <MenuCard
-                product_name="cream rool"
-                product_image={sampelImage}
-                product_price="20"
-                product_id="1"
-              />
-              <MenuCard
-                product_name="cream rool"
-                product_image={sampelImage}
-                product_price="20"
-                product_id="1"
-              />
-              <MenuCard
-                product_name="cream rool"
-                product_image={sampelImage}
-                product_price="20"
-                product_id="1"
-              />{" "}
+            
+             {" "}
             </div>
           </div>
         </div>

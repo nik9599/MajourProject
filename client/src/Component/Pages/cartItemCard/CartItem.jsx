@@ -1,11 +1,13 @@
 import React from "react";
 import "./cartItem.css";
-import vegIcon from "../../Image/veg-icon.png"
+import vegIcon from "../../Image/veg-icon.png";
+import Button from "../ButtonPage/Button";
 
 export default function CartItem({
   product_name,
   product_price,
   product_image,
+  product_id,
 }) {
   return (
     <div className="CI">
@@ -15,9 +17,12 @@ export default function CartItem({
       </div>
       <div className="CI-2">
         {" "}
-        <div className="CI2-1" >
+        <div className="CI2-1">
           <p>{product_name} </p>
-          <p> <img src={vegIcon} /> </p>
+          <p>
+            {" "}
+            <img src={vegIcon} />{" "}
+          </p>
         </div>
         <p>
           {" "}
@@ -25,10 +30,7 @@ export default function CartItem({
         </p>{" "}
       </div>
       <div className="CI-3">
-        {" "}
-        <button>+</button>
-        <p> 20 </p>
-        <button>-</button>{" "}
+        <Button product_id={product_id} />
       </div>
     </div>
   );

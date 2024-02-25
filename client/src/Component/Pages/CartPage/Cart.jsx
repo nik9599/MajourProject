@@ -25,9 +25,9 @@ export default function Cart() {
         <div className="CT-1">Applcation name</div>
         <div className="CT-2">
           <div className="CT2-1">
-            <Link  to={"/"}>
+            <Link to={"/"}>
               {" "}
-              <button className="CT2-B" >Home </button>
+              <button className="CT2-B">Home </button>
             </Link>{" "}
           </div>
           <div className="CT2-2"></div>
@@ -37,24 +37,48 @@ export default function Cart() {
           </div>
         </div>
       </div>
-      <div className="CB">
-        <div className="CB-R"></div>
-        <div className="CB-L">
-          {cartitem.map((item) => {
-            return (
-              <div>
-                <CartItem
-                  product_image={item.product_image}
-                  product_name={item.product_name}
-                  product_price={item.product_price}
-                />
-              </div>
-            );
-          })}
+      <div className="CB">    
+        <div className="CB-R">
+          <div className="CB-R1">
+            <div className="CB-R1-1" >
+              <p>Your Cart</p>
+            </div>
+            <div className="CB-R1-2" >
+              {" "}
+              <button>Clear All</button>{" "}
+            </div>
+          </div>
+          <div className="CB-R2">
+            {cartitem.map((item) => {
+              return (
+                <div>
+                  <CartItem
+                    product_image={item.product_image}
+                    product_name={item.product_name}
+                    product_price={item.product_price}
+                    product_id={item.product_id}
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
-        <div></div>
+        <div className="CB-L">your total</div>
+   
       </div>
-      <div className="CF"></div>
+      <div className="CF">
+    
+          <div className="CF-1">
+            {" "}
+            <p>PLease Enter the location</p>{" "}
+          </div>
+          <div className="CF-2"></div>
+          <div className="CF-3">
+            {" "}
+            <button>Select Location</button>{" "}
+          </div>
+       
+      </div>
     </div>
   );
 }
