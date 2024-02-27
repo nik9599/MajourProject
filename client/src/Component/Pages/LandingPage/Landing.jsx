@@ -81,6 +81,25 @@ export default function Landing() {
                 product_price="20"
                 product_id="1"
               />
+                 <MenuCard
+                product_name="Cream Rool"
+                product_image={sampelImage}
+                product_price="50"
+                product_id="2"
+              />
+                <MenuCard
+                product_name="Cream Rool"
+                product_image={sampelImage}
+                product_price="50"
+                product_id="2"
+              />
+                <MenuCard
+                product_name="Cream Rool"
+                product_image={sampelImage}
+                product_price="50"
+                product_id="2"
+              />
+              
             
              {" "}
             </div>

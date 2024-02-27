@@ -33,10 +33,10 @@ class CartObservabel {
   updateTheQunatity(product_id) {
     const currentItem = this.cartItemSubject.getValue();
     const ifExist = currentItem.findIndex(
-      (item) => item.product_id == product_id
+      (item) => item.product_id === product_id
     );
 
-    if (ifExist != -1) {
+    if (ifExist !== -1) {
       currentItem[ifExist].product_qantity =
         Number(currentItem[ifExist].product_qantity) + 1;
       this.cartItemSubject.next(currentItem);
@@ -47,11 +47,11 @@ class CartObservabel {
   removeQuantity(product_id) {
     const currentItem = this.cartItemSubject.getValue();
     const ifExist = currentItem.findIndex(
-      (item) => item.product_id == product_id
+      (item) => item.product_id === product_id
     );
 
-    if (ifExist != -1) {
-      if (currentItem[ifExist].product_qantity == 0) {
+    if (ifExist !== -1) {
+      if (currentItem[ifExist].product_qantity === 0) {
         currentItem.splice(ifExist, 1);
 
         // Update localStorage
@@ -62,6 +62,17 @@ class CartObservabel {
         this.cartItemSubject.next(currentItem);
         window.localStorage.setItem("cartData", JSON.stringify(currentItem));
       }
+    }
+  }
+
+  getProductQuantityById(product_id) {
+    const currentItem = this.cartItemSubject.getValue();
+    const ifExist = currentItem.findIndex(
+      (item) => item.product_id === product_id
+    );
+
+    if (ifExist !== -1) {
+      return currentItem[ifExist].product_qantity;
     }
   }
 }

@@ -12,11 +12,10 @@ export default function Cart() {
     console.log(cartitem);
   }, []);
 
-  console.log(cartitem);
   let temp = 0;
   cartitem.map((item) => {
-    temp = temp + Number(item.product_price);
-    console.log(temp);
+    console.log(item);
+    temp = temp + Number(item.product_price) * Number(item.product_qantity);
   });
 
   return (
@@ -37,13 +36,13 @@ export default function Cart() {
           </div>
         </div>
       </div>
-      <div className="CB">    
+      <div className="CB">
         <div className="CB-R">
           <div className="CB-R1">
-            <div className="CB-R1-1" >
+            <div className="CB-R1-1">
               <p>Your Cart</p>
             </div>
-            <div className="CB-R1-2" >
+            <div className="CB-R1-2">
               {" "}
               <button>Clear All</button>{" "}
             </div>
@@ -63,21 +62,44 @@ export default function Cart() {
             })}
           </div>
         </div>
-        <div className="CB-L">your total</div>
-   
+        <div className="CB-L">
+          <div className="CB-Total" >Total Charges</div>
+          <div className="CB-T-1" >
+            <div className="CB-1" >
+              <p>Total Payable</p>
+              <p> {temp} </p>
+            </div>
+            <div className="CB-2" > </div>
+            <div className="CB-3" >
+              {" "}
+              <div className="CB3-1" >
+                <p>Sub Total</p>
+                <p> {temp} </p>
+              </div>
+              <div className="CB3-2" >
+                {" "}
+                <p>CGST</p>
+                <p>0</p>
+              </div>
+              <div className="CB3-2" >
+                {" "}
+                <p>SGST</p>
+                <p>0</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div className="CF">
-    
-          <div className="CF-1">
-            {" "}
-            <p>PLease Enter the location</p>{" "}
-          </div>
-          <div className="CF-2"></div>
-          <div className="CF-3">
-            {" "}
-            <button>Select Location</button>{" "}
-          </div>
-       
+        <div className="CF-1">
+          {" "}
+          <p>PLease Enter the location</p>{" "}
+        </div>
+        <div className="CF-2"></div>
+        <div className="CF-3">
+          {" "}
+          <button>Select Location</button>{" "}
+        </div>
       </div>
     </div>
   );

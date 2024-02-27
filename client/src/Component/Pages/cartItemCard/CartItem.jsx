@@ -1,7 +1,7 @@
 import React from "react";
 import "./cartItem.css";
 import vegIcon from "../../Image/veg-icon.png";
-import Button from "../ButtonPage/Button";
+import Button from "../ButtonPage/Button.jsx";
 
 export default function CartItem({
   product_name,
