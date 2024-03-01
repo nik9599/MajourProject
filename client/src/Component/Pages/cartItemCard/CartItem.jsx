@@ -8,6 +8,7 @@ export default function CartItem({
   product_price,
   product_image,
   product_id,
+  setUpdate
 }) {
   return (
     <div className="CI">
@@ -30,7 +31,7 @@ export default function CartItem({
         </p>{" "}
       </div>
       <div className="CI-3">
-        <Button product_id={product_id} />
+        <Button product_id={product_id} setUpdate ={setUpdate} />
       </div>
     </div>
   );

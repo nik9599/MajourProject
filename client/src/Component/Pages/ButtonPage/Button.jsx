@@ -1,27 +1,33 @@
 import "./button.css";
 import cartObservabel from "../../utils/CartObservabel/cartObservabel";
-import { useNavigate } from "react-router-dom";
+
 import React, { useEffect, useState } from "react";
 
-export default function Button({ product_id }) {
+export default function Button({ product_id, setUpdate =()=>{} }) {
+  // setting the localstate
   const [quantity, setQuantity] = useState(0);
   const [toggel, setToggel] = useState(false);
 
-  const navigator = useNavigate();
-
+  // fetching the quantity of product
   useEffect(() => {
     setQuantity(cartObservabel.getProductQuantityById(product_id));
   }, [product_id, toggel]);
 
+  // function for increasing the quantity of product
+
   const increseQuantity = () => {
     cartObservabel.updateTheQunatity(product_id);
+    setUpdate((prevUpdate) => !prevUpdate);
     setToggel(!toggel);
   };
 
+  // function for decresing the quantity of product 
+
   const decreaseProperty = () => {
     cartObservabel.removeQuantity(product_id);
+    setUpdate((prevUpdate) => !prevUpdate);
     if (quantity === 0) {
-     window.location.reload()
+      window.location.reload();
     }
     setToggel(!toggel);
   };

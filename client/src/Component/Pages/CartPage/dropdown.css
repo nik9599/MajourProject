@@ -1,0 +1,129 @@
+.dropDown{
+    width: 200px;
+    margin: 0 auto;
+    position: relative;
+    user-select: none;
+}
+
+.dropDown .dropdown-button{
+  padding: 10px;
+  background: red;
+  box-shadow: 3px 3px 10px 6px rgba(0,0,0,0.06);
+  font-weight: bold;
+  color : white ;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  border-radius: 10px;
+  height: 50px;
+}
+
+.dropDown .dropdown-content{
+    position: absolute;
+    top: 110%;
+    padding: 10px;
+    background: #fff;
+    box-shadow: 3px 3px 10px 6px rgba(0,0,0,0.06);
+    font-weight: 500;
+    color : #333 ;
+    width: 90%;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    line-height: 30px;
+}
+
+.dropDown .dr10pxopdown-content .dropdown-item{
+    padding: 10px ;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-bottom: 2px solid black;
+
+}
+
+.dropDown .dr10pxopdown-content .dropdown-item:hover{
+  background: #f4f4f4 ;
+
+}
+
+
+@media screen and (max-width:1211px) {
+  .dropDown{
+    width: 100px;
+    margin: 0 auto;
+    position: relative;
+    user-select: none;
+}
+
+.dropDown .dropdown-button{
+  padding: 10px;
+  background: red;
+  box-shadow: 3px 3px 10px 6px rgba(0,0,0,0.06);
+  font-weight: bold;
+  color : white ;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  border-radius: 10px;
+  height: 25px;
+}
+
+.dropDown .dropdown-content{
+    position: absolute;
+    top: 110%;
+    padding: 10px;
+    background: #fff;
+    box-shadow: 3px 3px 10px 6px rgba(0,0,0,0.06);
+    font-weight: 500;
+    color : #333 ;
+    width: 80%;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    line-height: 25px;
+}
+
+.dropDown .dr10pxopdown-content .dropdown-item{
+    padding: 10px ;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-bottom: 2px solid black;
+  font-size: 10px;
+}
+
+.dropDown .dr10pxopdown-content .dropdown-item:hover{
+  background: #f4f4f4 ;
+
+}
+}
+
+
+@media screen and (max-width:699px) {
+  .dropDown{
+    width: 80px;
+    margin: 0 auto;
+    position: relative;
+    user-select: none;
+}
+
+.dropDown .dropdown-button{
+
+  font-size: 10px;
+}
+
+.dropDown .dropdown-content{
+    font-size: 10px;
+}
+
+.dropDown .dr10pxopdown-content .dropdown-item{
+  font-size: 10px;
+}
+
+
+}
