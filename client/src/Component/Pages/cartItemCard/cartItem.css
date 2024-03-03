@@ -69,3 +69,67 @@
     margin-right: 0px;
 }
 
+@media screen and (max-width: 699px) {
+    .CI{
+       
+        width : 300px;
+        height: 100px;
+    }
+    
+ 
+    
+    .CI-1 img{
+        width: 90px;
+        height: 70px;
+    }
+    
+    /* .CI-2{
+        flex: 1;    
+    } */
+    
+    .CI2-1{
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .CI2-1 img{
+       width: 10px;
+       height: 10px;
+    }
+    
+    .CI-2 p{
+        padding-top: 20px;
+        font-size: 10px;
+    }
+    
+    /* .CI-3{
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    } */
+    
+    .CI-3 button{
+        height: 25px;
+        width: 25px;
+        margin: 10px;
+        background-color: orange;
+        border-radius: 9px;
+        font-size: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color:  white;
+    }
+    
+    .CI-3 button:hover{
+        color: black;
+        background-color: white;
+        border: 1px solid orange;
+    }
+    
+    .CI-3 p{
+        margin-top: 0px;
+        margin-right: 0px;
+    }
+}

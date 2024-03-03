@@ -4,12 +4,14 @@ import cartObservabel from "../../utils/CartObservabel/cartObservabel";
 import CartItem from "../cartItemCard/CartItem";
 import { Link } from "react-router-dom";
 import DropDown from "./DropDown";
+import Location from "../Location/Location";
 
 export default function Cart() {
   const [cartitem, setCartItem] = useState([]);
   const [price, setPrice] = useState(0);
   const [update, setUpdate] = useState(false);
   const [selected, setSelected] = useState("");
+  const [selectedlocation, setSelectedLocation ] = useState("")
 
   useEffect(() => {
     setCartItem(cartObservabel.getData());
@@ -23,6 +25,9 @@ export default function Cart() {
     cartObservabel.removeAllItem();
     window.location.reload();
   };
+
+  const screenWidth = window.screen.width;
+  // console.log(screenWidth)
 
   return (
     <div className="C">
@@ -74,48 +79,53 @@ export default function Cart() {
             })}
           </div>
         </div>
-        <div className="CB-L">
-          <div className="CB-Total">Total Charges</div>
-          <div className="CB-T-1">
-            <div className="CB-1">
-              <p>Total Payable</p>
-              <p> {price} </p>
-            </div>
-            <div className="CB-2"> </div>
-            <div className="CB-3">
-              {" "}
-              <div className="CB3-1">
-                <p>Sub Total</p>
+        {screenWidth >= 440 && (
+          <div className="CB-L">
+            <div className="CB-Total">Total Charges</div>
+            <div className="CB-T-1">
+              <div className="CB-1">
+                <p>Total Payable</p>
                 <p> {price} </p>
               </div>
-              <div className="CB3-2">
+              <div className="CB-2"> </div>
+              <div className="CB-3">
                 {" "}
-                <p>CGST</p>
-                <p>0</p>
+                <div className="CB3-1">
+                  <p>Sub Total</p>
+                  <p> {price} </p>
+                </div>
+                <div className="CB3-2">
+                  {" "}
+                  <p>CGST</p>
+                  <p>0</p>
+                </div>
+                <div className="CB3-3">
+                  {" "}
+                  <p>SGST</p>
+                  <p>0</p>
+                </div>
               </div>
-              <div className="CB3-3">
-                {" "}
-                <p>SGST</p>
-                <p>0</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="CF">
-        {selected == "TakeAway" && (
-          <div className="CF" >
-            <div className="CF-1">
-              {" "}
-              <p>PLease Enter the location</p>{" "}
-            </div>
-            <div className="CF-2"></div>
-            <div className="CF-3">
-              {" "}
-              <button>Select Location</button>{" "}
             </div>
           </div>
         )}
+      </div>
+      <div className="CF">
+        <div className="CF-1" >
+        {selected == "TakeAway" && (
+          <div className="CF1-1">
+            <div className="CF1-2">
+              <Location selectedlocation={selectedlocation} setSelectedLocation={setSelectedLocation}  />
+            </div>
+          </div>
+        )}
+        </div>
+          <div className="CF-2">
+            <div className="CF-3">
+              {" "}
+              <button> Pay {price}</button>{" "}
+            </div>
+          </div>
+        
       </div>
     </div>
   );

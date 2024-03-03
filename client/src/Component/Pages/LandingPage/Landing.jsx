@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import MenuCard from "../MenuCard/MenuCard";
 import "./Landing.css";
 import sampelImage from "../../Image/smpelImage.jpg";
-import category from "../../utils/Common Function/category";
+import category from "../../utils/CommonFunction/category";
 import SideMenu from "../SideMenuCard/SideMenu";
 import cartObservabel from "../../utils/CartObservabel/cartObservabel";
 import { Link } from "react-router-dom";
@@ -70,7 +70,7 @@ export default function Landing() {
         <div className="LM2-Mid">
           <div className="LM2-M1">
             {" "}
-            <p> Sharing Combo </p>
+            <p> Check This </p>
           </div>
           <div className="LM2-M2">
             <div className="LM2-M2-1">
@@ -100,6 +100,54 @@ export default function Landing() {
                 product_id="2"
               />
               
+              <MenuCard
+                product_name="cream rool"
+                product_image={sampelImage}
+                product_price="20"
+                product_id="1"
+              />
+                 <MenuCard
+                product_name="Cream Rool"
+                product_image={sampelImage}
+                product_price="50"
+                product_id="2"
+              />
+                <MenuCard
+                product_name="Cream Rool"
+                product_image={sampelImage}
+                product_price="50"
+                product_id="2"
+              />
+                <MenuCard
+                product_name="Cream Rool"
+                product_image={sampelImage}
+                product_price="50"
+                product_id="2"
+              />
+                   <MenuCard
+                product_name="cream rool"
+                product_image={sampelImage}
+                product_price="20"
+                product_id="1"
+              />
+                 <MenuCard
+                product_name="Cream Rool"
+                product_image={sampelImage}
+                product_price="50"
+                product_id="2"
+              />
+                <MenuCard
+                product_name="Cream Rool"
+                product_image={sampelImage}
+                product_price="50"
+                product_id="2"
+              />
+                <MenuCard
+                product_name="Cream Rool"
+                product_image={sampelImage}
+                product_price="50"
+                product_id="2"
+              />
             
              {" "}
             </div>

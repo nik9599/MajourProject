@@ -191,25 +191,19 @@
 }
 
 .CF-1 {
-  /* z-index: 1;  */
-  flex: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  min-width: 50%;
 }
 
 .CF-2 {
-  /* z-index: 1; */
-  min-height: 80px;
-  min-width: 1px;
-  background-color: lightgray;
-  margin-right: 30px;
+  min-width: 50%;
 }
+
 .CF-3 {
   flex: 1;
   /* z-index: 1; */
   margin-left: 50px;
   margin-right: 50px;
+  width: 300px;
 }
 
 .CF-3 button {
@@ -227,238 +221,15 @@
   border: 1px solid orange;
 }
 
-@media screen and (max-width: 1211px) {
+
+@media screen and (max-width: 699px) {
+
   .C {
     background-color: #fbf6f0;
     height: 100vh;
     font-family: Speedee, sans-serif;
   }
 
-  .CT {
-    height: 100px;
-    background-color: white;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .CT-1 {
-    display: flex;
-    margin-left: 60px;
-    align-items: center;
-  }
-
-  .CT1-2 {
-    margin-left: 40px;
-  }
-
-  .CT-2 {
-    display: flex;
-
-    align-items: center;
-    justify-content: space-evenly;
-    width: 300px;
-  }
-
-  .CT2-1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 90px;
-    height: 50px;
-  }
-  .CT2-B {
-    /* border: 1px solid orange; */
-    padding: 10px;
-    border-radius: 10px;
-    background-color: white;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  .CT2-B:hover {
-    border: none;
-
-    background-color: orange;
-    color: white;
-    text-decoration: none;
-  }
-
-  .CT2-2 {
-    min-width: 1px;
-    min-height: 50px;
-    background-color: lightgray;
-  }
-
-  .CT2-3 button {
-    margin-right: 100px;
-    padding: 10px;
-    border-radius: 10px;
-    background-color: white;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  .CT2-3 button:hover {
-    background-color: blue;
-    color: white;
-  }
-
-  .CT-3 button {
-  }
-
-  .CB {
-    display: flex;
-  }
-  .CB-R {
-    flex: 2;
-  }
-
-  .CB-R1 {
-    display: flex;
-    margin-top: 30px;
-    margin-left: 50px;
-    justify-content: space-between;
-  }
-
-  .CB-R1-1 {
-    font-weight: 600;
-    font-family: Speedee, sans-serif;
-  }
-
-  .CB-R1-2 {
-    margin-right: 60px;
-  }
-  .CB-R1-2 button {
-    font-family: Speedee, sans-serif;
-    color: red;
-    background-color: inherit;
-    font-weight: 600;
-    cursor: pointer;
-  }
-
-  .CB-R2 {
-    background-color: white;
-    margin-left: 50px;
-    margin-right: 50px;
-    margin-top: 10px;
-    height: fit-content;
-    overflow-y: scroll;
-  }
-
-  .CB-L {
-    flex: 1;
-    margin-top: 50px;
-  }
-
-  .CB-Total {
-    font-weight: 600;
-    margin-bottom: 10px;
-  }
-  .CB-T-1 {
-    background-color: white;
-    width: 300px;
-    height: 150px;
-    border-radius: 20px;
-    padding: 20px;
-  }
-  .CB-1 {
-    display: flex;
-    justify-content: space-between;
-    font-weight: 600;
-  }
-  .CB-2 {
-    background-color: lightgrey;
-    height: 1px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-  .CB-3 {
-  }
-  .CB3-1 {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .CB3-1 :nth-child(1) {
-    font-weight: 600;
-  }
-
-  .CB3-2 {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-  }
-
-  .CB3-2 :nth-child(1) {
-    font-weight: 600;
-  }
-
-  .CB3-3 {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-  }
-
-  .CB3-3 :nth-child(1) {
-    font-weight: 600;
-  }
-
-  .CF {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 90px;
-    background-color: white;
-    display: flex;
-    color: black;
-    align-items: center;
-    justify-content: space-evenly;
-  }
-
-  .CF > div {
-    position: relative; /* Ensure z-index works */
-  }
-
-  .CF-1 {
-    /* z-index: 1;  */
-    flex: 2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .CF-2 {
-    /* z-index: 1; */
-    min-height: 80px;
-    min-width: 1px;
-    background-color: lightgray;
-    margin-right: 30px;
-  }
-  .CF-3 {
-    flex: 1;
-    /* z-index: 1; */
-    margin-left: 50px;
-    margin-right: 50px;
-  }
-
-  .CF-3 button {
-    width: 100%;
-    padding: 10px;
-    border-radius: 20px;
-    background-color: orange;
-    font-weight: 600;
-    color: white;
-  }
-
-  .CF-3 button:hover {
-    background-color: white;
-    color: black;
-    border: 1px solid orange;
-  }
-}
-
-@media screen and (max-width: 699px) {
   .CT-1 {
     margin-left: 30px;
   }
@@ -479,12 +250,10 @@
     margin-right: 45px;
   }
 
-  /* .CB {
+  .CB {
     display: flex;
+    flex-direction: column;
   }
-  .CB-R {
-    flex: 2;
-  } */
 
   .CB-R1 {
     display: flex;
@@ -493,13 +262,8 @@
     justify-content: space-between;
   }
 
-  /* .CB-R1-1 {
-    font-weight: 600;
-    font-family: Speedee, sans-serif;
-  } */
-
   .CB-R1-2 {
-    margin-right: 60px;
+    margin-right: 1 0%;
   }
   .CB-R1-2 button {
     font-family: Speedee, sans-serif;
@@ -514,7 +278,7 @@
     margin-left: 50px;
     margin-right: 50px;
     margin-top: 10px;
-    height: fit-content;
+    height: 50vh;
     overflow-y: scroll;
   }
 
@@ -545,8 +309,7 @@
     margin-top: 10px;
     margin-bottom: 10px;
   }
-  .CB-3 {
-  }
+
   .CB3-1 {
     display: flex;
     justify-content: space-between;
@@ -577,56 +340,52 @@
   }
 
   .CF {
-    position: absolute;
-    left: 0;
     bottom: 0;
     width: 100%;
-    height: 90px;
-    background-color: white;
+    max-height: 90px;
     display: flex;
     color: black;
     align-items: center;
-    justify-content: space-evenly;
+    position: fixed;
+    left: 0;
   }
 
-  .CF > div {
-    position: relative; /* Ensure z-index works */
-  }
+   .CF-1 {
+    width: 50%;
+   }
 
-  .CF-1 {
-    /* z-index: 1;  */
-    flex: 2;
+  .CF1-1 {
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    margin-left: 50px;
+   
+  }
+  .CF1-2{
+    width: 100px;
   }
 
   .CF-2 {
-    /* z-index: 1; */
-    min-height: 80px;
-    min-width: 1px;
-    background-color: lightgray;
-    margin-right: 30px;
+    max-width: 50%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-  .CF-3 {
-    flex: 1;
-    /* z-index: 1; */
-    margin-left: 50px;
-    margin-right: 50px;
-  }
-
+  
   .CF-3 button {
-    width: 100%;
-    padding: 10px;
+    width: 100px;
+    height: 30px;
+    padding: 5px;
     border-radius: 20px;
-    background-color: orange;
     font-weight: 600;
     color: white;
+    font-size: 10px;
   }
 
   .CF-3 button:hover {
-    background-color: white;
-    color: black;
+    background-color: orange;
+    color: white;
     border: 1px solid orange;
   }
 }

@@ -28,27 +28,27 @@
   margin-right: 100px;
 }
 
-form{
+form {
   background: gray;
- border-radius: 25px;
- position: relative;
+  border-radius: 25px;
+  position: relative;
 }
 
-input{
-width:80%;
-height: 100%;
-display: block;
-border-radius: 25px;
-padding: 8px 40px 8px 20px;
-border: none;
-box-shadow: 0 5px 8px 3px lightgray;
+input {
+  width: 80%;
+  height: 100%;
+  display: block;
+  border-radius: 25px;
+  padding: 8px 40px 8px 20px;
+  border: none;
+  box-shadow: 0 5px 8px 3px lightgray;
 }
 
-input:focus{
+input:focus {
   outline: none;
 }
 
-.LM1-T2 button{
+.LM1-T2 button {
   position: absolute;
   top: 0;
   right: 0;
@@ -60,13 +60,12 @@ input:focus{
   font-size: 18px;
 }
 
-
-.LM1-T2 button i{
-  color: rgb(93,94,95);
+.LM1-T2 button i {
+  color: rgb(93, 94, 95);
 }
 
-.LM1-T2 button :hover{
-  color: rgb(162,163,163);
+.LM1-T2 button :hover {
+  color: rgb(162, 163, 163);
 }
 
 .LM1-B {
@@ -99,7 +98,7 @@ input:focus{
   border: 2px solid #b69a81;
 }
 
-.LM1-B3{
+.LM1-B3 {
   margin-left: 79%;
 }
 
@@ -108,41 +107,177 @@ input:focus{
 }
 
 .LM2-Left {
+  margin-top: 20px;
   flex: 1;
 }
 
-.LM2-Mid{
-  /* background-color: aqua; */
+.LM2-Mid {
   width: 900px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* overflow-y: scroll; */
 }
 
-.LM2-M2-1{
+
+.LM2-M2-1 {
   overflow-y: scroll;
   height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+  background-color: #fbf6f0 ;
 }
 
 .LM2-M1 {
-  margin-right: 360px;
+  margin-right: 590px;
+  margin-top: 10px;
   padding: 15px;
   font-family: Speedee, sans-serif;
   font-weight: 600;
 }
 
-.LM2-M1 p{
+.LM2-M1 p {
   font-size: 20px;
 }
 
 .LM2-M2 {
-background-color: beige;
-  width : 500px
-
+  background-color: beige;
+  width: 717px;
 }
 .LM2-Right {
   flex: 1;
 }
 
+@media screen and (max-width: 600px) {
+  .LM {
+    width: 100%;
+    height: 110vh;
+  }
+
+  .LM1-T1 {
+    margin-left: 50px;
+  }
+
+  .LM1-T1 h1 {
+    font-size: 20px;
+    font-family: Speedee, sans-serif;
+  }
+
+  .LM1-T2 {
+    margin-right: -30px;
+  }
+
+  form {
+    background: inherit;
+    border-radius: 25px;
+    position: relative;
+  }
+
+  input {
+    width: 60%;
+    height: 100%;
+    display: block;
+    border-radius: 25px;
+    padding: 8px 20px 8px 10px;
+    border: none;
+    box-shadow: 0 5px 8px 3px lightgray;
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  .LM1-T2 button {
+    position: absolute;
+    top: 0;
+    right: 0px;
+    left: 60px;
+    height: 100%;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-size: 18px;
+    width: 30px;
+    margin-left: 70px;
+  }
+
+  .LM1-B {
+    display: flex;
+    margin-top: 20px;
+    margin-left: 50px;
+  }
+
+  .LM1-B1 {
+    margin-right: 10px;
+    background-color: #fbf6f0;
+    padding: 5px;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    border: 2px solid #b69a81;
+    color: #b69a81;
+    font-size: 15px;
+  }
+
+  .LM1-B2 {
+    background-color: #fbf6f0;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    color: #b69a81;
+    border: 2px solid #b69a81;
+  }
+
+  .LM1-B3 {
+    margin-left: 35%;
+  }
+
+  .LM2 {
+    display: flex;
+  }
+
+  .LM2-Left {
+    margin-top: 15px;
+    flex: 1;
+  }
+
+  .LM2-Mid {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .LM2-M2-1 {
+    overflow-y: scroll;
+    height: 80vh;
+    background-color: #fbf6f0;
+    grid-template-columns: repeat(1,1fr);
+  }
+
+  .LM2-M1 {
+    margin-right: 160px;
+    padding: 15px;
+    font-family: Speedee, sans-serif;
+    font-weight: 600;
+  }
+
+  .LM2-M1 p {
+    font-size: 15px;
+  }
+
+  .LM2-M2 {
+    background-color: beige;
+    width: 250px;
+  }
+  .LM2-Right {
+    flex: 1;
+  }
+}
