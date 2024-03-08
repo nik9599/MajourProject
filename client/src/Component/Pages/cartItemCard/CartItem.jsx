@@ -27,7 +27,7 @@ export default function CartItem({
         </div>
         <p>
           {" "}
-          <i class="fa-solid fa-indian-rupee-sign"></i> {product_price}
+          <i className="fa-solid fa-indian-rupee-sign"></i> {product_price}
         </p>{" "}
       </div>
       <div className="CI-3">

@@ -13,7 +13,7 @@ export default function DropDown({selected,setSelected}) {
       {isActive && (
         <div className="dropdown-content" onClick={(e)=>{setIsActive(!isActive)}} >
           <div onClick={()=>{setSelected("DinIn") }}  className="dropdown-item">Din In</div>
-          <div  onClick={()=>{setSelected("TakeAway")}} className="dropdown-item"> Take Away </div>
+          {/* <div  onClick={()=>{setSelected("TakeAway")}} className="dropdown-item"> Take Away </div> */}
         </div>
       )}
     </div>

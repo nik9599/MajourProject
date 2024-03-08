@@ -10,11 +10,11 @@ export default function MenuCard({
   product_id,
   product_price,
   product_qantity,
+  button_state
 }) {
   const [changeView, setChangeView] = useState(false);
-
-
-
+   console.log(button_state)
+ 
   const handleAddToCart = (
     product_name,
     product_image,
@@ -28,7 +28,7 @@ export default function MenuCard({
       product_price: product_price,
       product_qantity :1,
     };
-
+    
     cartObservable.addItem(item);
   };
 
@@ -49,10 +49,7 @@ export default function MenuCard({
           </div>
           <div className="MC-I2-Info">
             {" "}
-            {/* <p>
-              Get the best value in your meal for 2 save big on your
-              favourite....
-            </p> */}
+           
             <p>Price</p>
             <p>
               {" "}
@@ -60,7 +57,7 @@ export default function MenuCard({
               {product_price || 512}
             </p>
             <div className="MC-I2-Info-Button">
-              {changeView ? (
+              {changeView||button_state ? (
                 <Button product_id={product_id} />
               ) : (
                 <button

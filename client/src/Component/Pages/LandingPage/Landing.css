@@ -24,8 +24,125 @@
   font-family: Speedee, sans-serif;
 }
 
-.LM1-T2 {
-  margin-right: 100px;
+.User-Div {
+  margin-right: 70px;
+  width: 100px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.User-Button {
+  width: 100px;
+  height: 50px;
+  background-color: #fbf6f0;
+  color: black;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.User-Button p{
+  margin-left: 10px;
+}
+.User-Button:hover{
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 40px;
+}
+
+.LM1-B {
+  display: flex;
+  margin-top: 20px;
+  margin-left: 200px;
+}
+
+.LM1-B1 {
+  margin-right: 10px;
+  background-color: #fbf6f0;
+  padding: 5px;
+  width: 70px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  border: 2px solid #b69a81;
+  color: #b69a81;
+  position: relative;
+  cursor: pointer;
+}
+
+.LM1-B1:focus {
+  border-color: orange;
+}
+
+.VS {
+  position: absolute;
+  right: 5px;
+  top: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 100%;
+  border: 2px solid #b69a81;
+  width: 19px;
+}
+
+.LM1-B2 {
+  position: relative;
+  background-color: #fbf6f0;
+  width: 120px;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  color: #b69a81;
+  border: 2px solid #b69a81;
+}
+
+.LM1-B3 {
+  margin-left: 74%;
+ }
+
+
+.LM2 {
+  display: flex;
+}
+
+.LM2-Left {
+  margin-top: 20px;
+  flex: 1;
+}
+
+.LM2-Mid {
+  width: 900px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.A {
+  color: #95775d;
+  /* margin-right: 20px; */
+  position: relative;
+}
+.size{
+  position: absolute;
+  top: 80px;
+  /* left: 30px; */
+  right: 80px;
+  width: 15px;
+   border-radius: 100%;
+  background-color: white;
+  color: black;
+} 
+
+.LM2-T2 {
+  margin-right: 1px;
 }
 
 form {
@@ -48,7 +165,7 @@ input:focus {
   outline: none;
 }
 
-.LM1-T2 button {
+.LM2-T2 button {
   position: absolute;
   top: 0;
   right: 0;
@@ -60,65 +177,13 @@ input:focus {
   font-size: 18px;
 }
 
-.LM1-T2 button i {
+.LM2-T2 button i {
   color: rgb(93, 94, 95);
 }
 
-.LM1-T2 button :hover {
+.LM2-T2 button :hover {
   color: rgb(162, 163, 163);
 }
-
-.LM1-B {
-  display: flex;
-  margin-top: 20px;
-  margin-left: 200px;
-}
-
-.LM1-B1 {
-  margin-right: 10px;
-  background-color: #fbf6f0;
-  padding: 5px;
-  width: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 20px;
-  border: 2px solid #b69a81;
-  color: #b69a81;
-}
-
-.LM1-B2 {
-  background-color: #fbf6f0;
-  width: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 20px;
-  color: #b69a81;
-  border: 2px solid #b69a81;
-}
-
-.LM1-B3 {
-  margin-left: 79%;
-}
-
-.LM2 {
-  display: flex;
-}
-
-.LM2-Left {
-  margin-top: 20px;
-  flex: 1;
-}
-
-.LM2-Mid {
-  width: 900px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 
 .LM2-M2-1 {
   overflow-y: scroll;
@@ -126,15 +191,17 @@ input:focus {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 10px;
-  background-color: #fbf6f0 ;
+  background-color: #fbf6f0;
 }
 
 .LM2-M1 {
-  margin-right: 590px;
   margin-top: 10px;
   padding: 15px;
   font-family: Speedee, sans-serif;
   font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  width: 75%;
 }
 
 .LM2-M1 p {
@@ -164,8 +231,27 @@ input:focus {
     font-family: Speedee, sans-serif;
   }
 
-  .LM1-T2 {
-    margin-right: -30px;
+  .User-Div {
+    margin-right: 10px;
+    width: 100px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  .User-Button {
+    width: 80px;
+    height: 30px;
+    background-color: #fbf6f0;
+    color: black;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    
+    box-shadow: 0 2px 4px 1px lightgray;
   }
 
   form {
@@ -184,23 +270,22 @@ input:focus {
     box-shadow: 0 5px 8px 3px lightgray;
   }
 
-  input:focus {
-    outline: none;
-  }
-
-  .LM1-T2 button {
+  .LM2-T2 button {
     position: absolute;
     top: 0;
     right: 0px;
-    left: 60px;
+    left: 130px;
     height: 100%;
     border-radius: 50%;
     cursor: pointer;
     border: none;
     background: none;
-    font-size: 18px;
-    width: 30px;
-    margin-left: 70px;
+    font-size: 15px;
+    width: 18px;
+  }
+
+  .LM2-T2 {
+    margin-right: -100px;
   }
 
   .LM1-B {
@@ -213,7 +298,7 @@ input:focus {
     margin-right: 10px;
     background-color: #fbf6f0;
     padding: 5px;
-    width: 50px;
+    width: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -225,7 +310,7 @@ input:focus {
 
   .LM1-B2 {
     background-color: #fbf6f0;
-    width: 80px;
+    width: 120px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -234,8 +319,29 @@ input:focus {
     border: 2px solid #b69a81;
   }
 
+  .VS {
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    border-radius: 100%;
+    border: 2px solid #b69a81;
+    width: 19px;
+  }
+
   .LM1-B3 {
-    margin-left: 35%;
+    margin-left: 28%;
+  }
+
+  .A {
+    color: #95775d;
+  }
+
+  .size{
+    right: 10px;
   }
 
   .LM2 {
@@ -259,11 +365,11 @@ input:focus {
     overflow-y: scroll;
     height: 80vh;
     background-color: #fbf6f0;
-    grid-template-columns: repeat(1,1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
 
   .LM2-M1 {
-    margin-right: 160px;
+    margin-right: 30px;
     padding: 15px;
     font-family: Speedee, sans-serif;
     font-weight: 600;

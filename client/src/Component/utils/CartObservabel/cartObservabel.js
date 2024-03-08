@@ -90,6 +90,14 @@ class CartObservabel {
     this.cartItemSubject.next([]);
   }
 
+  async getProductId() {
+    const productId = this.cartItemSubject.getValue();
+    const id = productId.map(i => i.product_id);
+    return await Promise.all(id);
+}
+
+  
+
 }
 
 export default new CartObservabel();

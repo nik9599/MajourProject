@@ -18,7 +18,10 @@ export const loginSlice = createSlice({
       const { username, token, isLogedIn, isProfileCompleted, userId } =
         action.payload;
 
+      console.log(`this is dispatch testing ${username} , this is an state ${state.login[0]}`);
+
       state.login = {
+        ...state.login,
         username,
         token,
         isLogedIn,

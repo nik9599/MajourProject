@@ -21,6 +21,8 @@
   margin-left: 40px;
 }
 
+
+
 .CT-2 {
   display: flex;
 
@@ -111,8 +113,16 @@
   margin-left: 50px;
   margin-right: 50px;
   margin-top: 10px;
-  height: fit-content;
+  min-height:200px;
+  max-height: 500px;
   overflow-y: scroll;
+}
+
+.Empty{
+  display: flex;
+  justify-content: center;
+  margin-top: 70px;
+  color: lightgray;
 }
 
 .CB-L {
