@@ -21,7 +21,8 @@ export default function Login() {
   };
 
   //---------------------------------function for making store user data-----------------
-  const handelLogin = () => {
+  const handelLogin = (e) => {
+    e.preventDefault()
     alert(` email : ${loginData.email} password : ${loginData.password}`);
     dispatch(LoginUser({ username: "nikhil" }));
   };

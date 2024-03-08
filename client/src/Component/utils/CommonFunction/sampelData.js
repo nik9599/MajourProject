@@ -1,17 +1,16 @@
-import smpelImage from "../../Image/smpelImage.jpg"
-import Burger from "../../Image/Burger.jpeg"
-import FriedRice from "../../Image/FriedRice.jpeg"
-import IceCream from "../../Image/IceCream.jpeg"
-import Momo from "../../Image/Momo's.jpeg"
-import Fries from "../../Image/Fries.jpeg"
-import sandwich from "../../Image/sandwich.jpeg"
-import Noodles from "../../Image/Noodles.jpeg"
-import Pasta from "../../Image/Pasta.jpeg"
-import PeachedIceadTead from "../../Image/PeachIcedTea.jpeg"
-import Samosa from "../../Image/Samosa.jpeg"
-import Soup from "../../Image/Soup.jpeg"
-import SpecialMeal from "../../Image/Soup.jpeg"
-
+import smpelImage from "../../Image/smpelImage.jpg";
+import Burger from "../../Image/Burger.jpeg";
+import FriedRice from "../../Image/FriedRice.jpeg";
+import IceCream from "../../Image/IceCream.jpeg";
+import Momo from "../../Image/Momo's.jpeg";
+import Fries from "../../Image/Fries.jpeg";
+import sandwich from "../../Image/sandwich.jpeg";
+import Noodles from "../../Image/Noodles.jpeg";
+import Pasta from "../../Image/Pasta.jpeg";
+import PeachedIceadTead from "../../Image/PeachIcedTea.jpeg";
+import Samosa from "../../Image/Samosa.jpeg";
+import Soup from "../../Image/Soup.jpeg";
+import SpecialMeal from "../../Image/Soup.jpeg";
 
 const SampelData = [
   {
@@ -74,14 +73,14 @@ const SampelData = [
     product_id: 9,
     product_name: "Beverage",
     product_price: 30,
-    product_category: "Beverages",
+    product_category: "Baverages",
     product_image: PeachedIceadTead,
   },
   {
     product_id: 10,
     product_name: "Wrap & Fries",
     product_price: 35,
-    product_category: "Wraps & Fries",
+    product_category: "Wraps & Fires",
     product_image: Fries,
   },
   {
@@ -144,7 +143,7 @@ const SampelData = [
     product_id: 19,
     product_name: "Beverage",
     product_price: 30,
-    product_category: "Beverages",
+    product_category: "Baverages",
     product_image: PeachedIceadTead,
   },
   {
@@ -157,4 +156,4 @@ const SampelData = [
 ];
 
 // module.exports =  SampelData;
-export default SampelData
+export default SampelData;

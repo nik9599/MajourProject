@@ -6,20 +6,16 @@ import SideMenu from "../SideMenuCard/SideMenu";
 import cartObservabel from "../../utils/CartObservabel/cartObservabel";
 import { Link } from "react-router-dom";
 import SampelData from "../../utils/CommonFunction/sampelData.js";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 export default function Landing() {
   const [cartSize, setCartSize] = useState(0);
   const [veg, setVeg] = useState(false);
   const [nonVeg, setNonVeg] = useState(false);
-  const [username, setUsername] = useState("");
-  const [input, setInput] = useState("");
   const [menu, setMenu] = useState(SampelData);
-  const [activeId,setActiveId] = useState([]);
+  const [activeId, setActiveId] = useState([]);
   const name = useSelector((state) => state.login.login.username);
 
-
-  
   //--------------------- fetching the size of cart---------------------------------------------
   useEffect(() => {
     const subscription = cartObservabel.getAllItems().subscribe((items) => {
@@ -31,20 +27,18 @@ export default function Landing() {
     };
   }, []);
 
-
   //------------------------fetching all the active Id----------------------------------------------
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await cartObservabel.getProductId();
-        setActiveId(data)
-        
+        setActiveId(data);
       } catch (error) {
         console.error("Error fetching product IDs:", error);
       }
     };
-   
+
     fetchData();
   }, []);
 
@@ -66,16 +60,31 @@ export default function Landing() {
 
   //------------------------function for Searching-------------------------------------------------
 
-  const handelSearch = useCallback((e) => {
-    e.preventDefault(); // Prevent form submission
- console.log(e.target.value);
-    const search = e.target.value; // Get the search string (case-insensitive)
+  const handleSearch = useCallback(
+    (e) => {
+      const search = e.target.value.toLowerCase(); // Get the search string (case-insensitive)
 
-    setMenu(menu.filter((name) => name == search));
-  }, [menu]);
+      // Filter SampleData based on product_name containing the search string (case-insensitive)
+      const filteredMenu = SampelData.filter((item) =>
+        item.product_name.toLowerCase().includes(search)
+      );
 
-  
+      setMenu(filteredMenu); // Update menu state with filtered results
+    },
+    [setMenu]
+  );
 
+  //-----------------------function for search on the base of category------------------------------
+
+  const categorySearch = useCallback(
+    (search) => {
+      const filteredMenu = SampelData.filter(
+        (item) => item.product_category === search
+      );
+      setMenu(filteredMenu);
+    },
+    [setMenu]
+  );
 
   return (
     <div className="LM">
@@ -86,11 +95,11 @@ export default function Landing() {
           </div>
 
           <div className="User-Div">
-            <Link to="/login" style={{textDecoration:'none'}} >
-            <button className="User-Button">
-              <i class="fa-regular fa-user"></i>
-              <p>{name || "Login"}</p>
-            </button>
+            <Link to="/login" style={{ textDecoration: "none" }}>
+              <button className="User-Button">
+                <i class="fa-regular fa-user"></i>
+                <p>{name || "Login"}</p>
+              </button>
             </Link>
           </div>
         </div>
@@ -148,6 +157,7 @@ export default function Landing() {
                 <SideMenu
                   key={item.id + Math.random() * 10}
                   items={item.category}
+                  categorySearch={categorySearch}
                 />
               </div>
             );
@@ -158,8 +168,13 @@ export default function Landing() {
             {" "}
             <p> Check This </p>
             <div className="LM2-T2">
-              <form onSubmit={(e) => handelSearch(e)}>
-                <input type="text" placeholder="Search...." name="search" onChange={(e) => handelSearch(e)} />
+              <form onSubmit={(e) => handleSearch(e)}>
+                <input
+                  type="text"
+                  placeholder="Search...."
+                  name="search"
+                  onChange={(e) => handleSearch(e)}
+                />
                 <button type="submit">
                   {" "}
                   <i className="fa-solid fa-magnifying-glass"></i>
