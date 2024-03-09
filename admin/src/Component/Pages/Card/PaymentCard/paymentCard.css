@@ -1,0 +1,49 @@
+.product-container {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.name-div-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 100px;
+  width: 120px;
+}
+
+.quantity-div-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 100px;
+  width: 120px;
+}
+
+.price-div-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 100px;
+  width: 120px;
+}
+
+.total-div-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 90px;
+  margin-right: 50px;
+  width: 120px;
+}
+
+.saperator {
+  width: 90%;
+  height: 2px;
+  background-color: gray;
+  margin-top: 5px;
+}

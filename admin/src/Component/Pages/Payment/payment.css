@@ -1,0 +1,18 @@
+.pay-container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  align-items: center;
+  flex-direction: column;
+}
+
+.header-container {
+  display: flex;
+  margin-top: 10%;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+.card-div {
+  width: 100%;
+}
