@@ -8,14 +8,23 @@ const {
 } = require("../Query/query.js");
 
 const insertProduct = (req, res) => {
-  const { Product_Name, Product_Image, Product_Price, Quantity, Category } =
-    req.body;
+  const {
+    Product_Name,
+    Product_Image,
+    Product_Price,
+    Quantity,
+    Category,
+    isVeged,
+    isNonVeged,
+  } = req.body;
   const values = [
     Product_Name,
     Product_Image,
     Product_Price,
     Quantity,
     Category,
+    isVeged,
+    isNonVeged,
   ];
 
   if (
@@ -61,7 +70,6 @@ const getCategoryProduct = (req, res) => {
   const category = req.params.category;
   const values = [category];
 
-
   db.pool.query(getCategoriesProduct, values, (err, result) => {
     if (err) {
       console.log(`Error while fetching the Product => ${err.message}`);
@@ -69,14 +77,12 @@ const getCategoryProduct = (req, res) => {
         .status(500)
         .json({ msg: constant.SERVER_ERROR, success: false });
     } else {
-      
       return res.status(200).json({ data: result.rows, success: true });
     }
   });
 };
 
 const getUpdateProduct = (req, res) => {
-
   const {
     Product_Name,
     Product_Image,
@@ -84,6 +90,8 @@ const getUpdateProduct = (req, res) => {
     Quantity,
     Category,
     product_Id,
+    isVeged,
+    isNonVeged,
   } = req.body;
 
   const values = [
@@ -92,6 +100,8 @@ const getUpdateProduct = (req, res) => {
     Product_Price,
     Quantity,
     Category,
+    isVeged,
+    isNonVeged,
     product_Id,
   ];
 
@@ -102,7 +112,9 @@ const getUpdateProduct = (req, res) => {
         .status(500)
         .json({ msg: constant.SERVER_ERROR, success: false });
     } else {
-      return res.status(200).json({ msg : constant.PRODUCT_UPDATED, success: true });
+      return res
+        .status(200)
+        .json({ msg: constant.PRODUCT_UPDATED, success: true });
     }
   });
 };

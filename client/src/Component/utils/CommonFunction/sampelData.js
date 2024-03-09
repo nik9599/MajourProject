@@ -19,6 +19,8 @@ const SampelData = [
     product_price: 20,
     product_category: "Desserts",
     product_image: smpelImage,
+    vegetarian : false,
+    nonVegiterain :true
   },
   {
     product_id: 2,
@@ -26,6 +28,8 @@ const SampelData = [
     product_price: 30,
     product_category: "Sandwiches",
     product_image: sandwich,
+    vegetarian : true,
+    nonVegiterain :false
   },
   {
     product_id: 3,

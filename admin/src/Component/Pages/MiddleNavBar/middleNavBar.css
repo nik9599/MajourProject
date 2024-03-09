@@ -1,0 +1,82 @@
+.middle-nav-container {
+  background-color: #f7f7f9;
+  height: 100vh;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.upper-container {
+  display: flex;
+  width: 300px;
+  height: 70px;
+  margin-top: 20%;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 20px;
+  background-color: white;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.task-div {
+  font-size: 20px;
+  font-weight: 500;
+  margin-left: 5px;
+}
+
+.logo-div {
+  margin-right: 5px;
+}
+
+.middle-contianer {
+  display: flex;
+  width: 300px;
+  margin-top: 20px;
+  height: 50px;
+  align-items: center;
+  justify-content: space-evenly;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.new-div {
+  width: 80px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.new-div:focus{
+    border-radius: 10px;
+    background-color: blue;
+    color: white;
+}
+
+.orders-div {
+  width: 80px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.orders-div:focus{
+    border-radius: 10px;
+    background-color: blue;
+    color: white;
+}
+
+.completed-div {
+  width: 100px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.completed-div:focus{
+    border-radius: 10px;
+    background-color: blue;
+    color: white;
+}

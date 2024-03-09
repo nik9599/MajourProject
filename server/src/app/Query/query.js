@@ -27,7 +27,7 @@ const updateTheOrder =
 //----------------------Product related Query------------------------------------------------------------
 
 const InsertProduct =
-" INSERT INTO Products( Product_Name ,  Product_Image , Product_Price , Quantity ,  Category ) VALUES( $1 , $2 , $3 , $4 , $5 ) ";
+" INSERT INTO Products( Product_Name ,  Product_Image , Product_Price , Quantity ,  Category , isVeged , isNonVeged) VALUES( $1 , $2 , $3 , $4 , $5 ,$6 , $7 ) ";
 
 const getALLProduct = 
 " SELECT * from Products ";
@@ -36,7 +36,7 @@ const getCategoriesProduct=
 " SELECT * from Products WHERE Category = $1 ";
 
 const updateProduct=
-" UPDATE Products SET Product_Name = $1 ,  Product_Image = $2 , Product_Price = $3 , Quantity =$4 ,  Category = $5  WHERE product_Id = $6  ";
+" UPDATE Products SET Product_Name = $1 ,  Product_Image = $2 , Product_Price = $3 , Quantity =$4 ,  Category = $5 , isVeged = $6 , isNonVeged = $7  WHERE product_Id = $8  ";
 
 //--------------------- query for creating new tabel in databse  DDL Query -----------------------------------------
 const createTabel =
@@ -49,7 +49,7 @@ const createOrderItme =
   "  CREATE TABLE OrderItem (order_item_id SERIAL PRIMARY KEY, order_id INT REFERENCES Orders(orderId), product_id INT,  quantity INT, price_per_unit DECIMAL(10, 2), total_price DECIMAL(10, 2));  ";
 
 const productDetailTabel =
-  "  CREATE TABLE Products (product_Id SERIAL PRIMARY KEY , Product_Name VARCHAR(255) , Product_Image VARCHAR(255), Product_Price INT, Quantity INT, Category VARCHAR(255) )  ";
+  "  CREATE TABLE Products (product_Id SERIAL PRIMARY KEY , Product_Name VARCHAR(255) , Product_Image VARCHAR(255), Product_Price INT, Quantity INT, Category VARCHAR(255) , isVeged BOOLEAN DEFAULT FALSE , isNonVeged BOOLEAN DEFAULT FALSE )  ";
 
 module.exports = {
   getUser,

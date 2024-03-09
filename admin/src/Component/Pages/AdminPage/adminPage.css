@@ -1,0 +1,10 @@
+.admin-container{
+    display: flex
+}
+.side-nav-container{flex: 1;}
+
+.middle-nav-container{flex: 4;}
+
+.main-page-container{ 
+     flex: 5;
+}

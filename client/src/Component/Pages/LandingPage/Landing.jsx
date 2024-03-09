@@ -5,14 +5,14 @@ import category from "../../utils/CommonFunction/category";
 import SideMenu from "../SideMenuCard/SideMenu";
 import cartObservabel from "../../utils/CartObservabel/cartObservabel";
 import { Link } from "react-router-dom";
-import SampelData from "../../utils/CommonFunction/sampelData.js";
+import SampleData from "../../utils/CommonFunction/sampelData.js";
 import { useSelector } from "react-redux";
 
 export default function Landing() {
   const [cartSize, setCartSize] = useState(0);
   const [veg, setVeg] = useState(false);
   const [nonVeg, setNonVeg] = useState(false);
-  const [menu, setMenu] = useState(SampelData);
+  const [menu, setMenu] = useState(SampleData);
   const [activeId, setActiveId] = useState([]);
   const name = useSelector((state) => state.login.login.username);
 
@@ -47,16 +47,28 @@ export default function Landing() {
   const setCategory = useCallback(
     (str) => {
       console.log("call");
-      if (str == "veg") {
+      if (str === "veg") {
         setNonVeg(false);
-        setVeg(true);
+        setVeg((prevVeg) => !prevVeg); // Toggle veg state
       } else {
-        setNonVeg(true);
         setVeg(false);
+        setNonVeg((prevNonVeg) => !prevNonVeg); // Toggle nonVeg state
       }
     },
     [veg, nonVeg]
   );
+  
+  useEffect(() => {
+    if (veg) {
+      const filteredMenu = SampleData.filter((item) => item.vegetarian === true);
+      setMenu(filteredMenu);
+    } else if (nonVeg) {
+      const filteredMenu = SampleData.filter((item) => item.nonVegetarian === true);
+      setMenu(filteredMenu);
+    } else {
+      setMenu(SampleData);
+    }
+  }, [veg, nonVeg]);
 
   //------------------------function for Searching-------------------------------------------------
 
@@ -65,7 +77,7 @@ export default function Landing() {
       const search = e.target.value.toLowerCase(); // Get the search string (case-insensitive)
 
       // Filter SampleData based on product_name containing the search string (case-insensitive)
-      const filteredMenu = SampelData.filter((item) =>
+      const filteredMenu = SampleData.filter((item) =>
         item.product_name.toLowerCase().includes(search)
       );
 
@@ -78,7 +90,7 @@ export default function Landing() {
 
   const categorySearch = useCallback(
     (search) => {
-      const filteredMenu = SampelData.filter(
+      const filteredMenu = SampleData.filter(
         (item) => item.product_category === search
       );
       setMenu(filteredMenu);
@@ -97,7 +109,7 @@ export default function Landing() {
           <div className="User-Div">
             <Link to="/login" style={{ textDecoration: "none" }}>
               <button className="User-Button">
-                <i class="fa-regular fa-user"></i>
+                <i className="fa-regular fa-user"></i>
                 <p>{name || "Login"}</p>
               </button>
             </Link>
@@ -153,9 +165,9 @@ export default function Landing() {
         <div className="LM2-Left">
           {category.map((item) => {
             return (
-              <div>
+              <div key={item.id}>
                 <SideMenu
-                  key={item.id + Math.random() * 10}
+                  
                   items={item.category}
                   categorySearch={categorySearch}
                 />
@@ -188,9 +200,9 @@ export default function Landing() {
               {" "}
               {menu.map((item) => {
                 return (
-                  <div>
+                  <div   key={item.product_id} >
                     <MenuCard
-                      key={item.product_id}
+                    
                       product_name={item.product_name}
                       product_image={item.product_image}
                       product_price={item.product_price}

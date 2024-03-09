@@ -5,22 +5,28 @@ import CartItem from "../cartItemCard/CartItem";
 import { Link } from "react-router-dom";
 import DropDown from "./DropDown";
 import Location from "../Location/Location";
+import { useSelector } from "react-redux";
 
 export default function Cart() {
   const [cartitem, setCartItem] = useState([]);
   const [price, setPrice] = useState(0);
   const [update, setUpdate] = useState(false);
   const [selected, setSelected] = useState("");
-  const [selectedlocation, setSelectedLocation ] = useState("")
+  const [selectedlocation, setSelectedLocation] = useState("");
+  const isUserLoggedIn = useSelector((state) => state.login.login.isLogedIn);
+
+  //-----------------hook for fetchig all the user cart data----------------------
 
   useEffect(() => {
     setCartItem(cartObservabel.getData());
   }, []);
 
+  //------------------fetching the total-----------------------------------------
   useEffect(() => {
     setPrice(cartObservabel.getTheTotal());
   }, [update]);
 
+  //--------------------hook for clearing all the data---------------------------
   const clearAll = () => {
     cartObservabel.removeAllItem();
     window.location.reload();
@@ -28,12 +34,16 @@ export default function Cart() {
 
   const screenWidth = window.screen.width;
 
-
   return (
     <div className="C">
       <div className="CT">
         <div className="CT-1">
-          <div className="CT1-1">  <Link to={'/'} style={{ textDecoration: "none", color: "black" }} >Crave Cart </Link> </div>
+          <div className="CT1-1">
+            {" "}
+            <Link to={"/"} style={{ textDecoration: "none", color: "black" }}>
+              Crave Cart{" "}
+            </Link>{" "}
+          </div>
           <div className="CT1-2">
             <DropDown selected={selected} setSelected={setSelected} />
           </div>
@@ -48,8 +58,8 @@ export default function Cart() {
           <div className="CT2-2"></div>
           <div className="CT2-3">
             {" "}
-            <Link to={'/login'}>
-            <button>Login</button>{" "}
+            <Link to={"/login"}>
+              <button>Login</button>{" "}
             </Link>
           </div>
         </div>
@@ -66,16 +76,16 @@ export default function Cart() {
             </div>
           </div>
           <div className="CB-R2">
-            { cartitem.length ==0 &&
-            <div className="Empty" >
-              <h1>There is Nothing</h1>
+            {cartitem.length == 0 && (
+              <div className="Empty">
+                <h1>There is Nothing</h1>
               </div>
-              }
+            )}
             {cartitem.map((item) => {
               return (
                 <div>
                   <CartItem
-                  key={item.product_id}
+                    key={item.product_id}
                     product_image={item.product_image}
                     product_name={item.product_name}
                     product_price={item.product_price}
@@ -118,22 +128,35 @@ export default function Cart() {
         )}
       </div>
       <div className="CF">
-        <div className="CF-1" >
-        {selected == "TakeAway" && false && (
-          <div className="CF1-1">
-            <div className="CF1-2">
-              <Location selectedlocation={selectedlocation} setSelectedLocation={setSelectedLocation}  />
+        <div className="CF-1">
+          {selected == "TakeAway" && false && (
+            <div className="CF1-1">
+              <div className="CF1-2">
+                <Location
+                  selectedlocation={selectedlocation}
+                  setSelectedLocation={setSelectedLocation}
+                />
+              </div>
             </div>
-          </div>
-        )}
+          )}
         </div>
-          <div className="CF-2">
-            <div className="CF-3">
-              {" "}
-              <button> Pay {price}</button>{" "}
-            </div>
+        <div className="CF-2">
+          <div className="CF-3">
+            {" "}
+            <button>
+              {isUserLoggedIn ? (
+                `Pay ${price}`
+              ) : (
+                <Link
+                  to="/login"
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  Login
+                </Link>
+              )}
+            </button>{" "}
           </div>
-        
+        </div>
       </div>
     </div>
   );
