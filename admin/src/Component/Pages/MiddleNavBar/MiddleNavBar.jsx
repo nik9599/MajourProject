@@ -1,6 +1,7 @@
 import React from "react";
 import "./middleNavBar.css";
 
+
 export default function MiddleNavBar() {
   return (
     <div className="middle-nav-container">
@@ -27,7 +28,7 @@ export default function MiddleNavBar() {
         </div>
       </div>
       <div className="lower-container">
-        
+    
       </div>
     </div>
   );

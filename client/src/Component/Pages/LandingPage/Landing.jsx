@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
-import MenuCard from "../MenuCard/MenuCard";
+import MenuCard from "../MenuCard/MenuCard.jsx";
 import "./Landing.css";
-import category from "../../utils/CommonFunction/category";
-import SideMenu from "../SideMenuCard/SideMenu";
-import cartObservabel from "../../utils/CartObservabel/cartObservabel";
+import category from "../../utils/CommonFunction/category.js";
+import SideMenu from "../SideMenuCard/SideMenu.jsx";
+import cartObservabel from "../../utils/CartObservabel/cartObservabel.js";
 import { Link } from "react-router-dom";
-import SampleData from "../../utils/CommonFunction/sampelData.js";
+import SampleData from "../../utils/CommonFunction/sampelData";
 import { useSelector } from "react-redux";
 
 export default function Landing() {
