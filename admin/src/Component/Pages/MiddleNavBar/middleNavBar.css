@@ -49,10 +49,11 @@
   align-items: center;
   cursor: pointer;
 }
-.new-div:focus{
-    border-radius: 10px;
-    background-color: blue;
-    color: white;
+.new-div:focus {
+  border-radius: 10px;
+  background-color: blue;
+  color: white;
+  cursor: pointer;
 }
 
 .orders-div {
@@ -61,11 +62,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
-.orders-div:focus{
-    border-radius: 10px;
-    background-color: blue;
-    color: white;
+.orders-div:focus {
+  border-radius: 10px;
+  background-color: blue;
+  color: white;
 }
 
 .completed-div {
@@ -74,9 +76,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
-.completed-div:focus{
-    border-radius: 10px;
-    background-color: blue;
-    color: white;
+.completed-div:focus {
+  border-radius: 10px;
+  background-color: blue;
+  color: white;
 }

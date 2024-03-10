@@ -36,7 +36,8 @@ export default function Cart() {
   return (
     <div className="C">
       {payment ? (
-        <Payment />
+        // making api call before this
+        <Payment  cartItem={cartitem} total={price} />
       ) : (
         <div className="CB-R">
           <div className="CB-R1">

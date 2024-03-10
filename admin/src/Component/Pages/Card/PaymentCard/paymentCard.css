@@ -43,7 +43,7 @@
 
 .saperator {
   width: 90%;
-  height: 2px;
-  background-color: gray;
+  height: 1px;
+  background-color: lightgray;
   margin-top: 5px;
 }
