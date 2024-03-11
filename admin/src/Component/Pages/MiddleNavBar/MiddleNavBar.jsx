@@ -7,18 +7,19 @@ import {
   CompletedOrder,
 } from "../../utils/Redux/slice/stateSlice/stateSlice";
 import { useState } from "react";
+import OrderListPage from "../OrderList/OrderList.jsx";
 
 export default function MiddleNavBar() {
   const dispatch = useDispatch();
-  const [currentOrderType,setCurrentOrderType] = useState("");
-
+  const [currentOrderType, setCurrentOrderType] = useState("");
+  const isOrder = useSelector((state) => state.state.Orders);
   useEffect(() => {
     // Dispatch actions based on currentOrderType
-    if (currentOrderType === 'New') {
+    if (currentOrderType === "New") {
       dispatch(NewOrder({ state: true }));
-    } else if (currentOrderType === 'Orders') {
+    } else if (currentOrderType === "Orders") {
       dispatch(OrderList({ state: true }));
-    } else if (currentOrderType === 'Completed') {
+    } else if (currentOrderType === "Completed") {
       dispatch(CompletedOrder({ state: true }));
     }
   }, [currentOrderType, dispatch]);
@@ -34,17 +35,31 @@ export default function MiddleNavBar() {
         </div>
       </div>
       <div className="middle-contianer">
-        <div className="new-div" tabIndex="0" onClick={() => setCurrentOrderType('New')}>
+        <div
+          className="new-div"
+          tabIndex="0"
+          onClick={() => setCurrentOrderType("New")}
+        >
           <p>New</p>
         </div>
-        <div className="orders-div" tabIndex="0" onClick={() => setCurrentOrderType('Orders')}>
+        <div
+          className="orders-div"
+          tabIndex="0"
+          onClick={() => setCurrentOrderType("Orders")}
+        >
           <p>Orders</p>
         </div>
-        <div className="completed-div" tabIndex="0" onClick={() => setCurrentOrderType('Completed')}>
+        <div
+          className="completed-div"
+          tabIndex="0"
+          onClick={() => setCurrentOrderType("Completed")}
+        >
           <p>Completed</p>
         </div>
       </div>
-      <div className="lower-container"></div>
+      <div className="lower-container">
+        {isOrder.state && <OrderListPage />}
+      </div>
     </div>
   );
 }

@@ -83,3 +83,10 @@
   background-color: blue;
   color: white;
 }
+
+.lower-container {
+  margin-top: 20px;
+  height: 400px;
+  overflow-y: scroll;
+  padding-left: 20px;
+}

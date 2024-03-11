@@ -1,0 +1,37 @@
+.ordercard-container{
+    display: flex;
+    background-color: white;
+    width: 250px;
+    min-height: 80px;
+    justify-content: space-between;
+    border-radius: 10px;
+    /* padding-top: 10px; */
+    padding-right: 10px;
+    padding-bottom: 1px;
+    /* margin: 20px; */
+    margin-top: 10px;
+}
+
+.ordercard-id-contianer{
+    flex: 2 ;
+    
+}
+
+.ordercard-orice-container{
+ flex: 1;
+ display: flex;
+ justify-content: end;
+ align-items: center;
+}
+
+.order-selector{
+    flex: 1;
+    max-width: 7px;
+    height: 70px;
+    /* margin-left: 4px; */
+    margin-right: 2px;
+    background-color: blue;
+    border-top-left-radius: 20px; /* Left-top radius */
+    border-bottom-left-radius: 20px; /* Left-bottom radius */
+ 
+}
