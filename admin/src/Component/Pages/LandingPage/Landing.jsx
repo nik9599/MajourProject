@@ -4,12 +4,10 @@ import "./Landing.css";
 import category from "../../utils/common/category.js";
 import SideMenu from "../Card/SideMenuCard/SideMenu.jsx";
 import cartObservabel from "../../utils/CartObservabel/cartObservabel.js";
-import { Link } from "react-router-dom";
 import SampleData from "../../utils/common/sampelData.js";
-import { useSelector } from "react-redux";
 import Cart from "../CartPage/Cart.jsx";
-import ShimmerCard from "../Card/ShimmerCard/ShimmerCard.jsx";
-import Skeleton from "react-loading-skeleton";
+import ShimmerCard from "../ShimmerCard/OrderShimmer/MenuShimmer/ShimmerCard.jsx";
+
 
 export default function Landing() {
   const [cartSize, setCartSize] = useState(0);
@@ -19,7 +17,7 @@ export default function Landing() {
   const [menu, setMenu] = useState([]);
   const [activeId, setActiveId] = useState([]);
   const [callCart, setCallCart] = useState(false);
-  // const name = useSelector((state) => state.login.login.username);
+
   const name = " ";
 
   //------------------------fetching total price-----------------------------------------------

@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import "./orderListCard.css"
 
-export default function OrderListCard( {order_id=123 , create_by="sampel" , price="120"} ) {
-    const [isSelected , setIsSelected] = useState(false)
+export default function OrderListCard( {order_id=123 , create_by="sampel" , price="120",isSelected, handleClick} ) {
+    // const [isSelected , setIsSelected] = useState(false)
   return (
-    <div className='ordercard-container'  onClick={()=>{setIsSelected(!isSelected)}}  >
+    <div className='ordercard-container'  onClick={handleClick}  >
         {isSelected &&<div className='order-selector' tabIndex="0" ></div>}
       <div className='ordercard-id-contianer' >
         <h2>Order_ID#{order_id}</h2>

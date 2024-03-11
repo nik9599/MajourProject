@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import "./mainPage.css";
 import Landing from '../LandingPage/Landing';
 import { useSelector } from 'react-redux';
+import OrderDetail from '../OrderDetail/OrderDetail';
 
 export default function MainPage() {
   const [landing, setLanding] = useState(false);
@@ -24,7 +25,7 @@ export default function MainPage() {
   return (
     <div>
       {landing && <Landing/>}
-       
+       {Order.state && <OrderDetail/>}
     </div>
   );
 }
