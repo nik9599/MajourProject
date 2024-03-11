@@ -13,7 +13,7 @@ export default function MenuCard({
   button_state
 }) {
   const [changeView, setChangeView] = useState(false);
-   console.log(button_state)
+
  
   const handleAddToCart = (
     product_name,

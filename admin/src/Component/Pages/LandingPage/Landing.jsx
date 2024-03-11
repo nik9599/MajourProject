@@ -8,13 +8,15 @@ import { Link } from "react-router-dom";
 import SampleData from "../../utils/common/sampelData.js";
 import { useSelector } from "react-redux";
 import Cart from "../CartPage/Cart.jsx";
+import ShimmerCard from "../Card/ShimmerCard/ShimmerCard.jsx";
+import Skeleton from "react-loading-skeleton";
 
 export default function Landing() {
   const [cartSize, setCartSize] = useState(0);
   const [total, setTotal] = useState();
   const [veg, setVeg] = useState(false);
   const [nonVeg, setNonVeg] = useState(false);
-  const [menu, setMenu] = useState(SampleData);
+  const [menu, setMenu] = useState([]);
   const [activeId, setActiveId] = useState([]);
   const [callCart, setCallCart] = useState(false);
   // const name = useSelector((state) => state.login.login.username);
@@ -190,24 +192,33 @@ export default function Landing() {
 
               <div className="LM2-M2">
                 <div className="LM2-M2-1">
-                  {" "}
-                  {menu.map((item) => {
-                    return (
-                      <div key={item.product_id}>
-                        <MenuCard
-                          product_name={item.product_name}
-                          product_image={item.product_image}
-                          product_price={item.product_price}
-                          product_id={item.product_id}
-                          button_state={activeId.includes(item.product_id)}
-                        />
-                      </div>
-                    );
-                  })}{" "}
+                  {menu.length === 0
+                    ? // Render loading state if the menu array is empty
+                      Array.from({ length: 10 }).map((_, index) => (
+                        <ShimmerCard key={index} />
+                        
+                      ))
+                    : // Render menu items if the menu array is not empty
+                      menu.map((item) => (
+                        <div key={item.product_id}>
+                          <MenuCard
+                            product_name={item.product_name}
+                            product_image={item.product_image}
+                            product_price={item.product_price}
+                            product_id={item.product_id}
+                            button_state={activeId.includes(item.product_id)}
+                          />
+                        </div>
+                      ))}
                 </div>
               </div>
               {cartSize > 0 && (
-                <div className="footer-div" onClick={()=>{setCallCart(!callCart)}} >
+                <div
+                  className="footer-div"
+                  onClick={() => {
+                    setCallCart(!callCart);
+                  }}
+                >
                   <p>Your Total</p>
                   <p>=</p>
                   <p> {total}</p>
