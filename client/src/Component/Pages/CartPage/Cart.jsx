@@ -3,10 +3,11 @@ import "./cart.css";
 import cartObservabel from "../../utils/CartObservabel/cartObservabel";
 import CartItem from "../cartItemCard/CartItem";
 import { Link } from "react-router-dom";
-
+import { postRequest } from "../../API/API.js";
 import Location from "../Location/Location";
 import { useSelector } from "react-redux";
 import NavBar from "../NavBar/NavBar";
+import { useNavigate } from "react-router-dom";
 
 export default function Cart() {
   const [cartitem, setCartItem] = useState([]);
@@ -15,8 +16,9 @@ export default function Cart() {
   const [selected, setSelected] = useState("");
   const [selectedlocation, setSelectedLocation] = useState("");
   const isUserLoggedIn = useSelector((state) => state.login.login.isLogedIn);
-
-  // const isUserLoggedIn = true
+  const userId = useSelector((state) => state.login.login.userId);
+  const token = useSelector((state) => state.login.login.token);
+  const navigate = useNavigate();
 
   //-----------------hook for fetchig all the user cart data----------------------
 
@@ -35,12 +37,49 @@ export default function Cart() {
     window.location.reload();
   };
 
+  //--------------------placingOrder------------------------------------------------
+  const placeOrder = async (e) => {
+    const orderIdData = {
+      customer_id: userId,
+      total_amount: price,
+      status: "pending",
+    };
+
+    console.log(orderIdData);
+
+    const getOrderId = await postRequest(orderIdData, "/order", token);
+    if (getOrderId.success) {
+
+      const quantity = await cartObservabel.getQuantity(); 
+     const productId =  await cartObservabel.getProductIds() 
+     const price_per_Unit = await  cartObservabel.getPerUnitPrice()
+      const addOrder = {
+        order_id: getOrderId.order_Id,
+        product_id: productId,
+        quantity: quantity ,
+        price_per_unit:price_per_Unit ,
+        total_price: cartObservabel.getTheTotal(),
+      };
+
+      console.log(addOrder);
+
+      const placeOrder = await postRequest(addOrder, "/addingItem", token);
+
+      console.log(placeOrder);
+
+      if (placeOrder.success) {
+        navigate(`/payment/${getOrderId.order_Id}`);
+      }
+    }
+    console.log(getOrderId);
+  };
+
   const screenWidth = window.screen.width;
 
   return (
     <div className="C">
       <div className="navbar-container">
-         <NavBar/>
+        <NavBar />
       </div>
       <div className="CB">
         <div className="CB-R">
@@ -121,10 +160,13 @@ export default function Cart() {
         <div className="CF-2">
           <div className="CF-3">
             {" "}
-            <button>
+            <button onClick={isUserLoggedIn ? placeOrder : undefined}>
               {isUserLoggedIn ? (
-                <Link to={'/payment'} style={{ textDecoration: "none", color: "black" }} >
-                Pay {price}
+                <Link
+                  to={"/payment"}
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  Pay {price}
                 </Link>
               ) : (
                 <Link

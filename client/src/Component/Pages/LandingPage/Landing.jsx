@@ -1,33 +1,39 @@
 import React, { useCallback, useEffect, useState } from "react";
 import MenuCard from "../MenuCard/MenuCard.jsx";
-import {getRequest} from "../../API/API.js"
+import { getRequest } from "../../API/API.js";
 import "./Landing.css";
 import category from "../../utils/CommonFunction/category.js";
 import SideMenu from "../SideMenuCard/SideMenu.jsx";
 import cartObservabel from "../../utils/CartObservabel/cartObservabel.js";
 import { Link } from "react-router-dom";
-import SampleData from "../../utils/CommonFunction/sampelData";
+// import SampleData from "../../utils/CommonFunction/sampelData";
 import { useSelector } from "react-redux";
+import ShimmerCard from "../ShimmerCard/MenuShimmer/ShimmerCard.jsx";
 
 export default function Landing() {
   const [cartSize, setCartSize] = useState(0);
   const [veg, setVeg] = useState(false);
   const [nonVeg, setNonVeg] = useState(false);
-  const [menu, setMenu] = useState(SampleData);
+  const [menu, setMenu] = useState([]);
+  const [sampleData, setSampleData] = useState([]);
   const [activeId, setActiveId] = useState([]);
   const name = useSelector((state) => state.login.login.username);
-  const token = useSelector((state)=>state.login.login.token)
+  const token = useSelector((state) => state.login.login.token);
+  const itemsArray = Array.from({ length: 10 });
 
   //----------------------fetching data from DB ------------------------------------------
-  
 
-  useEffect(()=>{
-      const fetchingData = async ()=>{
-        const resp = await getRequest(null,"/getAllProduct",token)
-        console.log(resp);
+  useEffect(() => {
+    const fetchingData = async () => {
+      const resp = await getRequest(null, "/getAllProduct", token);
+      if (resp.success) {
+        console.log(resp.data);
+        setSampleData(resp.data);
+        setMenu(resp.data);
       }
-      fetchingData();
-  },[])
+    };
+    fetchingData();
+  }, []);
 
   //--------------------- fetching the size of cart---------------------------------------------
   useEffect(() => {
@@ -61,6 +67,7 @@ export default function Landing() {
     (str) => {
       console.log("call");
       if (str === "veg") {
+        console.log("call");
         setNonVeg(false);
         setVeg((prevVeg) => !prevVeg); // Toggle veg state
       } else {
@@ -70,16 +77,18 @@ export default function Landing() {
     },
     [veg, nonVeg]
   );
-  
+
   useEffect(() => {
     if (veg) {
-      const filteredMenu = SampleData.filter((item) => item.vegetarian === true);
+      const filteredMenu = sampleData.filter((item) => item.isveged === true);
       setMenu(filteredMenu);
     } else if (nonVeg) {
-      const filteredMenu = SampleData.filter((item) => item.nonVegetarian === true);
+      const filteredMenu = sampleData.filter(
+        (item) => item.isnonveged === true
+      );
       setMenu(filteredMenu);
     } else {
-      setMenu(SampleData);
+      setMenu(sampleData);
     }
   }, [veg, nonVeg]);
 
@@ -90,7 +99,7 @@ export default function Landing() {
       const search = e.target.value.toLowerCase(); // Get the search string (case-insensitive)
 
       // Filter SampleData based on product_name containing the search string (case-insensitive)
-      const filteredMenu = SampleData.filter((item) =>
+      const filteredMenu = menu.filter((item) =>
         item.product_name.toLowerCase().includes(search)
       );
 
@@ -103,9 +112,7 @@ export default function Landing() {
 
   const categorySearch = useCallback(
     (search) => {
-      const filteredMenu = SampleData.filter(
-        (item) => item.product_category === search
-      );
+      const filteredMenu = menu.filter((item) => item.category === search);
       setMenu(filteredMenu);
     },
     [setMenu]
@@ -180,7 +187,6 @@ export default function Landing() {
             return (
               <div key={item.id}>
                 <SideMenu
-                  
                   items={item.category}
                   categorySearch={categorySearch}
                 />
@@ -211,20 +217,24 @@ export default function Landing() {
           <div className="LM2-M2">
             <div className="LM2-M2-1">
               {" "}
-              {menu.map((item) => {
-                return (
-                  <div   key={item.product_id} >
-                    <MenuCard
-                    
-                      product_name={item.product_name}
-                      product_image={item.product_image}
-                      product_price={item.product_price}
-                      product_id={item.product_id}
-                      button_state={activeId.includes(item.product_id)}
-                    />
-                  </div>
-                );
-              })}{" "}
+              {menu.length === 0
+                ? Array.from({ length: 10 }).map((_, index) => (
+                    <ShimmerCard key={index} />
+                  ))
+                : menu.map((item) => {
+                    return (
+                      <div key={item.product_id}>
+                        <MenuCard
+                          isveged={item.isveged}
+                          product_name={item.product_name}
+                          product_image={item.product_image}
+                          product_price={item.product_price}
+                          product_id={item.product_id}
+                          button_state={activeId.includes(item.product_id)}
+                        />
+                      </div>
+                    );
+                  })}{" "}
             </div>
           </div>
         </div>

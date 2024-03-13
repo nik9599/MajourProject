@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import "./login.css";
-import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { LoginUser } from "../../utils/Redux/login/loginSlice";
+import { LoginUser } from "../../utils/Redux/slice/loginSlice/loginSlice.js";
 import { getRequest } from "../../API/API.js";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../NavBar/NavBar.jsx";
@@ -40,10 +39,10 @@ export default function Login() {
           username: resp.username,
           token: resp.token,
           isLogedIn: true,
-          userId: resp.userID,
+          userId: resp.userId,
         })
       );
-      navigate("/");
+      navigate("/admin");
     } else {
       setIsError(true);
       setErrorMessage(resp.msg);

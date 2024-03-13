@@ -1,0 +1,42 @@
+.shimmer-container {
+  height: 250px;
+  width: 250px;
+  border-radius: 20px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.shimmer-name-div {
+  /* background-color: lightgray; */
+  height: 20px;
+  width: 200px;
+  margin-top: 20px;
+  margin-left: 10px;
+}
+
+.shimmer-image-container {
+  display: flex;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.shimmer-img-div {
+  flex: 1;
+
+  /* background-color: lightgray; */
+}
+
+.shimmer-price-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.shimmer-price-div {
+  margin-left: 10px;
+}
+
+.shimmer-button-div {
+  margin: auto;
+}

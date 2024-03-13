@@ -1,6 +1,7 @@
 import React from "react";
 import "./sideNavBar.css";
 import {useSelector} from "react-redux"
+import {Link} from "react-router-dom"
 
 export default function SidenavBar() {
 
@@ -15,10 +16,10 @@ export default function SidenavBar() {
         
       </div>
       <div className="Task-list-contianer">
-        <i class="fa-solid fa-clipboard fa-xl"></i>
+       <Link to={"/admin"} style={{textDecoration:"none" , backgroundColor :"inherit" , color:"black"}} >  <i class="fa-solid fa-clipboard fa-xl"></i> </Link>
       </div>
       <div className="update-inv-container">
-        <i class="fa-regular fa-pen-to-square fa-xl"></i>
+         <Link to={"/insert"} style={{textDecoration:"none" , backgroundColor :"inherit" , color:"black"}} > <i class="fa-regular fa-pen-to-square fa-xl"></i></Link>
       </div>
 
       <div className="setting-contianer">

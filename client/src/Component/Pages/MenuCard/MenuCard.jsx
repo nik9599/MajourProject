@@ -10,6 +10,7 @@ export default function MenuCard({
   product_id,
   product_price,
   product_qantity,
+  isveged,
   button_state
 }) {
   const [changeView, setChangeView] = useState(false);
@@ -40,7 +41,7 @@ export default function MenuCard({
             <p>{product_name || "2 Cheesy Italian Chicken + Fries(L)+2Coke"}</p>
           </div>
           <div className="MC-I1-2">
-            <img src={vegIcon} />
+            {isveged&&<img src={vegIcon} />}
           </div>
         </div>
         <div className="MC-I2">

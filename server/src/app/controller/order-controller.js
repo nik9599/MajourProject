@@ -34,28 +34,32 @@ const orderId = (req, res) => {
 };
 
 const addOrderItem = async (req, res) => {
-  const orders = req.body;
+  const order = req.body;
 
-  await orders.map((order) => {
-    const value = [
-      order.order_id,
-      order.product_id,
-      order.quantity,
-      order.price_per_unit,
-      order.total_price,
-    ];
-    db.pool.query(addingItem, value, (err, result) => {
-      if (err) {
+  const values = order.product_id.map((productId, index) => [
+    order.order_id,
+    productId,
+    order.quantity[index],
+    order.price_per_unit[index],
+    order.total_price
+  ]);
+
+  try {
+    await Promise.all(values.map(async (value) => {
+      try {
+        await db.pool.query(addingItem, value);
+      } catch (err) {
         console.log(`Error while placing order => ${err.message}`);
-        return res
-          .status(500)
-          .json({ msg: constants.SERVER_ERROR, success: false });
+        throw err; // Throw the error to catch it later
       }
-    });
-  });
-  return res
-    .status(200)
-    .json({ msg: constants.ORDER_PLACED_SUCCESSFULLY, success: true });
+    }));
+    return res.status(200).json({ msg: constants.ORDER_PLACED_SUCCESSFULLY, success: true });
+  } catch (err) {
+    return res.status(500).json({ msg: constants.SERVER_ERROR, success: false });
+  }
+  
+
+ 
 };
 
 const getActiveOrder = (req, res) => {

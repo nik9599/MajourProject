@@ -96,6 +96,23 @@ class CartObservabel {
     return await Promise.all(id);
 }
 
+async getProductIds() {
+  const currentItems = this.cartItemSubject.getValue();
+  const productIds = await currentItems.map(item => item.product_id);
+  return  await productIds;
+}
+
+async getQuantity() {
+  const currentItems = this.cartItemSubject.getValue();
+  const quantity = await currentItems.map(item => item.product_qantity);
+  return await quantity;
+}
+
+async getPerUnitPrice() {
+  const currentItems = this.cartItemSubject.getValue();
+  const perUnitPrice = await currentItems.map(item => item.product_price);
+  return await perUnitPrice;
+}
   
 
 }

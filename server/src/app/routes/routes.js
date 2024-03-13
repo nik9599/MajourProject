@@ -23,7 +23,7 @@ const Routes = express.Router();
 
 //------Declaring All The Routes-------
 
-//---SignUp Routes---------------------
+//---------Auth Routes---------------------
 Routes.post("/signUp", signUpMidelware, signUpUser);
 Routes.get("/login/:email/:password", loginUser);
 
@@ -35,7 +35,7 @@ Routes.put("/updateOrder", tokenValidator, updateOrder);
 // Routes.get("/completedOrder" , )
 
 //----------product routes----------------
-Routes.get("/getAllProduct", tokenValidator, getAllProducts);
+Routes.get("/getAllProduct", getAllProducts);
 Routes.get("/getCategroyProduct/:category", tokenValidator, getCategoryProduct);
 Routes.post("/insertProduct",  insertProduct);
 Routes.put("/updateProduct", tokenValidator, getUpdateProduct);
