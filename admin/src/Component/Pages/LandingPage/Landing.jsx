@@ -6,7 +6,7 @@ import SideMenu from "../Card/SideMenuCard/SideMenu.jsx";
 import cartObservabel from "../../utils/CartObservabel/cartObservabel.js";
 import SampleData from "../../utils/common/sampelData.js";
 import Cart from "../CartPage/Cart.jsx";
-import ShimmerCard from "../ShimmerCard/OrderShimmer/MenuShimmer/ShimmerCard.jsx";
+import ShimmerCard from "../ShimmerCard/MenuShimmer/ShimmerCard.jsx";
 
 
 export default function Landing() {

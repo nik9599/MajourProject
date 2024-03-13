@@ -2,56 +2,49 @@ import React, { useState } from "react";
 import "./signUp.css";
 import { Link } from "react-router-dom";
 import "../LoginPages/login.css";
-
+import { postRequest } from "../../API/API";
+import { useNavigate } from "react-router-dom";
+import NavBar from "../NavBar/NavBar";
 
 const signUpDataLayout = {
   username: "",
   password: "",
   email: "",
+  mobile: "",
 };
 
 export default function SignUp() {
   const [signUpData, setSignUpData] = useState(signUpDataLayout);
   const [isError, setIsError] = useState(false);
   const [errorMessge, setErrorMessage] = useState("This is testing");
-   
+
+  const navigator = useNavigate();
 
   const handelInput = (e) => {
     setSignUpData({ ...signUpData, [e.target.name]: e.target.value });
   };
 
-  const handelsignUp = () => {
-    alert(` email : ${signUpData.email} password : ${signUpData.password}`);
-   
+  const handelsignUp = async (e) => {
+    e.preventDefault();
+
+    const res = await postRequest(signUpData, "/signUp");
+
+    console.log(res);
+
+    if (res.success) {
+      setIsError(false);
+      setErrorMessage("");
+      navigator("/login");
+    } else {
+      setIsError(true);
+      setErrorMessage(res.msg);
+    }
   };
 
   return (
     <div className="signUp-container">
       <div className="signup-nav-container">
-        <div className="nav-logo">
-          <div className="logo-div">
-            {" "}
-            <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-              {" "}
-              Crave Cart{" "}
-            </Link>
-          </div>
-        </div>
-        <div className="nav-button">
-          <div className="home-button">
-            <Link className="custom-link" to={"/"}>
-              {" "}
-              <button>Home </button>
-            </Link>{" "}
-          </div>
-          <div className="nav-divider"></div>
-          <div className="register-link">
-            {" "}
-            <Link to="/login" className="custom-link">
-              Login
-            </Link>
-          </div>
-        </div>
+        <NavBar />
       </div>
       <div className="signUp-form-container">
         <form className="signup-form" onSubmit={handelsignUp}>
@@ -68,6 +61,14 @@ export default function SignUp() {
           <input
             type="text"
             name="email"
+            placeholder="exampel@gmail.com"
+            className="sigup-input"
+            onChange={(e) => handelInput(e)}
+          />
+          <label htmlFor="mobile">Mobile</label>
+          <input
+            type="text"
+            name="mobile"
             placeholder="exampel@gmail.com"
             className="sigup-input"
             onChange={(e) => handelInput(e)}

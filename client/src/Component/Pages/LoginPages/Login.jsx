@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import "./login.css";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { LoginUser } from "../../utils/Redux/login/loginSlice";
+import { getRequest } from "../../API/API.js";
+import { useNavigate } from "react-router-dom";
+import NavBar from "../NavBar/NavBar.jsx";
 
 const LoginData = {
   email: "",
@@ -14,6 +17,7 @@ export default function Login() {
   const [errorMessge, setErrorMessage] = useState("This is testing");
   const [loginData, setLoginData] = useState(LoginData);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   //---------------------------function for handling inpuit----------------------------
   const handelInput = (e) => {
@@ -21,38 +25,35 @@ export default function Login() {
   };
 
   //---------------------------------function for making store user data-----------------
-  const handelLogin = (e) => {
-    e.preventDefault()
-    alert(` email : ${loginData.email} password : ${loginData.password}`);
-    dispatch(LoginUser({ username: "nikhil" }));
+  const handelLogin = async (e) => {
+    e.preventDefault();
+    const url =
+      "/login" +
+      `/${loginData.email || "null"}` +
+      `/${loginData.password || "null"}`;
+    const resp = await getRequest(null, url);
+
+    if (resp.success) {
+      setIsError(false);
+      dispatch(
+        LoginUser({
+          username: resp.username,
+          token: resp.token,
+          isLogedIn: true,
+          userId: resp.userId,
+        })
+      );
+      navigate("/");
+    } else {
+      setIsError(true);
+      setErrorMessage(resp.msg);
+    }
   };
 
   return (
     <div className="login-container">
       <div className="signup-nav-container">
-        <div className="nav-logo">
-          <div className="logo-div">
-            <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-              {" "}
-              Crave Cart{" "}
-            </Link>
-          </div>
-        </div>
-        <div className="nav-button">
-          <div className="home-button">
-            <Link className="custom-link" to={"/"}>
-              {" "}
-              <button>Home </button>
-            </Link>{" "}
-          </div>
-          <div className="nav-divider"></div>
-          <div className="register-link">
-            {" "}
-            <Link to="/signUp" className="custom-link">
-              Register
-            </Link>
-          </div>
-        </div>
+        <NavBar />
       </div>
       <div className="login-div">
         <form className="login-form" onSubmit={handelLogin}>

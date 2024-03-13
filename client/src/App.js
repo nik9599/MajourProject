@@ -5,6 +5,7 @@ import Landing from "./Component/Pages/LandingPage/Landing";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignUp from "./Component/Pages/SIgnupPage/SignUp";
 import Login from "./Component/Pages/LoginPages/Login";
+import Payment from "./Component/Pages/Payment/Payment";
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
           <Route exact path="/cart" element={<Cart  />} />
           <Route exact path="/signUp" element={<SignUp/>} />
           <Route exact path="/login" element={<Login/>} />
+          <Route exact path="/payment" element={<Payment/>} />
         </Routes>
       
       </div>

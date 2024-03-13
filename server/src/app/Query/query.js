@@ -8,7 +8,7 @@ const isEmailExist =
   " SELECT COUNT(*) AS email_count FROM Users WHERE email= $1";
 
 const InsertUser =
-  " INSERT INTO Users(username , email,password) VALUES($1,$2,$3) ";
+  " INSERT INTO Users(username , email, password , mobile) VALUES($1,$2,$3,$4) ";
 
 //---------------------------orders related query--------------------
 
@@ -40,10 +40,10 @@ const updateProduct=
 
 //--------------------- query for creating new tabel in databse  DDL Query -----------------------------------------
 const createTabel =
-  " CREATE TABLE Users (userID  SERIAL  PRIMARY KEY, username varchar(255) , email varchar(255) , password varchar(255))";
+  " CREATE TABLE Users (userID  SERIAL  PRIMARY KEY, username varchar(255) , email varchar(255) , password varchar(255) , mobile INT)";
 
 const createOrderTabel =
-  "  CREATE TABLE Orders(orderId SERIAL PRIMARY KEY , customer_id INT REFERENCES Users(userID),order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,total_amount DECIMAL(10,2),status VARCHAR(50) ) ";
+  "  CREATE TABLE Orders(orderId SERIAL PRIMARY KEY , customer_id INT REFERENCES Users(userID),order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,total_amount DECIMAL(10,2),status VARCHAR(50) , payment_mode VARCHAR(50) ) ";
 
 const createOrderItme =
   "  CREATE TABLE OrderItem (order_item_id SERIAL PRIMARY KEY, order_id INT REFERENCES Orders(orderId), product_id INT,  quantity INT, price_per_unit DECIMAL(10, 2), total_price DECIMAL(10, 2));  ";

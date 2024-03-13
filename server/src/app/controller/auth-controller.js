@@ -5,7 +5,7 @@ const constant = require("../../utils/constant.js");
 const token = require("../../utils/tokenGeneration.js");
 
 const signUpUser = async (req, res) => {
-  let { username, email, password } = req.body;
+  let { username, email, password,mobile } = req.body;
 
   //-----------------checking if email is already exist or not----------------------------
   const checkEmail = [email];
@@ -20,7 +20,7 @@ const signUpUser = async (req, res) => {
 
     const emailCount = result.rows[0].email_count; // Extract the email count from the result
 
-    console.log(`Checking if email exists or not => ${emailCount}`);
+    
 
     if (emailCount > 0) {
       return res
@@ -28,8 +28,9 @@ const signUpUser = async (req, res) => {
         .send({ msg: constant.EMAIL_ALREADY_EXIST, success: false });
     }
 
+
     //------------------------if email is not exist then we signup the user to system----------
-    const values = [username, email, password];
+    const values = [username, email, password,mobile];
 
     bcrypt.hash(password, 10, (err, hash) => {
       if (err) {
@@ -86,6 +87,7 @@ const loginUser = (req, res) => {
 
     const dbpassword = result.rows[0].password;
     const userID = result.rows[0].userid;
+    const username = result.rows[0].username
     bcrypt.compare(password, dbpassword, (err, result) => {
       if (err) {
         console.log(`Error  => ${err.message}`);
@@ -98,6 +100,7 @@ const loginUser = (req, res) => {
           userID: userID,
           token: token(email, password),
           email: email,
+          username : username,
           success: true,
         });
       } else {

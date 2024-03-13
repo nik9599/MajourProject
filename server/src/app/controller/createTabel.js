@@ -1,9 +1,9 @@
-const {createOrderItme,createOrderTabel,productDetailTabel} = require("../Query/query.js")
+const {createOrderItme,createOrderTabel,productDetailTabel,createTabel} = require("../Query/query.js")
 const db = require("../../database/database.js")
 const constant = require("../../utils/constant.js")
 
-const createTabel = (req,res)=>{
-    db.pool.query(productDetailTabel,(err,result)=>{
+const createTabelQuery = (req,res)=>{
+    db.pool.query(createOrderItme,(err,result)=>{
         if(err){
             console.log(`error while creating tabel => ${err.message}`);
             return res.status(500).json({msg :constant.TABEL_CREATED_ERROR ,success:false})
@@ -14,4 +14,4 @@ const createTabel = (req,res)=>{
     })
 }
 
-module.exports = createTabel
+module.exports = createTabelQuery

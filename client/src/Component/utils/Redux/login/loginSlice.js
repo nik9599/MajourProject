@@ -1,36 +1,40 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  login: {
-    username: "",
-    token: "",
-    userId: "",
-    isLogedIn: false,
-    isProfileCompleted: false,
-  },
-};
+// Load initial state from local storage if available
+const initialState = localStorage.getItem("reduxState")
+  ? JSON.parse(localStorage.getItem("reduxState"))
+  : {
+      login: {
+        username: "",
+        token: "",
+        userId: "",
+        isLogedIn: false,
+      },
+    };
 
 export const loginSlice = createSlice({
   name: "login",
   initialState,
   reducers: {
     LoginUser: (state, action) => {
-      const { username, token, isLogedIn, isProfileCompleted, userId } =
-        action.payload;
-
-      console.log(`this is dispatch testing ${username} , this is an state ${state.login[0]}`);
+      const { username, token, isLogedIn, userId } = action.payload;
 
       state.login = {
         ...state.login,
         username,
         token,
         isLogedIn,
-        isProfileCompleted,
         userId,
       };
+
+      // Save state to local storage after each update
+      localStorage.setItem("reduxState", JSON.stringify(state));
     },
     logOutUser: (state) => {
       state.login = initialState.login;
+
+      // Clear local storage when user logs out
+      localStorage.removeItem("reduxState");
     },
   },
 });

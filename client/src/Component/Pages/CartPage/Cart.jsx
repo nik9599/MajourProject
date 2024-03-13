@@ -3,9 +3,10 @@ import "./cart.css";
 import cartObservabel from "../../utils/CartObservabel/cartObservabel";
 import CartItem from "../cartItemCard/CartItem";
 import { Link } from "react-router-dom";
-import DropDown from "./DropDown";
+
 import Location from "../Location/Location";
 import { useSelector } from "react-redux";
+import NavBar from "../NavBar/NavBar";
 
 export default function Cart() {
   const [cartitem, setCartItem] = useState([]);
@@ -14,6 +15,8 @@ export default function Cart() {
   const [selected, setSelected] = useState("");
   const [selectedlocation, setSelectedLocation] = useState("");
   const isUserLoggedIn = useSelector((state) => state.login.login.isLogedIn);
+
+  // const isUserLoggedIn = true
 
   //-----------------hook for fetchig all the user cart data----------------------
 
@@ -36,33 +39,8 @@ export default function Cart() {
 
   return (
     <div className="C">
-      <div className="CT">
-        <div className="CT-1">
-          <div className="CT1-1">
-            {" "}
-            <Link to={"/"} style={{ textDecoration: "none", color: "black" }}>
-              Crave Cart{" "}
-            </Link>{" "}
-          </div>
-          <div className="CT1-2">
-            <DropDown selected={selected} setSelected={setSelected} />
-          </div>
-        </div>
-        <div className="CT-2">
-          <div className="CT2-1">
-            <Link to={"/"}>
-              {" "}
-              <button className="CT2-B">Home </button>
-            </Link>{" "}
-          </div>
-          <div className="CT2-2"></div>
-          <div className="CT2-3">
-            {" "}
-            <Link to={"/login"}>
-              <button>Login</button>{" "}
-            </Link>
-          </div>
-        </div>
+      <div className="navbar-container">
+         <NavBar/>
       </div>
       <div className="CB">
         <div className="CB-R">
@@ -145,7 +123,9 @@ export default function Cart() {
             {" "}
             <button>
               {isUserLoggedIn ? (
-                `Pay ${price}`
+                <Link to={'/payment'} style={{ textDecoration: "none", color: "black" }} >
+                Pay {price}
+                </Link>
               ) : (
                 <Link
                   to="/login"

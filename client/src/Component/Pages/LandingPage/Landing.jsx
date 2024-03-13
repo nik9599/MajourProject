@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import MenuCard from "../MenuCard/MenuCard.jsx";
+import {getRequest} from "../../API/API.js"
 import "./Landing.css";
 import category from "../../utils/CommonFunction/category.js";
 import SideMenu from "../SideMenuCard/SideMenu.jsx";
@@ -15,6 +16,18 @@ export default function Landing() {
   const [menu, setMenu] = useState(SampleData);
   const [activeId, setActiveId] = useState([]);
   const name = useSelector((state) => state.login.login.username);
+  const token = useSelector((state)=>state.login.login.token)
+
+  //----------------------fetching data from DB ------------------------------------------
+  
+
+  useEffect(()=>{
+      const fetchingData = async ()=>{
+        const resp = await getRequest(null,"/getAllProduct",token)
+        console.log(resp);
+      }
+      fetchingData();
+  },[])
 
   //--------------------- fetching the size of cart---------------------------------------------
   useEffect(() => {

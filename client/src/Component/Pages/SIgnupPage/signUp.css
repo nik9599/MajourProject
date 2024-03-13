@@ -3,13 +3,14 @@
     flex-direction: column;
     align-items: center;
     height: 100vh;
-    background-color: #fbf6f0;
+    background-color: white;
     font-family: Speedee, sans-serif;
+    
 }
 
 .signUp-form-container{
     box-shadow: 0 5px 8px 3px lightgray;
-    height: 400px;
+    height: 500px;
     background-color: white;
     width: 400px;
     border-radius: 20px;
