@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./login.css";
-import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { LoginUser } from "../../utils/Redux/login/loginSlice";
 import { getRequest } from "../../API/API.js";

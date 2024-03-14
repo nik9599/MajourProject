@@ -5,6 +5,9 @@ const {
   getALLProduct,
   getCategoriesProduct,
   updateProduct,
+  productQuantityIncreaseQuery,
+  productQuantityDecreseQuery,
+  getProductById
 } = require("../Query/query.js");
 
 const insertProduct = (req, res) => {
@@ -119,9 +122,105 @@ const getUpdateProduct = (req, res) => {
   });
 };
 
+
+const increasProductQuantity = (req , res) =>{
+  const {product_id} = req.params;
+  
+  
+  //-------------first check is product availability-----------------------
+ 
+  const value = [product_id]
+
+   db.pool.query(getProductById , value , (err , result)=>{
+    if(err){
+      console.log(`Error while fetching singel Product => ${err.message}`);
+      return res
+        .status(500)
+        .json({ msg: constant.SERVER_ERROR, success: false });
+    }
+
+    //------------------------when product not found----------------------------
+
+    if(result.rows.length ==0 ){
+      return res.status(404).json({msg : constant.PRODUCT_ID_NOT_FOUND , success :false});
+    }
+
+
+     //---------------------checking if product have quantity or not--------------
+ 
+
+     if(result.rows[0].quantity <= 0){
+      return res.status(200).json({msg : constant.PRODUCT_OUT_OF_STOCK , success  :false})
+    }
+
+    //--------------------incresing the product quantity------------------------
+
+    db.pool.query(productQuantityIncreaseQuery,value ,(err , result)=>{
+      if(err){
+        console.log(`Error while incresing singel Product quantity => ${err.message}`);
+        return res
+          .status(500)
+          .json({ msg: constant.SERVER_ERROR, success: false });
+      }
+
+       return res.status(200).json({msg : constant.PRODUCT_INV_INC , success : true})
+
+    })
+
+   })
+
+}
+
+
+const decreseProductQuantity = (req , res) =>{
+  const {product_id} = req.params;
+  
+  //-------------first check is product availability-----------------------
+
+  const value = [product_id]
+
+   db.pool.query(getProductById , value , (err , result)=>{
+    if(err){
+      console.log(`Error while fetching singel Product => ${err.message}`);
+      return res
+        .status(500)
+        .json({ msg: constant.SERVER_ERROR, success: false });
+    }
+
+    //------------------------when product not found----------------------------
+
+    if(result.rows.length ==0 ){
+      return res.status(404).json({msg : constant.PRODUCT_ID_NOT_FOUND , success :false});
+    }
+
+
+   
+
+    //--------------------incresing the product quantity------------------------
+
+    db.pool.query(productQuantityDecreseQuery,value ,(err , result)=>{
+      if(err){
+        console.log(`Error while incresing singel Product quantity => ${err.message}`);
+        return res
+          .status(500)
+          .json({ msg: constant.SERVER_ERROR, success: false });
+      }
+
+       return res.status(200).json({msg : constant.PRODUCT_INV_DEC , success : true})
+
+    })
+
+   })
+
+}
+
+
+
 module.exports = {
   insertProduct,
   getAllProducts,
   getCategoryProduct,
   getUpdateProduct,
+  increasProductQuantity,
+  decreseProductQuantity
 };

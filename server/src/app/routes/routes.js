@@ -3,7 +3,6 @@ const { signUpUser, loginUser } = require("../controller/auth-controller.js");
 const signUpMidelware = require("../middelware/signUpMiddlWare.js");
 const tokenValidator = require("../middelware/tokenValidator.js");
 const upload = require("../../utils/ImageMulter.js")
-
 const {
   orderId,
   addOrderItem,
@@ -15,10 +14,11 @@ const {
   getCategoryProduct,
   insertProduct,
   getUpdateProduct,
+  increasProductQuantity,
+  decreseProductQuantity,
 } = require("../controller/product-controller.js");
 const createTabelQuery = require("../controller/createTabel.js");
 const Routes = express.Router();
-
 
 
 //------Declaring All The Routes-------
@@ -39,6 +39,8 @@ Routes.get("/getAllProduct", getAllProducts);
 Routes.get("/getCategroyProduct/:category", tokenValidator, getCategoryProduct);
 Routes.post("/insertProduct",  insertProduct);
 Routes.put("/updateProduct", tokenValidator, getUpdateProduct);
+Routes.get("/increseQuantity/:product_id" , tokenValidator , increasProductQuantity);
+Routes.get("/decreaseQuantity/:product_id" , tokenValidator , decreseProductQuantity)
 
 
 //------------------routes for uploading image----------------

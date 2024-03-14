@@ -23,20 +23,31 @@ const getAllActiveOrder = " SELECT * FROM Orders WHERE status = 'Active' ";
 const updateTheOrder =
   " UPDATE Orders SET total_amount = $1 , status  = $2 WHERE orderId = $3 ";
 
-
 //----------------------Product related Query------------------------------------------------------------
 
 const InsertProduct =
-" INSERT INTO Products( Product_Name ,  Product_Image , Product_Price , Quantity ,  Category , isVeged , isNonVeged) VALUES( $1 , $2 , $3 , $4 , $5 ,$6 , $7 ) ";
+  " INSERT INTO Products( Product_Name ,  Product_Image , Product_Price , Quantity ,  Category , isVeged , isNonVeged) VALUES( $1 , $2 , $3 , $4 , $5 ,$6 , $7 ) ";
 
-const getALLProduct = 
-" SELECT * from Products ";
+const getALLProduct = " SELECT * from Products ";
 
-const getCategoriesProduct=
-" SELECT * from Products WHERE Category = $1 ";
+const getCategoriesProduct = " SELECT * from Products WHERE Category = $1 ";
 
-const updateProduct=
-" UPDATE Products SET Product_Name = $1 ,  Product_Image = $2 , Product_Price = $3 , Quantity =$4 ,  Category = $5 , isVeged = $6 , isNonVeged = $7  WHERE product_Id = $8  ";
+const getProductById = "SELECT * from Products WHERE product_Id = $1 "
+
+const productQuantityIncreaseQuery = `
+  UPDATE Products
+  SET quantity = quantity - 1
+  WHERE product_Id = $1;
+`;
+
+const productQuantityDecreseQuery = `
+  UPDATE Products
+  SET quantity = quantity + 1
+  WHERE product_Id = $1;
+`;
+
+const updateProduct =
+  " UPDATE Products SET Product_Name = $1 ,  Product_Image = $2 , Product_Price = $3 , Quantity =$4 ,  Category = $5 , isVeged = $6 , isNonVeged = $7  WHERE product_Id = $8  ";
 
 //--------------------- query for creating new tabel in databse  DDL Query -----------------------------------------
 const createTabel =
@@ -67,4 +78,7 @@ module.exports = {
   getALLProduct,
   getCategoriesProduct,
   updateProduct,
+  productQuantityIncreaseQuery,
+  productQuantityDecreseQuery,
+  getProductById
 };

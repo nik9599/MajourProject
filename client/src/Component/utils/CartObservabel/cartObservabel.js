@@ -80,7 +80,7 @@ class CartObservabel {
     const allItem = this.cartItemSubject.getValue();
     let total =0;
       allItem.map((item) =>{
-          total = total+(item.product_qantity*item.product_price)
+          return total = total+(item.product_qantity*item.product_price)
     }) 
     return total;
   }

@@ -14,7 +14,7 @@ export default function CartItem({
     <div className="CI">
       <div className="CI-1">
         {" "}
-        <img src={product_image} />{" "}
+        <img src={product_image} alt="product " />{" "}
       </div>
       <div className="CI-2">
         {" "}

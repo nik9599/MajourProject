@@ -29,8 +29,6 @@ export default function SignUp() {
 
     const res = await postRequest(signUpData, "/signUp");
 
-    console.log(res);
-
     if (res.success) {
       setIsError(false);
       setErrorMessage("");

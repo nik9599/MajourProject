@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 // Load initial state from local storage if available
-const initialState = localStorage.getItem("reduxState")
-  ? JSON.parse(localStorage.getItem("reduxState"))
+const initialState = sessionStorage.getItem("reduxState")
+  ? JSON.parse(sessionStorage.getItem("reduxState"))
   : {
       login: {
         username: "",
@@ -28,13 +28,13 @@ export const loginSlice = createSlice({
       };
 
       // Save state to local storage after each update
-      localStorage.setItem("reduxState", JSON.stringify(state));
+      sessionStorage.setItem("reduxState", JSON.stringify(state));
     },
     logOutUser: (state) => {
       state.login = initialState.login;
 
       // Clear local storage when user logs out
-      localStorage.removeItem("reduxState");
+      sessionStorage.removeItem("reduxState");
     },
   },
 });

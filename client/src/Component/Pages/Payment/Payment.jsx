@@ -9,7 +9,6 @@ export default function Payment() {
   const [paymentDone ,setPaymentDone] = useState(false);
   const [cartItem , setCartItem] = useState([]);
   
-  console.log(cartItem);
 
   useEffect(()=>{
     const getCartItem = ()=>{
@@ -19,7 +18,7 @@ export default function Payment() {
     getCartItem();
     
   },[cartItem])
-   console.log(cartItem);
+   
   const total = cartObservabel.getTheTotal();
 
   const handlePaymentStatus = ()=>{

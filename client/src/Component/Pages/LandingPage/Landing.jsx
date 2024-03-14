@@ -6,9 +6,9 @@ import category from "../../utils/CommonFunction/category.js";
 import SideMenu from "../SideMenuCard/SideMenu.jsx";
 import cartObservabel from "../../utils/CartObservabel/cartObservabel.js";
 import { Link } from "react-router-dom";
-// import SampleData from "../../utils/CommonFunction/sampelData";
 import { useSelector } from "react-redux";
 import ShimmerCard from "../ShimmerCard/MenuShimmer/ShimmerCard.jsx";
+import { getExpireTime } from "../../utils/CommonFunction/gettingSessionExpireTime.js";
 
 export default function Landing() {
   const [cartSize, setCartSize] = useState(0);
@@ -19,7 +19,7 @@ export default function Landing() {
   const [activeId, setActiveId] = useState([]);
   const name = useSelector((state) => state.login.login.username);
   const token = useSelector((state) => state.login.login.token);
-  const itemsArray = Array.from({ length: 10 });
+ 
 
   //----------------------fetching data from DB ------------------------------------------
 
@@ -33,6 +33,7 @@ export default function Landing() {
       }
     };
     fetchingData();
+    getExpireTime();
   }, []);
 
   //--------------------- fetching the size of cart---------------------------------------------
@@ -99,7 +100,7 @@ export default function Landing() {
       const search = e.target.value.toLowerCase(); // Get the search string (case-insensitive)
 
       // Filter SampleData based on product_name containing the search string (case-insensitive)
-      const filteredMenu = menu.filter((item) =>
+      const filteredMenu = sampleData.filter((item) =>
         item.product_name.toLowerCase().includes(search)
       );
 
@@ -112,7 +113,7 @@ export default function Landing() {
 
   const categorySearch = useCallback(
     (search) => {
-      const filteredMenu = menu.filter((item) => item.category === search);
+      const filteredMenu = sampleData.filter((item) => item.category === search);
       setMenu(filteredMenu);
     },
     [setMenu]
@@ -229,6 +230,7 @@ export default function Landing() {
                           product_name={item.product_name}
                           product_image={item.product_image}
                           product_price={item.product_price}
+                          product_qantity={item.quantity}
                           product_id={item.product_id}
                           button_state={activeId.includes(item.product_id)}
                         />

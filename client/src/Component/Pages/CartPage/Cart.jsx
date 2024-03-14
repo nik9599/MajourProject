@@ -8,6 +8,7 @@ import Location from "../Location/Location";
 import { useSelector } from "react-redux";
 import NavBar from "../NavBar/NavBar";
 import { useNavigate } from "react-router-dom";
+import { decreaseQuantityInDatabase } from "../../utils/CommonFunction/productUpdate.js";
 
 export default function Cart() {
   const [cartitem, setCartItem] = useState([]);
@@ -32,9 +33,14 @@ export default function Cart() {
   }, [update]);
 
   //--------------------hook for clearing all the data---------------------------
-  const clearAll = () => {
-    cartObservabel.removeAllItem();
-    window.location.reload();
+  const clearAll = async () => {
+    
+    const resp = await decreaseQuantityInDatabase(cartitem, token);
+    console.log(resp);
+    if (resp) {
+      cartObservabel.removeAllItem();
+      window.location.reload();
+    }
   };
 
   //--------------------placingOrder------------------------------------------------
@@ -45,33 +51,25 @@ export default function Cart() {
       status: "pending",
     };
 
-    console.log(orderIdData);
-
     const getOrderId = await postRequest(orderIdData, "/order", token);
     if (getOrderId.success) {
-
-      const quantity = await cartObservabel.getQuantity(); 
-     const productId =  await cartObservabel.getProductIds() 
-     const price_per_Unit = await  cartObservabel.getPerUnitPrice()
+      const quantity = await cartObservabel.getQuantity();
+      const productId = await cartObservabel.getProductIds();
+      const price_per_Unit = await cartObservabel.getPerUnitPrice();
       const addOrder = {
         order_id: getOrderId.order_Id,
         product_id: productId,
-        quantity: quantity ,
-        price_per_unit:price_per_Unit ,
+        quantity: quantity,
+        price_per_unit: price_per_Unit,
         total_price: cartObservabel.getTheTotal(),
       };
 
-      console.log(addOrder);
-
       const placeOrder = await postRequest(addOrder, "/addingItem", token);
-
-      console.log(placeOrder);
 
       if (placeOrder.success) {
         navigate(`/payment/${getOrderId.order_Id}`);
       }
     }
-    console.log(getOrderId);
   };
 
   const screenWidth = window.screen.width;

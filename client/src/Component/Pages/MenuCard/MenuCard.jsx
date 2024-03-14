@@ -3,6 +3,8 @@ import "./MenuCard.css";
 import vegIcon from "../../Image/veg-icon.png";
 import cartObservable from "../../utils/CartObservabel/cartObservabel.js";
 import Button from "../ButtonPage/Button.jsx";
+import { useSelector } from "react-redux";
+import { getRequest } from "../../API/API.js";
 
 export default function MenuCard({
   product_name,
@@ -11,12 +13,13 @@ export default function MenuCard({
   product_price,
   product_qantity,
   isveged,
-  button_state
+  button_state,
 }) {
   const [changeView, setChangeView] = useState(false);
-   console.log(button_state)
- 
-  const handleAddToCart = (
+  const isuserLogin = useSelector((state) => state.login.login.isLogedIn);
+  const token = useSelector((state) => state.login.login.token);
+
+  const handleAddToCart = async (
     product_name,
     product_image,
     product_id,
@@ -27,10 +30,21 @@ export default function MenuCard({
       product_image: product_image,
       product_id: product_id,
       product_price: product_price,
-      product_qantity :1,
+      product_qantity: 1,
     };
-    
-    cartObservable.addItem(item);
+    const resp = await getRequest(
+      null,
+      `/increseQuantity/${product_id}`,
+      token
+    );
+    if (resp.success) {
+      setChangeView(!changeView);
+      cartObservable.addItem(item);
+    } else {
+      alert("Your session expierd");
+      window.sessionStorage.clear();
+      window.location.reload();
+    }
   };
 
   return (
@@ -40,9 +54,7 @@ export default function MenuCard({
           <div className="MC-I1-1">
             <p>{product_name || "2 Cheesy Italian Chicken + Fries(L)+2Coke"}</p>
           </div>
-          <div className="MC-I1-2">
-            {isveged&&<img src={vegIcon} />}
-          </div>
+          <div className="MC-I1-2">{isveged && <img src={vegIcon} />}</div>
         </div>
         <div className="MC-I2">
           <div className="MC-I2-Image">
@@ -50,7 +62,6 @@ export default function MenuCard({
           </div>
           <div className="MC-I2-Info">
             {" "}
-           
             <p>Price</p>
             <p>
               {" "}
@@ -58,18 +69,24 @@ export default function MenuCard({
               {product_price || 512}
             </p>
             <div className="MC-I2-Info-Button">
-              {changeView||button_state ? (
+              {product_qantity <= 0 ? (
+                <p style={{ marginTop: "40px", color: "red" }}>Out of stock</p>
+              ) : isuserLogin && (changeView || button_state) ? (
                 <Button product_id={product_id} />
               ) : (
                 <button
                   onClick={() => {
-                    handleAddToCart(
-                      product_name,
-                      product_image,
-                      product_id,
-                      product_price
-                    );
-                    setChangeView(!changeView);
+                    if (isuserLogin) {
+                      handleAddToCart(
+                        product_name,
+                        product_image,
+                        product_id,
+                        product_price
+                      );
+                     
+                    } else {
+                      alert("Please log in to add to cart");
+                    }
                   }}
                 >
                   ADD +
