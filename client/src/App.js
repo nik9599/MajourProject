@@ -7,6 +7,7 @@ import  { SkeletonTheme } from 'react-loading-skeleton';
 import SignUp from "./Component/Pages/SIgnupPage/SignUp";
 import Login from "./Component/Pages/LoginPages/Login";
 import Payment from "./Component/Pages/Payment/Payment";
+import Profile from "./Component/Pages/ProfilePage/Profile";
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
           <Route exact path="/signUp" element={<SignUp/>} />
           <Route exact path="/login" element={<Login/>} />
           <Route exact path="/payment/:orderId" element={<Payment/>} />
+          <Route  exact path="/profile" element={<Profile/>} />
         </Routes>
       
       </div>

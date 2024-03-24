@@ -13,14 +13,20 @@ export default function MiddleNavBar() {
   const dispatch = useDispatch();
   const [currentOrderType, setCurrentOrderType] = useState("");
   const isOrder = useSelector((state) => state.state.Orders);
+  const orderDetail = useSelector(state =>state.state.OrderDetail);
+  const [orderList , setOrderList] = useState(true)
+
   useEffect(() => {
     // Dispatch actions based on currentOrderType
     if (currentOrderType === "New") {
       dispatch(NewOrder({ state: true }));
+      setOrderList(false);
     } else if (currentOrderType === "Orders") {
       dispatch(OrderList({ state: true }));
+      setOrderList(true)
     } else if (currentOrderType === "Completed") {
       dispatch(CompletedOrder({ state: true }));
+      setOrderList(false);
     }
   }, [currentOrderType, dispatch]);
 
@@ -58,7 +64,7 @@ export default function MiddleNavBar() {
         </div>
       </div>
       <div className="lower-container">
-        {isOrder.state && <OrderListPage />}
+        {orderList && <OrderListPage />}
       </div>
     </div>
   );

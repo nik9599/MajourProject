@@ -28,7 +28,10 @@
     font-weight: bold;
   }
 
- .card-detail-container{} 
+ .card-detail-container{
+    min-height: 300px;
+    overflow-y: scroll;
+ } 
 
 
 
@@ -36,7 +39,7 @@
 
 
 .order-completed-container{
-    margin-top: 35%;
+    margin-top: 10%;
 }
 
 .order-completed-container button{

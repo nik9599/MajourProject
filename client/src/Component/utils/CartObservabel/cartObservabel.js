@@ -1,11 +1,16 @@
 import { BehaviorSubject } from "rxjs";
+import {decreaseQuantityInDatabase} from "../CommonFunction/productUpdate.js"
+
 
 class CartObservabel {
   constructor() {
+  
     const storedData =
       JSON.parse(window.localStorage.getItem("cartData")) || [];
     this.cartItemSubject = new BehaviorSubject(storedData);
   }
+
+  
 
   addItem(item) {
     const currentItems = this.cartItemSubject.getValue();
@@ -17,6 +22,9 @@ class CartObservabel {
 
     this.cartItemSubject.next(updatedItems);
   }
+
+
+
 
   getAllItems() {
     return this.cartItemSubject.asObservable();

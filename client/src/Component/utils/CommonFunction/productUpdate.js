@@ -25,6 +25,7 @@ export const decreaseQuantityInDatabase = async (cartItems, token) => {
           console.log(
             `Decreased quantity for item ${item.product_id} in the database`
           );
+          window.localStorage.clear()
         } else {
           console.error(
             `Failed to decrease quantity for item ${item.product_id}: ${response.msg}`

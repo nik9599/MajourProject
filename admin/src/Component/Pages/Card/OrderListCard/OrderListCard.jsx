@@ -11,7 +11,7 @@ export default function OrderListCard( {order_id=123 , create_by="sampel" , pric
         <p>{create_by}</p>
       </div>
       <div className='ordercard-orice-container' >
-        <h2><i class="fa-solid fa-indian-rupee-sign"></i> {price}</h2>
+        <h3><i class="fa-solid fa-indian-rupee-sign"></i> {price}</h3>
       </div>
     </div>
   )

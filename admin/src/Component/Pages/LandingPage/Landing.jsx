@@ -4,9 +4,10 @@ import "./Landing.css";
 import category from "../../utils/common/category.js";
 import SideMenu from "../Card/SideMenuCard/SideMenu.jsx";
 import cartObservabel from "../../utils/CartObservabel/cartObservabel.js";
-import SampleData from "../../utils/common/sampelData.js";
 import Cart from "../CartPage/Cart.jsx";
 import ShimmerCard from "../ShimmerCard/MenuShimmer/ShimmerCard.jsx";
+import {getRequest} from "../../API/API.js";
+import {useSelector} from "react-router-dom";
 
 
 export default function Landing() {
@@ -17,20 +18,32 @@ export default function Landing() {
   const [menu, setMenu] = useState([]);
   const [activeId, setActiveId] = useState([]);
   const [callCart, setCallCart] = useState(false);
-
-  const name = " ";
+  const [sampleData, setSampleData] = useState([]);
 
   //------------------------fetching total price-----------------------------------------------
 
   useEffect(() => {
-    setTotal(cartObservabel.getTheTotal());
-  }, [cartSize]);
+    const fetchData = async () => {
+      try {
+        const resp = await getRequest(null, "/getAllProduct");
 
-  //--------------------- fetching the size of cart---------------------------------------------
-  useEffect(() => {
+        if (resp.success) {
+          setSampleData(resp.data);
+          setMenu(resp.data);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    //--------------------- fetching the size of cart---------------------------------------------
+
     const subscription = cartObservabel.getAllItems().subscribe((items) => {
       setCartSize(cartObservabel.getTheSizeOfCartItem());
     });
+
+    fetchData();
+    // getExpireTime();
 
     return () => {
       subscription.unsubscribe();
@@ -54,62 +67,43 @@ export default function Landing() {
 
   //----------------------sorting search---------------------------------------------------------
 
-  const setCategory = useCallback(
-    (str) => {
-      console.log("call");
-      if (str === "veg") {
-        setNonVeg(false);
-        setVeg((prevVeg) => !prevVeg); // Toggle veg state
-      } else {
-        setVeg(false);
-        setNonVeg((prevNonVeg) => !prevNonVeg); // Toggle nonVeg state
-      }
-    },
-    [veg, nonVeg]
-  );
-
   useEffect(() => {
+    if (!sampleData) return;
+    let filteredMenu = sampleData;
+
     if (veg) {
-      const filteredMenu = SampleData.filter(
-        (item) => item.vegetarian === true
-      );
-      setMenu(filteredMenu);
+      filteredMenu = filteredMenu.filter((item) => item.isveged === true);
     } else if (nonVeg) {
-      const filteredMenu = SampleData.filter(
-        (item) => item.nonVegetarian === true
-      );
-      setMenu(filteredMenu);
-    } else {
-      setMenu(SampleData);
+      filteredMenu = filteredMenu.filter((item) => item.isnonveged === true);
     }
-  }, [veg, nonVeg]);
+
+    setMenu(filteredMenu);
+  }, [sampleData, veg, nonVeg]);
 
   //------------------------function for Searching-------------------------------------------------
 
   const handleSearch = useCallback(
     (e) => {
-      const search = e.target.value.toLowerCase(); // Get the search string (case-insensitive)
-
-      // Filter SampleData based on product_name containing the search string (case-insensitive)
-      const filteredMenu = SampleData.filter((item) =>
+      const search = e.target.value.toLowerCase();
+      const filteredMenu = sampleData.filter((item) =>
         item.product_name.toLowerCase().includes(search)
       );
 
-      setMenu(filteredMenu); // Update menu state with filtered results
+      setMenu(filteredMenu);
     },
-    [setMenu]
+    [sampleData, setMenu]
   );
 
   //-----------------------function for search on the base of category------------------------------
 
   const categorySearch = useCallback(
     (search) => {
-      const filteredMenu = SampleData.filter(
-        (item) => item.product_category === search
+      const filteredMenu = sampleData.filter(
+        (item) => item.category === search
       );
       setMenu(filteredMenu);
     },
-    [setMenu]
+    [sampleData, setMenu]
   );
   return (
     <div>
@@ -122,7 +116,7 @@ export default function Landing() {
               <div
                 className="LM1-B1"
                 onClick={() => {
-                  setCategory("veg");
+                  setVeg(!veg);
                 }}
                 tabIndex="0"
               >
@@ -139,7 +133,7 @@ export default function Landing() {
               <div
                 className="LM1-B2"
                 onClick={() => {
-                  setCategory("nonVeg");
+                  setNonVeg(!nonVeg);
                 }}
               >
                 {" "}

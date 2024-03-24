@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
 export default function NavBar() {
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState("Din In");
   const [isCartpage, setCartPage] = useState(false);
   const [isLoginPage, setLoginPage] = useState(false);
 

@@ -32,14 +32,13 @@ export default function MenuCard({
       product_price: product_price,
       product_qantity: 1,
     };
-    const resp = await getRequest(
-      null,
-      `/increseQuantity/${product_id}`,
-      token
+    const resp = await getRequest(undefined,
+      `/increseQuantity/${product_id}`,  token
     );
+    console.log(resp);
     if (resp.success) {
       setChangeView(!changeView);
-      cartObservable.addItem(item);
+      cartObservable.addItem(item ,token);
     } else {
       alert("Your session expierd");
       window.sessionStorage.clear();

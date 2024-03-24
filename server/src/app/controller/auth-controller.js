@@ -1,4 +1,4 @@
-const { InsertUser, isEmailExist, getUser } = require("../Query/query.js");
+const { InsertUser, isEmailExist, getUser ,getUserById } = require("../Query/query.js");
 const db = require("../../database/database.js");
 const bcrypt = require("bcrypt");
 const constant = require("../../utils/constant.js");
@@ -113,7 +113,26 @@ const loginUser = (req, res) => {
   });
 };
 
+const getByUserId = (req , res) =>{
+         const userId = req.params.userId ;
+         const value = [userId]
+         db.pool.query(getUserById , value , (err , result)=>{
+          
+          if (err) {
+            console.log(`Error  => ${err.message}`);
+            return res
+              .status(500)
+              .json({ msg: constant.SERVER_ERROR, success: false });
+          }
+          
+            return res.status(200).json({ data : result.rows , success:true })
+
+         } )
+
+}
+
 module.exports = {
   signUpUser,
   loginUser,
+  getByUserId
 };

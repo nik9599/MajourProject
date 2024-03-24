@@ -1,35 +1,54 @@
 import "./button.css";
 import cartObservabel from "../../../utils/CartObservabel/cartObservabel";
-
+import {useSelector} from "react-redux"
 import React, { useEffect, useState } from "react";
+import {getRequest} from "../../../API/API.js"
 
 export default function Button({ product_id, setUpdate =()=>{} }) {
   // setting the localstate
   const [quantity, setQuantity] = useState(0);
   const [toggel, setToggel] = useState(false);
+  const token = useSelector((state) => state.login.login.token);
 
-  // fetching the quantity of product
+
+  //----------------------------fetching the quantity of product-----------------
   useEffect(() => {
     setQuantity(cartObservabel.getProductQuantityById(product_id));
   }, [product_id, toggel]);
 
-  // function for increasing the quantity of product
+  //-----------------------function for increasing the quantity of product---------------------
 
-  const increseQuantity = () => {
-    cartObservabel.updateTheQunatity(product_id);
-    setUpdate((prevUpdate) => !prevUpdate);
-    setToggel(!toggel);
+  const increseQuantity = async () => {
+    const resp = await getRequest(
+      null,
+      `/increseQuantityOffline/${product_id}`,
+      token
+    );
+    if (resp.success) {
+      cartObservabel.updateTheQunatity(product_id);
+      setUpdate((prevUpdate) => !prevUpdate);
+      setToggel(!toggel);
+    }else{
+      alert("iten is out stock")
+    }
   };
 
-  // function for decresing the quantity of product 
+  //-----------------------------function for decresing the quantity of product------------------------
 
-  const decreaseProperty = () => {
-    cartObservabel.removeQuantity(product_id);
-    setUpdate((prevUpdate) => !prevUpdate);
-    if (quantity === 0) {
-      window.location.reload();
+  const decreaseProperty = async () => {
+    const resp = await getRequest(
+      null,
+      `/decreaseQuantityOffline/${product_id}`,
+      token
+    );
+    if (resp.success) {
+      cartObservabel.removeQuantity(product_id);
+      setUpdate((prevUpdate) => !prevUpdate);
+      if (quantity <= 1) {
+        window.location.reload();
+      }
+      setToggel(!toggel);
     }
-    setToggel(!toggel);
   };
 
   return (

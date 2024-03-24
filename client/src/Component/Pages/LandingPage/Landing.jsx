@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ShimmerCard from "../ShimmerCard/MenuShimmer/ShimmerCard.jsx";
 import { getExpireTime } from "../../utils/CommonFunction/gettingSessionExpireTime.js";
+import { decreaseQuantityInDatabase } from "../../utils/CommonFunction/productUpdate.js";
 
 export default function Landing() {
   const [cartSize, setCartSize] = useState(0);
@@ -17,35 +18,68 @@ export default function Landing() {
   const [menu, setMenu] = useState([]);
   const [sampleData, setSampleData] = useState([]);
   const [activeId, setActiveId] = useState([]);
+  const [remainingTime, setRemainingTime] = useState(0);
   const name = useSelector((state) => state.login.login.username);
   const token = useSelector((state) => state.login.login.token);
- 
 
   //----------------------fetching data from DB ------------------------------------------
 
   useEffect(() => {
-    const fetchingData = async () => {
-      const resp = await getRequest(null, "/getAllProduct", token);
-      if (resp.success) {
-        console.log(resp.data);
-        setSampleData(resp.data);
-        setMenu(resp.data);
+    const fetchData = async () => {
+      try {
+        const resp = await getRequest(null, "/getAllProduct");
+
+        if (resp.success) {
+          setSampleData(resp.data);
+          setMenu(resp.data);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
       }
     };
-    fetchingData();
-    getExpireTime();
-  }, []);
 
-  //--------------------- fetching the size of cart---------------------------------------------
-  useEffect(() => {
+    //--------------------- fetching the size of cart---------------------------------------------
+
     const subscription = cartObservabel.getAllItems().subscribe((items) => {
       setCartSize(cartObservabel.getTheSizeOfCartItem());
     });
+
+    fetchData();
+    getExpireTime();
 
     return () => {
       subscription.unsubscribe();
     };
   }, []);
+
+//------------------------------Timer funcation for cleaning cart in given set of time--------------------
+  useEffect(() => {
+    if (cartSize > 0) {
+      // Calculate the remaining time or use the stored remaining time
+      let timeLeft = remainingTime > 0 ? remainingTime : 10 * 60 * 1000; // 1 minute in milliseconds
+  
+      // Convert milliseconds to minutes and seconds
+      const minutes = Math.floor(timeLeft / (1000 * 60));
+      const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+  
+      console.log(`Remaining time: ${minutes} minutes ${seconds} seconds`);
+  
+      const timerId = setTimeout(async () => {
+        // Your action when the timer expires
+        console.log('Timer expired');
+        await decreaseQuantityInDatabase(cartObservabel.getData(), token);
+        // Reset the cart or perform any other action
+        window.location.reload(); // Example of resetting the cart by reloading the page
+  
+        // Reset the remaining time
+        setRemainingTime(0);
+      }, timeLeft);
+  
+      // Update the remaining time when the component unmounts or when cartSize changes
+      return () => clearTimeout(timerId);
+    }
+  }, [cartSize, remainingTime]);
+  
 
   //------------------------fetching all the active Id----------------------------------------------
 
@@ -64,59 +98,43 @@ export default function Landing() {
 
   //----------------------sorting search---------------------------------------------------------
 
-  const setCategory = useCallback(
-    (str) => {
-      console.log("call");
-      if (str === "veg") {
-        console.log("call");
-        setNonVeg(false);
-        setVeg((prevVeg) => !prevVeg); // Toggle veg state
-      } else {
-        setVeg(false);
-        setNonVeg((prevNonVeg) => !prevNonVeg); // Toggle nonVeg state
-      }
-    },
-    [veg, nonVeg]
-  );
-
   useEffect(() => {
+    if (!sampleData) return;
+    let filteredMenu = sampleData;
+
     if (veg) {
-      const filteredMenu = sampleData.filter((item) => item.isveged === true);
-      setMenu(filteredMenu);
+      filteredMenu = filteredMenu.filter((item) => item.isveged === true);
     } else if (nonVeg) {
-      const filteredMenu = sampleData.filter(
-        (item) => item.isnonveged === true
-      );
-      setMenu(filteredMenu);
-    } else {
-      setMenu(sampleData);
+      filteredMenu = filteredMenu.filter((item) => item.isnonveged === true);
     }
-  }, [veg, nonVeg]);
+
+    setMenu(filteredMenu);
+  }, [sampleData, veg, nonVeg]);
 
   //------------------------function for Searching-------------------------------------------------
 
   const handleSearch = useCallback(
     (e) => {
-      const search = e.target.value.toLowerCase(); // Get the search string (case-insensitive)
-
-      // Filter SampleData based on product_name containing the search string (case-insensitive)
+      const search = e.target.value.toLowerCase();
       const filteredMenu = sampleData.filter((item) =>
         item.product_name.toLowerCase().includes(search)
       );
 
-      setMenu(filteredMenu); // Update menu state with filtered results
+      setMenu(filteredMenu);
     },
-    [setMenu]
+    [sampleData, setMenu]
   );
 
   //-----------------------function for search on the base of category------------------------------
 
   const categorySearch = useCallback(
     (search) => {
-      const filteredMenu = sampleData.filter((item) => item.category === search);
+      const filteredMenu = sampleData.filter(
+        (item) => item.category === search
+      );
       setMenu(filteredMenu);
     },
-    [setMenu]
+    [sampleData, setMenu]
   );
 
   return (
@@ -128,7 +146,10 @@ export default function Landing() {
           </div>
 
           <div className="User-Div">
-            <Link to="/login" style={{ textDecoration: "none" }}>
+            <Link
+              to={name ? "/profile" : "/login"}
+              style={{ textDecoration: "none" }}
+            >
               <button className="User-Button">
                 <i className="fa-regular fa-user"></i>
                 <p>{name || "Login"}</p>
@@ -140,7 +161,7 @@ export default function Landing() {
           <div
             className="LM1-B1"
             onClick={() => {
-              setCategory("veg");
+              setVeg(!veg);
             }}
           >
             <p>
@@ -156,7 +177,7 @@ export default function Landing() {
           <div
             className="LM1-B2"
             onClick={() => {
-              setCategory("nonVeg");
+              setNonVeg(!nonVeg);
             }}
           >
             {" "}

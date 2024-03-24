@@ -1,0 +1,8 @@
+.OrderList-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+  flex-direction: column;
+  overflow-y: scroll; /* Enable vertical scrolling */
+}

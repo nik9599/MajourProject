@@ -5,8 +5,14 @@ import  { SkeletonTheme } from 'react-loading-skeleton';
 import InsertData from "./Component/Pages/InsertData/InsertData";
 import Login from "./Component/Pages/LoginPages/Login.jsx"
 import SignUp from "./Component/Pages/SIgnupPage/SignUp.jsx"
+// import { useSelector} from "react-redux"
+// import { useEffect } from "react";
+// import {useNavigate} from "react-router-dom"
+
+
 
 function App() {
+
   
   return (
     <BrowserRouter>

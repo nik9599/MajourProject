@@ -20,5 +20,6 @@ module.exports={
     PRODUCT_ID_NOT_FOUND  :"Product not fount",
     PRODUCT_OUT_OF_STOCK : "Product out of order",
     PRODUCT_INV_INC : "Product Inventory Increse By 1",
-    PRODUCT_INV_DEC : "Product Inventory Decrese By 1"
+    PRODUCT_INV_DEC : "Product Inventory Decrese By 1",
+    
 }

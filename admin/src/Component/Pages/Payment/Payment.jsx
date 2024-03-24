@@ -2,23 +2,36 @@ import React, { useState } from "react";
 import "./payment.css";
 import PaymentCard from "../Card/PaymentCard/PaymentCard";
 import DropDown from "../Card/DropDown/DropDown";
+import {putRequest} from "../../API/API.js"
+import { useSelector } from "react-redux";
 
-
-export default function Payment({cartItem , total}) {
+export default function Payment({cartItem , total , oderId}) {
   // const [total, setTotal] = useState(250);
   const [paymentMode, setPaymentMode] = useState("");
   const [paymentDone ,setPaymentDone] = useState(false)
+  const token = useSelector((state) => state.login.login.token);
    
+  const handlePaymentStatus = async () => {
+    const paymentData = {
+      total_amount: total,
+      status: "Approved",
+      orderId: oderId,
+    };
 
-  const handlePaymentStatus = ()=>{
-    if (!paymentDone) {
+    const resp = await putRequest(paymentData, "/updateOrderOffline", token);
+
+    console.log(resp);
+
+    if (resp.success) {
       setPaymentDone(!paymentDone);
+      window.localStorage.clear();
+      navigator("/cart");
     }
-  }
+  };
 
   return (
     <div className="pay-container">
-      <h3  > Order ID #123 </h3>
+      <h3  > Order ID #{oderId} </h3>
       <div className="header-container">
         <div className="name-div">
           {" "}

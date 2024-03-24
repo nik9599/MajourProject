@@ -34,7 +34,6 @@ export default function Cart() {
 
   //--------------------hook for clearing all the data---------------------------
   const clearAll = async () => {
-    
     const resp = await decreaseQuantityInDatabase(cartitem, token);
     console.log(resp);
     if (resp) {
@@ -44,30 +43,34 @@ export default function Cart() {
   };
 
   //--------------------placingOrder------------------------------------------------
-  const placeOrder = async (e) => {
-    const orderIdData = {
-      customer_id: userId,
-      total_amount: price,
-      status: "pending",
-    };
-
-    const getOrderId = await postRequest(orderIdData, "/order", token);
-    if (getOrderId.success) {
-      const quantity = await cartObservabel.getQuantity();
-      const productId = await cartObservabel.getProductIds();
-      const price_per_Unit = await cartObservabel.getPerUnitPrice();
-      const addOrder = {
-        order_id: getOrderId.order_Id,
-        product_id: productId,
-        quantity: quantity,
-        price_per_unit: price_per_Unit,
-        total_price: cartObservabel.getTheTotal(),
+  const placeorder = async (e) => {
+    if (price == 0) {
+      alert("your cart is empty")
+    } else {
+      const orderIdData = {
+        customer_id: userId,
+        total_amount: price,
+        status: "pending",
       };
 
-      const placeOrder = await postRequest(addOrder, "/addingItem", token);
+      const getOrderId = await postRequest(orderIdData, "/order", token);
+      if (getOrderId.success) {
+        const quantity = await cartObservabel.getQuantity();
+        const productId = await cartObservabel.getProductIds();
+        const price_per_Unit = await cartObservabel.getPerUnitPrice();
+        const addOrder = {
+          order_id: getOrderId.order_Id,
+          product_id: productId,
+          quantity: quantity,
+          price_per_unit: price_per_Unit,
+          total_price: cartObservabel.getTheTotal(),
+        };
 
-      if (placeOrder.success) {
-        navigate(`/payment/${getOrderId.order_Id}`);
+        const placeOrder = await postRequest(addOrder, "/addingItem", token);
+
+        if (placeOrder.success) {
+          navigate(`/payment/${getOrderId.order_Id}`);
+        }
       }
     }
   };
@@ -158,10 +161,10 @@ export default function Cart() {
         <div className="CF-2">
           <div className="CF-3">
             {" "}
-            <button onClick={isUserLoggedIn ? placeOrder : undefined}>
-              {isUserLoggedIn ? (
+            <button onClick={isUserLoggedIn ? placeorder : undefined}>
+              {isUserLoggedIn && price >0 ? (
                 <Link
-                  to={"/payment"}
+                
                   style={{ textDecoration: "none", color: "black" }}
                 >
                   Pay {price}

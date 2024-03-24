@@ -1,4 +1,4 @@
-const {createOrderItme,createOrderTabel,productDetailTabel,createTabel} = require("../Query/query.js")
+const {createOrderItme,createOrderTabel,productDetailTabel,createTabel , invenTory} = require("../Query/query.js")
 const db = require("../../database/database.js")
 const constant = require("../../utils/constant.js")
 

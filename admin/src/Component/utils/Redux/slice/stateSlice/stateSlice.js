@@ -9,6 +9,11 @@ const initialState={
     },
     Completed :{
         state:false
+    },
+    OrderDetail :{
+        state:false,
+        orderid :"",
+        customerId : ""
     }
 }
 
@@ -20,21 +25,33 @@ export const stateSlice = createSlice({
             state.New.state = action.payload.state;
             state.Orders.state = false;
             state.Completed.state = false;
+            state.OrderDetail.state = false ;
         },
         OrderList: (state, action) => {
             state.New.state = false;
             state.Orders.state = true;
             state.Completed.state = false;
+            state.OrderDetail.state = false ;
         },
         CompletedOrder: (state, action) => {
             state.New.state = false;
             state.Orders.state = false;
             state.Completed.state = true;
+            state.OrderDetail.state = false ;
         },
+        OrdeerDetail :(state , action) =>{
+            state.New.state = false;
+            state.Orders.state = false;
+            state.Completed.state = false;
+            state.OrderDetail.state = true ;
+            const {orderid  , customerId} = action.payload
+            state.OrderDetail.orderid = orderid;
+            state.OrderDetail.customerId = customerId;
+        }
     }
 })
 
 
-export const {NewOrder, OrderList,CompletedOrder} = stateSlice.actions;
+export const {NewOrder, OrderList,CompletedOrder,OrdeerDetail} = stateSlice.actions;
 
 export default stateSlice.reducer;

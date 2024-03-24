@@ -3,36 +3,55 @@ import "./payment.css";
 import PaymentCard from "../PaymentCard/PaymentCard.jsx";
 import cartObservabel from "../../utils/CartObservabel/cartObservabel.js";
 import NavBar from "../NavBar/NavBar.jsx";
+import { putRequest } from "../../API/API.js";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function Payment() {
-  const [paymentMode, setPaymentMode] = useState("");
-  const [paymentDone ,setPaymentDone] = useState(false);
-  const [cartItem , setCartItem] = useState([]);
-  
-
-  useEffect(()=>{
-    const getCartItem = ()=>{
-     setCartItem(cartObservabel.getData())
-    }
-
-    getCartItem();
-    
-  },[cartItem])
-   
+  // const [paymentMode, setPaymentMode] = useState("");
+  const [paymentDone, setPaymentDone] = useState(false);
+  const [cartItem, setCartItem] = useState([]);
+  const token = useSelector((state) => state.login.login.token);
+  const orderId = window.location.pathname.split("/").pop();
+  const navigator = useNavigate();
   const total = cartObservabel.getTheTotal();
 
-  const handlePaymentStatus = ()=>{
-    if (!paymentDone) {
+
+  //----------------------------------useEffect hook for getting cart item--------------------
+
+  useEffect(() => {
+    const getCartItem = () => {
+      setCartItem(cartObservabel.getData());
+    };
+    getCartItem();
+  }, [cartItem]);  
+
+  //---------------------------------handel payment status----------------------------------
+
+  const handlePaymentStatus = async () => {
+    const paymentData = {
+      total_amount: total,
+      status: "Approved",
+      orderId: orderId,
+    };
+
+    const resp = await putRequest(paymentData, "/updateOrder", token);
+
+    console.log(resp);
+
+    if (resp.success) {
       setPaymentDone(!paymentDone);
+      window.localStorage.clear();
+      navigator("/cart");
     }
-  }
+  };
 
   return (
     <div className="pay-container">
-      <div className="Navbar-container" >
-        <NavBar/>
+      <div className="Navbar-container">
+        <NavBar />
       </div>
-      <h3  > Order ID #123 </h3>
+      <h3> Order ID #{orderId} </h3>
       <div className="header-container">
         <div className="name-div">
           {" "}
@@ -52,41 +71,44 @@ export default function Payment() {
         </div>
       </div>
       <div className="card-div">
-        {cartItem.map((items)=>(
-            <PaymentCard  product_name = {items.product_name}
-            product_quantity = {items.product_qantity}
-            product_price = {items.product_price}/>
+        {cartItem.map((items) => (
+          <PaymentCard
+            product_name={items.product_name}
+            product_quantity={items.product_qantity}
+            product_price={items.product_price}
+          />
         ))}
-        
       </div>
-      <div
-          style={{ marginLeft: "60%", fontWeight: "bold", marginTop: "10px" }}
+      <div style={{ marginLeft: "60%", fontWeight: "bold", marginTop: "10px" }}>
+        {" "}
+        <p> Grand Total : {total}</p>{" "}
+      </div>
+      {/* {paymentMode && (
+        <div
+          style={{ marginLeft: "63%", fontWeight: "bold", marginTop: "10px" }}
         >
           {" "}
-          <p> Grand Total : {total}</p>{" "}
+          <p> Payment Mode : {paymentMode}</p>{" "}
         </div>
-        {paymentMode && (
-          <div
-            style={{ marginLeft: "63%", fontWeight: "bold", marginTop: "10px" }}
-          >
-            {" "}
-            <p> Payment Mode : {paymentMode}</p>{" "}
-          </div>
-        )}
-         {paymentDone && (
-          <div
-            style={{ marginLeft: "64%", fontWeight: "bold", marginTop: "10px" }}
-          >
-            {" "}
-            <p> Payment Completed</p>{" "}
-          </div>
-        )}
+      )} */}
+      {paymentDone && (
+        <div
+          style={{ marginLeft: "64%", fontWeight: "bold", marginTop: "10px" }}
+        >
+          {" "}
+          <p> Payment Completed</p>{" "}
+        </div>
+      )}
       <div className="footer-container">
-        
-        <div className={`p-div-container ${paymentDone ? 'p-div-container-done':''} `}tabIndex="0" onClick={handlePaymentStatus} >
+        <div
+          className={`p-div-container ${
+            paymentDone ? "p-div-container-done" : ""
+          } `}
+          tabIndex="0"
+          onClick={handlePaymentStatus}
+        >
           <p>Payment</p>
         </div>
-       
       </div>
     </div>
   );
