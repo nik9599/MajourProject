@@ -8,6 +8,7 @@ import {
 } from "../../utils/Redux/slice/stateSlice/stateSlice";
 import { useState } from "react";
 import OrderListPage from "../OrderList/OrderList.jsx";
+import CompletedOrderList from "../CompletedOrderList/CompletedOrderList.jsx"
 
 export default function MiddleNavBar() {
   const dispatch = useDispatch();
@@ -15,18 +16,22 @@ export default function MiddleNavBar() {
   const isOrder = useSelector((state) => state.state.Orders);
   const orderDetail = useSelector(state =>state.state.OrderDetail);
   const [orderList , setOrderList] = useState(true)
+  const [completedOrderList , setCompletedOrderList] = useState(false)
 
   useEffect(() => {
     // Dispatch actions based on currentOrderType
     if (currentOrderType === "New") {
       dispatch(NewOrder({ state: true }));
       setOrderList(false);
+      setCompletedOrderList(false);
     } else if (currentOrderType === "Orders") {
       dispatch(OrderList({ state: true }));
-      setOrderList(true)
+      setOrderList(true);
+      setCompletedOrderList(false);
     } else if (currentOrderType === "Completed") {
       dispatch(CompletedOrder({ state: true }));
       setOrderList(false);
+      setCompletedOrderList(true);
     }
   }, [currentOrderType, dispatch]);
 
@@ -65,6 +70,7 @@ export default function MiddleNavBar() {
       </div>
       <div className="lower-container">
         {orderList && <OrderListPage />}
+        {completedOrderList && < CompletedOrderList/>}
       </div>
     </div>
   );

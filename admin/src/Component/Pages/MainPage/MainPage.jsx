@@ -4,6 +4,7 @@ import Landing from '../LandingPage/Landing';
 import { useSelector } from 'react-redux';
 import OrderDetail from '../OrderDetail/OrderDetail';
 import Completed from "../OrderCompleted/Completed.jsx"
+import CompletedOrderDetail from '../CompletedOrderDetail/CompletedOrderDetail.jsx';
 
 export default function MainPage() {
   const [landing, setLanding] = useState(false);
@@ -26,7 +27,8 @@ export default function MainPage() {
       {landing && <Landing/>}
        {Order.state && <OrderDetail/>}
        {orderDetail.state && <OrderDetail order_id ={orderDetail.orderid} customer_id ={orderDetail.customerId} />}
-       {OrderCompleted.state && <Completed/>}
+       {OrderCompleted.state && <CompletedOrderDetail/>}
+       {orderDetail.state && <CompletedOrderDetail  />}
     </div>
   );
 }

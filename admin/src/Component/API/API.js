@@ -20,6 +20,9 @@ export const getRequest = async (param = null, url, token = null) => {
 
 // Function for making POST requests
 export const postRequest = async (data, url, token = null) => {
+
+  console.log(data);
+
   try {
     const config = token ? { headers: { authorization: `Bearer ${token}` } } : {};
     const response = await axios.post(`${baseUrl}${url}`, data, config);

@@ -8,7 +8,9 @@ const initialState={
         state:true
     },
     Completed :{
-        state:false
+        state:false,
+        orderid :"",
+        customerId : ""
     },
     OrderDetail :{
         state:false,
@@ -35,9 +37,12 @@ export const stateSlice = createSlice({
         },
         CompletedOrder: (state, action) => {
             state.New.state = false;
-            state.Orders.state = false;
-            state.Completed.state = true;
+            state.Orders.state = false;           
             state.OrderDetail.state = false ;
+            state.Completed.state = true;
+            const {orderid  , customerId} = action.payload
+            state.Completed.orderid = orderid;
+            state.Completed.customerId = customerId;
         },
         OrdeerDetail :(state , action) =>{
             state.New.state = false;

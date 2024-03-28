@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import "./orderdetail.css";
-import PaymentCard from "../Card/PaymentCard/PaymentCard";
-import { postRequest, getRequest, putRequest } from "./../../API/API.js";
+import "./completedOrderdetail.css";
+import PaymentCard from "../Card/PaymentCard/PaymentCard.jsx";
+import { postRequest, getRequest, putRequest } from "../../API/API.js";
 import { useSelector } from "react-redux";
 
-export default function OrderDetail({ order_id = "0", customer_id = "0" }) {
+export default function CompletedOrderDetail({ order_id = "0", customer_id = "0" }) {
   const token = useSelector((state) => state.login.login.token);
   const orderId = useSelector((state) => state.state.OrderDetail.orderid);
   const customerId = useSelector((state) => state.state.OrderDetail.customerId)
-  const orderDetail = useSelector(state =>state.state.OrderDetail);
   const [orderData, setOrderData] = useState([]);
   const [userDetail, setUserDetail] = useState({
     username: "",
@@ -16,12 +15,10 @@ export default function OrderDetail({ order_id = "0", customer_id = "0" }) {
   });
 
   useEffect(() => {
-
     const fetchIngData = async () => {
       //-------------------fetching the data of order----------------------------------
-      const data = { orderId };
+      const data = { orderId};
       const resp = await postRequest(data, "/getTheOrderById", token);
-      console.log(resp);
       if (resp.success) {
         setOrderData(resp.data);
       }
@@ -31,7 +28,6 @@ export default function OrderDetail({ order_id = "0", customer_id = "0" }) {
 
     const getUserById = async () => {
       const resp = await getRequest(null, `/getUserById/${customerId}`, token);
-       console.log(resp);
       if (resp.success) {
         setUserDetail({
           username: resp.data[0].username,
@@ -39,29 +35,24 @@ export default function OrderDetail({ order_id = "0", customer_id = "0" }) {
         });
       }
     };
-    
-
-      fetchIngData();
-      getUserById();
-
-      console.log(orderData.length);
-
-  }, [orderId]);
+    fetchIngData();
+    getUserById();
+  }, []);
 
   //----------------------------function for change the status of order-----------------------
 
   const orderCompleted = async () => {
-    console.log(orderData);
-    const data = {
-      total_amount: orderData.total_order_price,
-      status: "Completed",
-      orderId: order_id,
-    };
+    // console.log(orderData);
+    // const data = {
+    //   total_amount: orderData.total_order_price,
+    //   status: "Completed",
+    //   orderId: order_id,
+    // };
 
-    const resp = await putRequest(data, "/updateOrder", token);
-    if (resp.success) {
-      window.location.reload();
-    }
+    // const resp = await putRequest(data, "/updateOrder", token);
+    // if (resp.success) {
+    //   window.location.reload();
+    // }
   };
 
   return (
@@ -70,7 +61,7 @@ export default function OrderDetail({ order_id = "0", customer_id = "0" }) {
         <div className="orderId-container">
           <div>
             {" "}
-            <h2>Order ID#{order_id}</h2>{" "}
+            <h2>Order ID#{orderId}</h2>{" "}
           </div>
           <div>
             {" "}

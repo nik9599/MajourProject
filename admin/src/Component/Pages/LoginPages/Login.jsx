@@ -32,6 +32,8 @@ export default function Login() {
       `/${loginData.password || "null"}`;
     const resp = await getRequest(null, url);
 
+    console.log(resp);
+
     if (resp.success) {
       setIsError(false);
       dispatch(
@@ -39,7 +41,7 @@ export default function Login() {
           username: resp.username,
           token: resp.token,
           isLogedIn: true,
-          userId: resp.userId,
+          userId: resp.userID,
         })
       );
       navigate("/admin");

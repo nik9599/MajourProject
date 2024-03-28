@@ -44,6 +44,8 @@ const orderId = (req, res) => {
 const addOrderItem = async (req, res) => {
   const order = req.body;
 
+  console.log(order);
+
   const values = order.product_id.map((productId, index) => [
     order.order_id,
     productId,
@@ -106,9 +108,17 @@ const getCompletedOrder = (req, res) => {
 //-----------------------------function for fetching all the orderItem of orderId-----------------------------
 
 const getAllOrderById = (req, res) => {
-  const orderId = req.body.order_id;
+  const orderId = req.body.orderId;
+
+ 
 
   const value = [orderId];
+
+  if (orderId == undefined) {
+    return res
+    .status(500)
+    .json({ msg: constants.SERVER_ERROR, success: false });
+  }
 
   db.pool.query(getAllOrderByOrderId, value, (err, reuslt) => {
     if (err) {
@@ -118,6 +128,8 @@ const getAllOrderById = (req, res) => {
         .status(500)
         .json({ msg: constants.SERVER_ERROR, success: false });
     }
+
+    console.log(reuslt.rows);
 
     return res.status(200).json({ data: reuslt.rows, success: true });
   });
@@ -188,8 +200,8 @@ const updateOrder = (req, res) => {
 //------------------------------funcation for placing an order in offline mode-----------------------------------------
 
 const updateOrderOffline = (req, res) => {
-  const { total_amount, status, orderId } = req.body;
-  const value = [total_amount, status, orderId];
+  const { total_amount, status, payment_mode ,orderId } = req.body;
+  const value = [total_amount, status, payment_mode ,orderId];
 
   db.pool.query(updateTheOrder, value, (err, result) => {
     if (err) {

@@ -6,13 +6,11 @@ import SideMenu from "../Card/SideMenuCard/SideMenu.jsx";
 import cartObservabel from "../../utils/CartObservabel/cartObservabel.js";
 import Cart from "../CartPage/Cart.jsx";
 import ShimmerCard from "../ShimmerCard/MenuShimmer/ShimmerCard.jsx";
-import {getRequest} from "../../API/API.js";
-import {useSelector} from "react-router-dom";
-
+import { getRequest } from "../../API/API.js";
+import { useSelector } from "react-router-dom";
 
 export default function Landing() {
   const [cartSize, setCartSize] = useState(0);
-  const [total, setTotal] = useState();
   const [veg, setVeg] = useState(false);
   const [nonVeg, setNonVeg] = useState(false);
   const [menu, setMenu] = useState([]);
@@ -43,7 +41,6 @@ export default function Landing() {
     });
 
     fetchData();
-    // getExpireTime();
 
     return () => {
       subscription.unsubscribe();
@@ -188,7 +185,6 @@ export default function Landing() {
                     ? // Render loading state if the menu array is empty
                       Array.from({ length: 10 }).map((_, index) => (
                         <ShimmerCard key={index} />
-                        
                       ))
                     : // Render menu items if the menu array is not empty
                       menu.map((item) => (
@@ -199,6 +195,7 @@ export default function Landing() {
                             product_price={item.product_price}
                             product_id={item.product_id}
                             button_state={activeId.includes(item.product_id)}
+                            
                           />
                         </div>
                       ))}
@@ -211,9 +208,8 @@ export default function Landing() {
                     setCallCart(!callCart);
                   }}
                 >
-                  <p>Your Total</p>
-                  <p>=</p>
-                  <p> {total}</p>
+                  <p>Cart</p>
+               
                 </div>
               )}
             </div>

@@ -1,5 +1,6 @@
 import { BehaviorSubject } from "rxjs";
 
+
 class CartObservabel {
   constructor() {
     const storedData =
@@ -76,28 +77,43 @@ class CartObservabel {
     }
   }
 
-  getTheTotal(){
+  getTheTotal() {
     const allItem = this.cartItemSubject.getValue();
-    let total =0;
-      allItem.map((item) =>{
-          total = total+(item.product_qantity*item.product_price)
-    }) 
+    let total = 0;
+    allItem.map((item) => {
+      return (total = total + item.product_qantity * item.product_price);
+    });
     return total;
   }
 
-  removeAllItem(){
+  removeAllItem() {
     window.localStorage.clear();
     this.cartItemSubject.next([]);
   }
 
   async getProductId() {
     const productId = this.cartItemSubject.getValue();
-    const id = productId.map(i => i.product_id);
+    const id = productId.map((i) => i.product_id);
     return await Promise.all(id);
-}
+  }
 
-  
+  async getProductIds() {
+    const currentItems = this.cartItemSubject.getValue();
+    const productIds = await currentItems.map((item) => item.product_id);
+    return await productIds;
+  }
 
+  async getQuantity() {
+    const currentItems = this.cartItemSubject.getValue();
+    const quantity = await currentItems.map((item) => item.product_qantity);
+    return await quantity;
+  }
+
+  async getPerUnitPrice() {
+    const currentItems = this.cartItemSubject.getValue();
+    const perUnitPrice = await currentItems.map((item) => item.product_price);
+    return await perUnitPrice;
+  }
 }
 
 export default new CartObservabel();

@@ -25,7 +25,7 @@ const getAllActiveOrder = " SELECT * FROM Orders WHERE status = 'Approved' ";
 const getAllCompletedOrder = " SELECT * FROM Orders WHERE status = 'Completed' ";
 
 const updateTheOrder =
-  " UPDATE Orders SET total_amount = $1 , status  = $2 WHERE orderId = $3 ";
+  " UPDATE Orders SET total_amount = $1 , status  = $2 , payment_mode = $3  WHERE orderId = $4 ";
  
 const getAllOrderByOrderId = `
 SELECT OrderItem.*, Products.product_name

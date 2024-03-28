@@ -3,8 +3,8 @@ import "./paymentCard.css";
 
 export default function PaymentCard({
   product_name = "Noodles",
-  product_quantity = 10,
-  product_price = 110,
+  product_quantity = 0,
+  product_price = 0,
 }) {
   const total = product_price * product_quantity;
   return (

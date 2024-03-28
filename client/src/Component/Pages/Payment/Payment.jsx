@@ -33,6 +33,7 @@ export default function Payment() {
       total_amount: total,
       status: "Approved",
       orderId: orderId,
+      payment_mode : "Online"
     };
 
     const resp = await putRequest(paymentData, "/updateOrder", token);

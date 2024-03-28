@@ -4,18 +4,19 @@ import cartObservabel from "../../utils/CartObservabel/cartObservabel";
 import CartItem from "../Card/cartItemCard/CartItem";
 import { Link } from "react-router-dom";
 import Payment from "../Payment/Payment";
-import {postRequest} from "../../API/API.js"
+import { postRequest } from "../../API/API.js";
 
 import { useSelector } from "react-redux";
 
 export default function Cart() {
   const [cartitem, setCartItem] = useState([]);
   const [price, setPrice] = useState(0);
+  const [oderId , setOderId]  = useState() 
   const [update, setUpdate] = useState(false);
   const [payment, setPayment] = useState(false);
-  const token = useSelector((state)=> state.login.login.toekn);
-  const userId = useSelector((state)=> state.login.login.userId);
-  let oderId=""
+  const token = useSelector((state) => state.login.login.token);
+  const userId = useSelector((state) => state.login.login.userId);
+
   //-----------------hook for fetchig all the user cart data----------------------
 
   useEffect(() => {
@@ -33,12 +34,11 @@ export default function Cart() {
     window.location.reload();
   };
 
-
   //---------------------------funcation for placing order----------------------------
 
   const placeorder = async (e) => {
     if (price == 0) {
-      alert("your cart is empty")
+      alert("your cart is empty");
     } else {
       const orderIdData = {
         customer_id: userId,
@@ -47,11 +47,12 @@ export default function Cart() {
       };
 
       const getOrderId = await postRequest(orderIdData, "/order", token);
+
       if (getOrderId.success) {
         const quantity = await cartObservabel.getQuantity();
         const productId = await cartObservabel.getProductIds();
         const price_per_Unit = await cartObservabel.getPerUnitPrice();
-        oderId =getOrderId.order_Id;
+        setOderId(getOrderId.order_Id);
         const addOrder = {
           order_id: oderId,
           product_id: productId,
@@ -60,10 +61,13 @@ export default function Cart() {
           total_price: cartObservabel.getTheTotal(),
         };
 
+        console.log(addOrder);
+
         const placeOrder = await postRequest(addOrder, "/addingItem", token);
 
         if (placeOrder.success) {
-          setPayment(!payment)
+        
+          setPayment(!payment);
         }
       }
     }
@@ -74,7 +78,8 @@ export default function Cart() {
     <div className="C">
       {payment ? (
         // making api call before this
-        <Payment  cartItem={cartitem} total={price} oderId={oderId} />
+        
+        <Payment cartItem={cartitem} total={price} oderId={oderId} />
       ) : (
         <div className="CB-R">
           <div className="CB-R1">
@@ -107,9 +112,7 @@ export default function Cart() {
             <div className="CF-2">
               <div className="CF-3">
                 {" "}
-                <button onClick={() => placeorder}>
-                  Pay ${price}
-                </button>{" "}
+                <button onClick={() => placeorder()}>Pay {price}</button>{" "}
               </div>
             </div>
           </div>

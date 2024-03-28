@@ -34,7 +34,7 @@ export default function SignUp() {
     if (res.success) {
       setIsError(false);
       setErrorMessage("");
-      navigator("/login");
+      navigator("/");
     } else {
       setIsError(true);
       setErrorMessage(res.msg);
