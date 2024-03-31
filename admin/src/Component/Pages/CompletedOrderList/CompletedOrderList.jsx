@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import OrderListCard from "../Card/OrderListCard/OrderListCard.jsx";
 import { useSelector, useDispatch } from "react-redux";
-import { OrdeerDetail } from "../../utils/Redux/slice/stateSlice/stateSlice.js";
+import { CompletedOrder } from "../../utils/Redux/slice/stateSlice/stateSlice.js";
 import "./orderList.css";
 import OrderListShimmer from "../ShimmerCard/OrderListShimmer/OrderListShimmer.jsx";
 import { getRequest } from "../../API/API.js";
@@ -20,13 +20,16 @@ export default function CompletedOrderList() {
         setOrderList(resp.data);
       }
     };
+
+    
+
     fetchdata();
   }, []);
 
   const handleCardClick = (orderId, customer_id) => {
     setSelectedOrderId(orderId);
 
-    dispatch(OrdeerDetail({ customerId: customer_id, orderid: orderId }));
+    dispatch(CompletedOrder({ customerId: customer_id, orderid: orderId }));
   };
   return (
     <div className="OrderList-container">
@@ -37,9 +40,11 @@ export default function CompletedOrderList() {
         : orderList.map((item, index) => (
             <OrderListCard
               key={index}
+              token = {token}
               order_id={item.orderid}
               isSelected={selectedOrderId === item.orderid}
               price={item.total_amount}
+              create_by  = {item.customer_id}
               handleClick={() =>
                 handleCardClick(item.orderid, item.customer_id)
               }

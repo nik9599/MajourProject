@@ -54,7 +54,7 @@ export default function Cart() {
         const price_per_Unit = await cartObservabel.getPerUnitPrice();
         setOderId(getOrderId.order_Id);
         const addOrder = {
-          order_id: oderId,
+          order_id: getOrderId.order_Id,
           product_id: productId,
           quantity: quantity,
           price_per_unit: price_per_Unit,

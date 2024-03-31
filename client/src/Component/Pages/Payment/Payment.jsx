@@ -6,6 +6,9 @@ import NavBar from "../NavBar/NavBar.jsx";
 import { putRequest } from "../../API/API.js";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import {io} from "socket.io-client";
+
+const socket = io.connect("http://localhost:8080")
 
 export default function Payment() {
   // const [paymentMode, setPaymentMode] = useState("");
@@ -41,8 +44,10 @@ export default function Payment() {
     console.log(resp);
 
     if (resp.success) {
+      socket.emit("order-Placed", orderId)
       setPaymentDone(!paymentDone);
       window.localStorage.clear();
+      cartObservabel.removeAllItem();
       navigator("/cart");
     }
   };

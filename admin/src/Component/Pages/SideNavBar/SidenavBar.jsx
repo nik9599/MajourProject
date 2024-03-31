@@ -22,6 +22,10 @@ export default function SidenavBar() {
          <Link to={"/insert"} style={{textDecoration:"none" , backgroundColor :"inherit" , color:"black"}} > <i class="fa-regular fa-pen-to-square fa-xl"></i></Link>
       </div>
 
+       <div className="update-inv-container" >
+         <Link  to={"/inventory"} style={{textDecoration:"none" , backgroundColor :"inherit" , color:"black"}} > <i class="fa-solid fa-warehouse"></i> </Link>
+       </div>
+
       <div className="setting-contianer">
         <i class="fa-solid fa-gear fa-xl "></i>
       </div>

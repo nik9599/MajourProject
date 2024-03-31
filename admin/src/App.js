@@ -5,9 +5,7 @@ import  { SkeletonTheme } from 'react-loading-skeleton';
 import InsertData from "./Component/Pages/InsertData/InsertData";
 import Login from "./Component/Pages/LoginPages/Login.jsx"
 import SignUp from "./Component/Pages/SIgnupPage/SignUp.jsx"
-// import { useSelector} from "react-redux"
-// import { useEffect } from "react";
-// import {useNavigate} from "react-router-dom"
+import Inventory from "./Component/Pages/Inventory/Inventory.jsx";
 
 
 
@@ -23,6 +21,7 @@ function App() {
           <Route exact path="/signUp" element={<SignUp/>} />
           <Route exact path="/admin" element={<AdminPage />} />
           <Route exact path="/insert" element={<InsertData />} />
+          <Route exact path="/inventory" element={<Inventory/>} />
         </Routes>
       </div>
       </SkeletonTheme>

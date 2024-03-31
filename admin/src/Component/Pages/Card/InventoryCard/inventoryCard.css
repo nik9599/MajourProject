@@ -1,0 +1,109 @@
+.inv-card-container{
+    display: flex;
+    width: inherit;
+    justify-content: space-evenly;
+    height: 50px;
+    margin-top: 10px;
+}
+
+.inv-card-product-name{
+    /* margin-left: 10px; */
+    width: 190px;
+    /* background-color: antiquewhite; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inv-card-availabel-quantity{
+    width: 100px;
+    /* background-color: antiquewhite; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* margin-left: 20px; */
+}
+
+.inv-card-hold-quantity{
+    width: 100px;
+    /* background-color: antiquewhite; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    
+}
+
+.inv-card-input{
+    width: 100px;
+    /* background-color: antiquewhite; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* margin-left: 20px; */
+}
+
+.space{
+    width: 10px;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.inv-card-input input{
+  
+    border-radius: 0;
+    height: 10px;
+}
+
+.inv-card-button-add{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    /* margin-left: 1px; */
+}
+
+.inv-card-button-add button{
+    height: 30px;
+    width: 50px;
+    background-color: lightgreen;
+    font-weight: 600;
+    color: white;
+    border-radius: 30px;
+}
+
+.inv-card-releas-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+}
+
+.inv-card-releas-button button{
+    height: 30px;
+    width: 50px;
+    border-radius: 30px;
+    background-color: red;
+    font-weight: 600;
+    color: white;
+}
+
+.inv-card-remove-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* margin-left: 50px; */
+    width: 100px;
+}
+
+.inv-card-remove-button button{
+    height: 30px;
+    width: 50px;
+    border-radius: 30px;
+    background-color: red;
+    font-weight: 600;
+    color: white;
+}

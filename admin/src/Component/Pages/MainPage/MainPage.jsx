@@ -25,10 +25,10 @@ export default function MainPage() {
   return (
     <div  >
       {landing && <Landing/>}
-       {Order.state && <OrderDetail/>}
+       {/* {Order.state && <OrderDetail/>} */}
        {orderDetail.state && <OrderDetail order_id ={orderDetail.orderid} customer_id ={orderDetail.customerId} />}
        {OrderCompleted.state && <CompletedOrderDetail/>}
-       {orderDetail.state && <CompletedOrderDetail  />}
+       {/* {orderDetail.state && <CompletedOrderDetail  />} */}
     </div>
   );
 }

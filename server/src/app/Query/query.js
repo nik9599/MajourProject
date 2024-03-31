@@ -59,13 +59,18 @@ const updateProduct = ` UPDATE Products
    isNonVeged = $7
    WHERE product_Id = $8  `;
 
+  const deletProduct = `
+    DELETE FROM Products
+    WHERE product_id = $1;
+  ` 
+
 //---------------------------------------query for Inventory-----------------------------------
 
 const addInventory = `
    INSERT INTO Inventory (
     Product_id  ,
     Availabel_quantity  ,
-    Hold_qyantity
+    Hold_quantity
    )
    VALUES( $1 , $2 , $3 )
 `;
@@ -114,6 +119,25 @@ const productQuantityDecreseQuery = `
   WHERE product_Id = $1;
 `;
 
+
+const getAllTheInventory = `
+  Select Products.product_name ,  Inventory.availabel_quantity , Inventory.hold_quantity , Inventory.product_id
+  FROM Inventory
+  LEFT JOIN Products On Inventory.product_id = Products.product_id 
+`
+
+const updateInventory =`
+ UPDATE Inventory
+ SET availabel_quantity = availabel_quantity + $1
+ WHERE product_id = $2 
+`
+
+const deletInventory =`
+ DELETE FROM Inventory 
+ WHERE product_id = $1 
+`
+
+
 //--------------------- query for creating new tabel in databse  DDL Query -----------------------------------------
 const createTabel =
   " CREATE TABLE Users (userID  SERIAL  PRIMARY KEY, username varchar(255) , email varchar(255) , password varchar(255) , mobile INT)";
@@ -122,13 +146,13 @@ const createOrderTabel =
   "  CREATE TABLE Orders(orderId SERIAL PRIMARY KEY , customer_id INT REFERENCES Users(userID),order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,total_amount DECIMAL(10,2),status VARCHAR(50) , payment_mode VARCHAR(50) ) ";
 
 const createOrderItme =
-  "  CREATE TABLE OrderItem (order_item_id SERIAL PRIMARY KEY, order_id INT REFERENCES Orders(orderId), product_id INT REFERENCES Products(product_Id),  quantity INT, price_per_unit DECIMAL(10, 2), total_order_price DECIMAL(10, 2));  ";
+  "  CREATE TABLE OrderItem (order_item_id SERIAL PRIMARY KEY, order_id INT REFERENCES Orders(orderId), product_id INT ,  quantity INT, price_per_unit DECIMAL(10, 2), total_order_price DECIMAL(10, 2));  ";
 
 const productDetailTabel =
   "  CREATE TABLE Products (product_Id SERIAL PRIMARY KEY , Product_Name VARCHAR(255) , Product_Image VARCHAR(255), Product_Price INT,  Category VARCHAR(255) , isVeged BOOLEAN DEFAULT FALSE , isNonVeged BOOLEAN DEFAULT FALSE )  ";
 
 const invenTory =
-  "CREATE TABLE Inventory (id SERIAL PRIMARY KEY , Product_id INT REFERENCES Products(product_Id) , Availabel_quantity INT , Hold_qyantity INT ) ";
+  "CREATE TABLE Inventory (id SERIAL PRIMARY KEY , Product_id INT  , Availabel_quantity INT , Hold_quantity INT ) ";
 
 module.exports = {
   getUser,
@@ -158,5 +182,9 @@ module.exports = {
   orderPlaced,
   getAllOrderByOrderId,
   getUserById ,
-  getAllCompletedOrder
+  getAllCompletedOrder,
+  getAllTheInventory,
+  updateInventory,
+  deletProduct,
+  deletInventory
 };

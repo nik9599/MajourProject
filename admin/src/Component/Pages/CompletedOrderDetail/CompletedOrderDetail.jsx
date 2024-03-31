@@ -6,8 +6,8 @@ import { useSelector } from "react-redux";
 
 export default function CompletedOrderDetail({ order_id = "0", customer_id = "0" }) {
   const token = useSelector((state) => state.login.login.token);
-  const orderId = useSelector((state) => state.state.OrderDetail.orderid);
-  const customerId = useSelector((state) => state.state.OrderDetail.customerId)
+  const orderId = useSelector((state) => state.state.Completed.orderid);
+  const customerId = useSelector((state) => state.state.Completed.customerId)
   const [orderData, setOrderData] = useState([]);
   const [userDetail, setUserDetail] = useState({
     username: "",
@@ -37,7 +37,7 @@ export default function CompletedOrderDetail({ order_id = "0", customer_id = "0"
     };
     fetchIngData();
     getUserById();
-  }, []);
+  }, [orderId]);
 
   //----------------------------function for change the status of order-----------------------
 
@@ -116,12 +116,12 @@ export default function CompletedOrderDetail({ order_id = "0", customer_id = "0"
         </div>
       )}
 
-      {orderData.length != 0 && (
+      {/* {orderData.length != 0 && (
         <div className="order-completed-container">
           {" "}
           <button onClick={orderCompleted}>Completed</button>{" "}
         </div>
-      )}
+      )} */}
     </div>
   );
 }

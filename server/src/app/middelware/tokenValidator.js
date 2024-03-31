@@ -6,6 +6,10 @@ dotenv.config();
 const tokenValidator = (req, res, next) => {
   // get the token from headers
   const token = req.headers["authorization"];
+  
+  if (!token) {
+    return res.status(401).json({ msg: "No token found", success: false });
+  }
 
   const splitToken = token.split(" ")
 

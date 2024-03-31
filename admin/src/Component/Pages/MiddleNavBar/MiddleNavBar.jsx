@@ -9,14 +9,16 @@ import {
 import { useState } from "react";
 import OrderListPage from "../OrderList/OrderList.jsx";
 import CompletedOrderList from "../CompletedOrderList/CompletedOrderList.jsx"
+import {useNavigate} from "react-router-dom"
 
 export default function MiddleNavBar() {
   const dispatch = useDispatch();
   const [currentOrderType, setCurrentOrderType] = useState("");
-  const isOrder = useSelector((state) => state.state.Orders);
-  const orderDetail = useSelector(state =>state.state.OrderDetail);
+  // const isOrder = useSelector((state) => state.state.Orders);
+  // const orderDetail = useSelector(state =>state.state.OrderDetail);
   const [orderList , setOrderList] = useState(true)
   const [completedOrderList , setCompletedOrderList] = useState(false)
+  const navigator = useNavigate()
 
   useEffect(() => {
     // Dispatch actions based on currentOrderType
@@ -41,8 +43,8 @@ export default function MiddleNavBar() {
         <div className="task-div">
           <p>Task List</p>
         </div>
-        <div className="logo-div">
-          <i className="fa-solid fa-list-check"></i>
+        <div className="logo-div" onClick={()=>navigator('/')} >
+        <i class="fa-solid fa-right-from-bracket"></i>
         </div>
       </div>
       <div className="middle-contianer">

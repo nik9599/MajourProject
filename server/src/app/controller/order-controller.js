@@ -1,4 +1,4 @@
-const { json } = require("body-parser");
+
 const db = require("../../database/database.js");
 const constants = require("../../utils/constant.js");
 const {
@@ -110,8 +110,6 @@ const getCompletedOrder = (req, res) => {
 const getAllOrderById = (req, res) => {
   const orderId = req.body.orderId;
 
- 
-
   const value = [orderId];
 
   if (orderId == undefined) {
@@ -129,7 +127,6 @@ const getAllOrderById = (req, res) => {
         .json({ msg: constants.SERVER_ERROR, success: false });
     }
 
-    console.log(reuslt.rows);
 
     return res.status(200).json({ data: reuslt.rows, success: true });
   });
@@ -138,8 +135,8 @@ const getAllOrderById = (req, res) => {
 //------------------------------funcation for placing an order in online mode-----------------------------------------
 
 const updateOrder = (req, res) => {
-  const { total_amount, status, orderId } = req.body;
-  const value = [total_amount, status, orderId];
+  const { total_amount, status, payment_mode ,orderId } = req.body;
+  const value = [total_amount, status ,payment_mode , orderId];
 
   db.pool.query(updateTheOrder, value, (err, result) => {
     if (err) {
@@ -160,8 +157,6 @@ const updateOrder = (req, res) => {
           .json({ msg: constants.SERVER_ERROR, success: false });
       }
       const allOrderItem = result.rows;
-
-      console.log(allOrderItem);
 
       Promise.all(
         allOrderItem.map((orderItem) => {

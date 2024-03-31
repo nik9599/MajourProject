@@ -4,7 +4,6 @@ const baseUrl = "http://localhost:8080/api/v1";
 
 // Function for making GET requests
 export const getRequest = async (param = null, url, token = null) => {  
-  console.log(url);
   try {
     const config = {
       params: param,
@@ -20,8 +19,6 @@ export const getRequest = async (param = null, url, token = null) => {
 
 // Function for making POST requests
 export const postRequest = async (data, url, token = null) => {
-
-  console.log(data);
 
   try {
     const config = token ? { headers: { authorization: `Bearer ${token}` } } : {};
@@ -43,6 +40,19 @@ export const putRequest = async (data, url, token) => {
     return handleRequestError(error);
   }
 };
+
+//funcation for making DELET request
+export const deletRequest = async ( url  , token)=>{
+  console.log(url);
+  try {
+    const response = await axios.delete(`${baseUrl}${url}`,  {
+      headers: { authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error) {
+    return handleRequestError(error);
+  }
+}
 
 // Helper function to handle request errors
 const handleRequestError = (error) => {

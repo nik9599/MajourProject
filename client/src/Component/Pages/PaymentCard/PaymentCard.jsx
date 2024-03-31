@@ -1,6 +1,7 @@
 import React from "react";
 import "./paymentCard.css";
 
+
 export default function PaymentCard({
   product_name = "Noodles",
   product_quantity = 10,

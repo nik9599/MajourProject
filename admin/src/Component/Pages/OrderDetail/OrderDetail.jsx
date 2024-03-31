@@ -53,11 +53,11 @@ export default function OrderDetail({ order_id = "0", customer_id = "0" }) {
   const orderCompleted = async () => {
     console.log(orderData);
     const data = {
-      total_amount: orderData.total_order_price,
+      total_amount: orderData[0].total_order_price,
       status: "Completed",
       orderId: order_id,
     };
-
+     console.log(data);
     const resp = await putRequest(data, "/updateOrder", token);
     if (resp.success) {
       window.location.reload();

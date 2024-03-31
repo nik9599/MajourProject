@@ -1,0 +1,41 @@
+.inv-container{
+    display: flex;
+}
+
+.inv-main-container{
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    margin-left: 10%;
+    width: 100%;
+    margin-top: 70PX;
+}
+
+.inv-header-container{ 
+    display: flex;
+    background-color: lightgray;
+    height: 50px;
+    align-items: center;
+    margin-left: 10px;
+    border-radius: 20px;
+    width: 80%;
+    justify-content: space-evenly;
+    font-weight: 500;
+    font-size: 15px;
+ }
+
+.inv-product-name{}
+
+.inv-availabel-quantity{}
+
+.inv-hold-quantity{}
+
+.inv-add-quantity{}
+
+.inve-card-container{
+    /* background-color: aquamarine; */
+    width: 90%;
+    max-height: 400px;
+    overflow-y: scroll;
+
+}

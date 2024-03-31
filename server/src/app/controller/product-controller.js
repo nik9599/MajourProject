@@ -9,8 +9,16 @@ const {
   productQuantityDecreseQuery,
   getProductById,
   addInventory,
-  getProductQuantity,addHoldQuantity, removeFromHoldQuantity
+  getProductQuantity,
+  addHoldQuantity,
+  removeFromHoldQuantity,
+  deletProduct,
+  deletInventory,
 } = require("../Query/query.js");
+
+
+
+//-------------------------------------------function for inserting product----------------------------------------
 
 const insertProduct = (req, res) => {
   const {
@@ -50,7 +58,6 @@ const insertProduct = (req, res) => {
         .status(500)
         .json({ msg: constant.SERVER_ERROR, success: false });
     } else {
-      console.log(result.rows[0].product_id)
       const inventoryData = [result.rows[0].product_id, Quantity, 0];
 
       db.pool.query(addInventory, inventoryData, (err, result) => {
@@ -68,6 +75,9 @@ const insertProduct = (req, res) => {
   });
 };
 
+
+//-----------------------------------------function for getting all the product----------------------------------
+
 const getAllProducts = async (req, res) => {
   try {
     // Fetch all products
@@ -80,8 +90,6 @@ const getAllProducts = async (req, res) => {
         }
       });
     });
-
-    
 
     // Fetch quantity for each product
     const productPromises = productResult.map(async (product) => {
@@ -116,6 +124,7 @@ const getAllProducts = async (req, res) => {
 };
 
 
+//-------------------------------------------function for get category based product (not usewd yet)--------------
 
 const getCategoryProduct = (req, res) => {
   const category = req.params.category;
@@ -132,6 +141,9 @@ const getCategoryProduct = (req, res) => {
     }
   });
 };
+
+
+//----------------------------------------------funcation for updating product---------------------------------
 
 const getUpdateProduct = (req, res) => {
   const {
@@ -169,6 +181,9 @@ const getUpdateProduct = (req, res) => {
     }
   });
 };
+
+
+//------------------------------------funcation for updating the value of quantoty from user website--------------------
 
 const increasProductQuantity = (req, res) => {
   const { product_id } = req.params;
@@ -261,7 +276,10 @@ const decreseProductQuantity = (req, res) => {
     });
   });
 };
- const decreseProductQuantityOffline = (req, res)=>{
+
+//------------------------------------funcation for updating the value of quantoty from admin panel--------------------
+
+const decreseProductQuantityOffline = (req, res) => {
   const { product_id } = req.params;
 
   //-------------first check is product availability-----------------------
@@ -309,8 +327,8 @@ const decreseProductQuantity = (req, res) => {
         .json({ msg: constant.PRODUCT_INV_INC, success: true });
     });
   });
-}
- const increasProductQuantityOffline = (req, res)=>{
+};
+const increasProductQuantityOffline = (req, res) => {
   const { product_id } = req.params;
 
   //-------------first check is product availability-----------------------
@@ -350,8 +368,42 @@ const decreseProductQuantity = (req, res) => {
         .json({ msg: constant.PRODUCT_INV_DEC, success: true });
     });
   });
-}
+};
 
+//------------------------------------function for deleting product--------------------------------------
+
+const deletProductData = (req, res) => {
+  const product_id = req.params.product_id;
+
+  if (product_id == null || undefined) {
+    return res
+      .status(500)
+      .json({ msg: constant.MISSING_STATMENT, success: false });
+  }
+
+  const value = [product_id];
+
+  db.pool.query(deletProduct, value, (err, result) => {
+    if (err) {
+      console.log(`Error while deleting product  => ${err.message}`);
+      return res
+        .status(500)
+        .json({ msg: constant.SERVER_ERROR, success: false });
+    }
+
+    db.pool.query(deletInventory, value, (err, result) => {
+      if (err) {
+        console.log(`Error while deleting inventory  => ${err.message}`);
+        return res
+          .status(500)
+          .json({ msg: constant.SERVER_ERROR, success: false });
+      }
+      return res
+        .status(200)
+        .json({ msg: constant.PRODUCT_DELETED, success: true });
+    });
+  });
+};
 
 module.exports = {
   insertProduct,
@@ -362,5 +414,5 @@ module.exports = {
   decreseProductQuantity,
   decreseProductQuantityOffline,
   increasProductQuantityOffline,
- 
+  deletProductData ,
 };
