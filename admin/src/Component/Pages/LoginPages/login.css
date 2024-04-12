@@ -1,13 +1,25 @@
 .login-container{
     display: flex;
-    /* justify-content: center; */
+
     align-items: center;
     flex-direction: column;
     height: 100vh;
-    background-color: white;
+
     font-family: Speedee, sans-serif;
 }
 
+.form-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    width: 1000px;
+    
+}
+
+.name-container{
+    margin-right: 5%;
+}
 
 .signup-nav-container{
     width: 100%;
@@ -92,7 +104,7 @@
 
 .login-div{
     box-shadow: 0 5px 8px 3px lightgray;
-    border-radius: 40px;
+    border-radius: 2z0px;
     height: 400px;
     width: 400px;
     padding: 20px;
@@ -102,7 +114,7 @@
   display: flex;
   flex-direction: column;
   background-color: inherit;
-  /* border-radius: 40px;   */
+  border-radius: 40px;  
 }
 
 .login-form > label{

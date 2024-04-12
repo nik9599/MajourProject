@@ -17,6 +17,7 @@ export default function Landing() {
   const [nonVeg, setNonVeg] = useState(false);
   const [menu, setMenu] = useState([]);
   const [sampleData, setSampleData] = useState([]);
+  const [sampleData1, setSampleData1] = useState([]);
   const [activeId, setActiveId] = useState([]);
   const [remainingTime, setRemainingTime] = useState(0);
   const name = useSelector((state) => state.login.login.username);
@@ -31,6 +32,7 @@ export default function Landing() {
 
         if (resp.success) {
           setSampleData(resp.data);
+          setSampleData1(resp.data);
           setMenu(resp.data);
         }
       } catch (error) {
@@ -96,7 +98,7 @@ export default function Landing() {
     fetchData();
   }, []);
 
-  //----------------------sorting search---------------------------------------------------------
+  //----------------------sorting search on Veg/Non-Veg---------------------------------------------------------
 
   useEffect(() => {
     if (!sampleData) return;
@@ -106,9 +108,12 @@ export default function Landing() {
       filteredMenu = filteredMenu.filter((item) => item.isveged === true);
     } else if (nonVeg) {
       filteredMenu = filteredMenu.filter((item) => item.isnonveged === true);
+    }else{
+      filteredMenu = sampleData1
     }
 
-    setMenu(filteredMenu);
+    setSampleData(filteredMenu);
+  
   }, [sampleData, veg, nonVeg]);
 
   //------------------------function for Searching-------------------------------------------------
@@ -129,13 +134,18 @@ export default function Landing() {
 
   const categorySearch = useCallback(
     (search) => {
-      const filteredMenu = sampleData.filter(
+      let  filteredMenu =[];
+       filteredMenu = sampleData.filter(
         (item) => item.category === search
       );
+      
       setMenu(filteredMenu);
     },
     [sampleData, setMenu]
   );
+
+
+
 
   return (
     <div className="LM">

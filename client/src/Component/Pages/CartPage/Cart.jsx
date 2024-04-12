@@ -25,9 +25,10 @@ export default function Cart() {
 
   useEffect(() => {
     setCartItem(cartObservabel.getData());
+
   }, []);
 
-  //------------------fetching the total-----------------------------------------
+  //------------------fetching the total price-----------------------------------------
   useEffect(() => {
     setPrice(cartObservabel.getTheTotal());
   }, [update]);
@@ -45,7 +46,7 @@ export default function Cart() {
   //--------------------placingOrder------------------------------------------------
   const placeorder = async (e) => {
     if (price == 0) {
-      alert("your cart is empty")
+      alert("your cart is empty");
     } else {
       const orderIdData = {
         customer_id: userId,
@@ -109,6 +110,7 @@ export default function Cart() {
                     product_price={item.product_price}
                     product_id={item.product_id}
                     setUpdate={setUpdate}
+                    isVeged={item.isveged}
                   />
                 </div>
               );
@@ -162,11 +164,8 @@ export default function Cart() {
           <div className="CF-3">
             {" "}
             <button onClick={isUserLoggedIn ? placeorder : undefined}>
-              {isUserLoggedIn && price >0 ? (
-                <Link
-                
-                  style={{ textDecoration: "none", color: "black" }}
-                >
+              {isUserLoggedIn && price > 0 ? (
+                <Link style={{ textDecoration: "none", color: "black" }}>
                   Pay {price}
                 </Link>
               ) : (

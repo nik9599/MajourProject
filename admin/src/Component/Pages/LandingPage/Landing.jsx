@@ -17,30 +17,33 @@ export default function Landing() {
   const [activeId, setActiveId] = useState([]);
   const [callCart, setCallCart] = useState(false);
   const [sampleData, setSampleData] = useState([]);
+  // const [sampleData1, setSampleData1] = useState([]);
 
   //------------------------fetching total price-----------------------------------------------
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const resp = await getRequest(null, "/getAllProduct");
+  const fetchDataMain = async () => {
+    try {
+      const resp = await getRequest(null, "/getAllProduct");
 
-        if (resp.success) {
-          setSampleData(resp.data);
-          setMenu(resp.data);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
+      if (resp.success) {
+        setSampleData(resp.data);
+        setMenu(resp.data);
+        return true;
       }
-    };
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return false;
+    }
+  };
 
+  useEffect(() => {
     //--------------------- fetching the size of cart---------------------------------------------
 
     const subscription = cartObservabel.getAllItems().subscribe((items) => {
       setCartSize(cartObservabel.getTheSizeOfCartItem());
     });
 
-    fetchData();
+    fetchDataMain();
 
     return () => {
       subscription.unsubscribe();
@@ -62,20 +65,39 @@ export default function Landing() {
     fetchData();
   }, []);
 
-  //----------------------sorting search---------------------------------------------------------
+  //----------------------sorting search on Veg/Non-Veg---------------------------------------------------------
 
-  useEffect(() => {
-    if (!sampleData) return;
-    let filteredMenu = sampleData;
+  const fetchData = async (prop) => {
+    const resp = await getRequest(null, `/getVegProduct/${prop}`, null);
+    setSampleData(resp.data);
+    setMenu(resp.data);
+  };
 
-    if (veg) {
-      filteredMenu = filteredMenu.filter((item) => item.isveged === true);
-    } else if (nonVeg) {
-      filteredMenu = filteredMenu.filter((item) => item.isnonveged === true);
+  const isVegedDataCalling = async (prop) => {
+    if (prop == "veg") {
+      if (veg) {
+        const t = fetchDataMain();
+        if (t) {
+          setVeg(false);
+        }
+      } else {
+        setVeg(!veg);
+        setNonVeg(false);
+        fetchData(prop);
+      }
+    } else if (prop == "nonVeg") {
+      if (nonVeg) {
+        const t = fetchDataMain();
+        if (t) {
+          setNonVeg(false);
+        }
+      } else {
+        setVeg(false);
+        setNonVeg(!nonVeg);
+        fetchData(prop);
+      }
     }
-
-    setMenu(filteredMenu);
-  }, [sampleData, veg, nonVeg]);
+  };
 
   //------------------------function for Searching-------------------------------------------------
 
@@ -113,7 +135,8 @@ export default function Landing() {
               <div
                 className="LM1-B1"
                 onClick={() => {
-                  setVeg(!veg);
+                  // setVeg(!veg);
+                  isVegedDataCalling("veg");
                 }}
                 tabIndex="0"
               >
@@ -130,7 +153,9 @@ export default function Landing() {
               <div
                 className="LM1-B2"
                 onClick={() => {
-                  setNonVeg(!nonVeg);
+                  // setVeg(false);
+                  // setNonVeg(!nonVeg);
+                  isVegedDataCalling("nonVeg");
                 }}
               >
                 {" "}
@@ -195,7 +220,7 @@ export default function Landing() {
                             product_price={item.product_price}
                             product_id={item.product_id}
                             button_state={activeId.includes(item.product_id)}
-                            
+                            isVeged={item.isveged}
                           />
                         </div>
                       ))}
@@ -209,7 +234,6 @@ export default function Landing() {
                   }}
                 >
                   <p>Cart</p>
-               
                 </div>
               )}
             </div>

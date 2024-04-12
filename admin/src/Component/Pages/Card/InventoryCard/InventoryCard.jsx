@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import "./inventoryCard.css";
-import { putRequest , deletRequest } from "../../../API/API";
+import { putRequest, deletRequest } from "../../../API/API";
 
 export default function InventoryCard({
-  product_id ,
+  product_id,
   product_name = "Sandwich",
   availabel_Quantity = 10,
   holdQyantity = 10,
   token,
 }) {
+  const [availabel, setAvailabel] = useState(availabel_Quantity);
   const [input, setInput] = useState({
     inventory: "",
   });
@@ -28,24 +29,27 @@ export default function InventoryCard({
 
     const resp = await putRequest(data, "/updateInventory", token);
 
-    console.log(resp);
+    if (resp.success) {
+      const sum = availabel + Number(input.inventory);
+      setAvailabel(sum);
+      setInput({inventory  :" "})
+    }
   };
 
-
-  const deletProduct = async(id) =>{
-    const resp = await deletRequest( `/deletProduct/${id}` , token)
+  const deletProduct = async (id) => {
+    const resp = await deletRequest(`/deletProduct/${id}`, token);
     console.log(resp);
-    if(resp.success){
+    if (resp.success) {
       window.location.reload();
     }
-  }
+  };
 
   return (
     <div className="inv-card-container">
       <div className="space"> </div>
       <div className="inv-card-product-name">{product_name}</div>
       <div className="space"> </div>
-      <div className="inv-card-availabel-quantity"> {availabel_Quantity} </div>
+      <div className="inv-card-availabel-quantity"> {availabel} </div>
       <div className="space"> </div>
       <div className="inv-card-hold-quantity"> {holdQyantity} </div>
       <div className="space"> </div>
@@ -79,9 +83,14 @@ export default function InventoryCard({
           </div> */}
 
       {/* for fututre scope */}
-      
+
       <div className="space"> </div>
-      <div className="inv-card-remove-button" onClick={()=>{deletProduct(product_id)}} >
+      <div
+        className="inv-card-remove-button"
+        onClick={() => {
+          deletProduct(product_id);
+        }}
+      >
         {" "}
         <button>
           <i class="fa-solid fa-trash"></i>

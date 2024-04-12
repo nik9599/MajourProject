@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import "./MenuCard.css";
 import vegIcon from "../../Image/veg-icon.png";
+import NoVegLogo from "../../Image/NoVegLogo.jpeg"
 import cartObservable from "../../utils/CartObservabel/cartObservabel.js";
 import Button from "../ButtonPage/Button.jsx";
 import { useSelector } from "react-redux";
@@ -23,7 +24,8 @@ export default function MenuCard({
     product_name,
     product_image,
     product_id,
-    product_price
+    product_price,
+    isveged
   ) => {
     const item = {
       product_name: product_name,
@@ -31,6 +33,7 @@ export default function MenuCard({
       product_id: product_id,
       product_price: product_price,
       product_qantity: 1,
+      isveged:isveged
     };
     const resp = await getRequest(undefined,
       `/increseQuantity/${product_id}`,  token
@@ -53,7 +56,7 @@ export default function MenuCard({
           <div className="MC-I1-1">
             <p>{product_name || "2 Cheesy Italian Chicken + Fries(L)+2Coke"}</p>
           </div>
-          <div className="MC-I1-2">{isveged && <img src={vegIcon} />}</div>
+          <div className="MC-I1-2">{isveged ? <img src={vegIcon} /> : <img src={NoVegLogo} /> }</div>
         </div>
         <div className="MC-I2">
           <div className="MC-I2-Image">
@@ -80,7 +83,8 @@ export default function MenuCard({
                         product_name,
                         product_image,
                         product_id,
-                        product_price
+                        product_price,
+                        isveged
                       );
                      
                     } else {

@@ -32,7 +32,7 @@ export default function Login() {
       `/${loginData.password || "null"}`;
     const resp = await getRequest(null, url);
 
-    console.log(resp);
+
 
     if (resp.success) {
       setIsError(false);
@@ -55,6 +55,12 @@ export default function Login() {
     <div className="login-container">
       <div className="signup-nav-container">
         <NavBar />
+      </div>
+      <div className="form-container" >
+      <div className="name-container" >
+        <h1>
+          Admin panel
+        </h1>
       </div>
       <div className="login-div">
         <form className="login-form" onSubmit={handelLogin}>
@@ -88,6 +94,7 @@ export default function Login() {
           )}
           <button type="submit">Login</button>
         </form>
+      </div>
       </div>
     </div>
   );

@@ -22,11 +22,12 @@ const addingItem =
 
 const getAllActiveOrder = " SELECT * FROM Orders WHERE status = 'Approved' ";
 
-const getAllCompletedOrder = " SELECT * FROM Orders WHERE status = 'Completed' ";
+const getAllCompletedOrder =
+  " SELECT * FROM Orders WHERE status = 'Completed' ";
 
 const updateTheOrder =
   " UPDATE Orders SET total_amount = $1 , status  = $2 , payment_mode = $3  WHERE orderId = $4 ";
- 
+
 const getAllOrderByOrderId = `
 SELECT OrderItem.*, Products.product_name
 FROM OrderItem
@@ -43,11 +44,13 @@ const getALLProduct = " SELECT * from Products ";
 
 const getCategoriesProduct = " SELECT * from Products WHERE Category = $1 ";
 
+const getVegProduct = " SELECT * from Products WHERE isveged = true ";
+
+const getNonVegProduct = " SELECT * from Products WHERE isnonveged =  true ";
+
 const getProductById = `
 SELECT * from Products 
 WHERE product_Id = $1 `;
-
-
 
 const updateProduct = ` UPDATE Products 
   SET Product_Name = $1 , 
@@ -59,10 +62,10 @@ const updateProduct = ` UPDATE Products
    isNonVeged = $7
    WHERE product_Id = $8  `;
 
-  const deletProduct = `
+const deletProduct = `
     DELETE FROM Products
     WHERE product_id = $1;
-  ` 
+  `;
 
 //---------------------------------------query for Inventory-----------------------------------
 
@@ -89,23 +92,23 @@ availabel_quantity = availabel_quantity + 1
 WHERE Product_id = $1;
 `;
 
-const disolveHoldQuantity =`
+const disolveHoldQuantity = `
    UPDATE Inventory
    SET availabel_quantity = availabel_quantity + hold_quantity,
    hold_quantity = 0 
    WHERE Product_id = $1;
-`
+`;
 
-const orderPlaced =`
+const orderPlaced = `
    UPDATE Inventory
    SET hold_quantity = hold_quantity - $2 
    WHERE product_id = $1;
-`
+`;
 
-const getProductQuantity =`
+const getProductQuantity = `
   SELECT * FROM Inventory 
   WHERE Product_id = $1;
-`
+`;
 
 const productQuantityIncreaseQuery = `
   UPDATE Inventory
@@ -119,24 +122,27 @@ const productQuantityDecreseQuery = `
   WHERE product_Id = $1;
 `;
 
+// const getAllTheInventory = `
+//   Select Products.product_name ,  Inventory.availabel_quantity , Inventory.hold_quantity , Inventory.product_id
+//   FROM Inventory
+//   LEFT JOIN Products On Inventory.product_id = Products.product_id
+// `
+const getAllTheInventory = ` 
+SELECT Products.product_name, Inventory.availabel_quantity, Inventory.hold_quantity, Inventory.product_id
+FROM Inventory
+LEFT JOIN Products ON Inventory.product_id = Products.product_id
+ORDER BY Products.product_name ASC;`;
 
-const getAllTheInventory = `
-  Select Products.product_name ,  Inventory.availabel_quantity , Inventory.hold_quantity , Inventory.product_id
-  FROM Inventory
-  LEFT JOIN Products On Inventory.product_id = Products.product_id 
-`
-
-const updateInventory =`
+const updateInventory = `
  UPDATE Inventory
  SET availabel_quantity = availabel_quantity + $1
  WHERE product_id = $2 
-`
+`;
 
-const deletInventory =`
+const deletInventory = `
  DELETE FROM Inventory 
  WHERE product_id = $1 
-`
-
+`;
 
 //--------------------- query for creating new tabel in databse  DDL Query -----------------------------------------
 const createTabel =
@@ -181,10 +187,12 @@ module.exports = {
   getProductQuantity,
   orderPlaced,
   getAllOrderByOrderId,
-  getUserById ,
+  getUserById,
   getAllCompletedOrder,
   getAllTheInventory,
   updateInventory,
   deletProduct,
-  deletInventory
+  deletInventory,
+  getVegProduct,
+  getNonVegProduct,
 };

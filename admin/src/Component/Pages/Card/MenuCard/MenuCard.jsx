@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import "./MenuCard.css";
 import vegIcon from "../../../Image/veg-icon.png";
+import NoVegLogo from "../../../Image/NoVegLogo.jpeg"
 import cartObservable from "../../../utils/CartObservabel/cartObservabel.js";
 import Button from "../ButtonPage/Button.jsx";
 import {useSelector} from "react-redux"
@@ -12,14 +13,12 @@ export default function MenuCard({
   product_id,
   product_price,
   product_qantity,
-  button_state
+  button_state,
+  isVeged
 }) {
   const [changeView, setChangeView] = useState(false);
   const isuserLogin = useSelector((state) => state.login.login.isLogedIn);
   const token = useSelector((state) => state.login.login.token);
-
-
-  console.log(isuserLogin);
 
   const handleAddToCart = async (
     product_name,
@@ -56,7 +55,7 @@ export default function MenuCard({
             <p>{product_name || "2 Cheesy Italian Chicken + Fries(L)+2Coke"}</p>
           </div>
           <div className="MC-I1-2">
-            <img src={vegIcon} />
+            {isVeged ? <img src={vegIcon} /> : <img src={NoVegLogo} /> }
           </div>
         </div>
         <div className="MC-I2">

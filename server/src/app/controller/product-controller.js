@@ -14,9 +14,9 @@ const {
   removeFromHoldQuantity,
   deletProduct,
   deletInventory,
+  getVegProduct,
+  getNonVegProduct,
 } = require("../Query/query.js");
-
-
 
 //-------------------------------------------function for inserting product----------------------------------------
 
@@ -75,7 +75,6 @@ const insertProduct = (req, res) => {
   });
 };
 
-
 //-----------------------------------------function for getting all the product----------------------------------
 
 const getAllProducts = async (req, res) => {
@@ -123,7 +122,6 @@ const getAllProducts = async (req, res) => {
   }
 };
 
-
 //-------------------------------------------function for get category based product (not usewd yet)--------------
 
 const getCategoryProduct = (req, res) => {
@@ -142,6 +140,43 @@ const getCategoryProduct = (req, res) => {
   });
 };
 
+//--------------------------------------function for fetching veg products--------------------------------------
+
+const getVegProducts = (req, res) => {
+  // console.log(req.params);
+
+  const { data } = req.params;
+
+  console.log(data );
+
+  if (data == 'veg') {
+    console.log("veg call");
+    db.pool.query(getVegProduct, (err, result) => {
+      if (err) {
+        console.log(`Error while fetching veg the Product => ${err.message}`);
+        return res
+          .status(500)
+          .json({ msg: constant.SERVER_ERROR, success: false });
+      }
+
+      return res.status(200).json({ data: result.rows, success: true });
+    });
+  } else if (data == "nonVeg") {
+    console.log("non veg call");
+
+    db.pool.query(getNonVegProduct, (err, result) => {
+      if (err) {
+        console.log(
+          `Error while fetching nonVeg the Product => ${err.message}`
+        );
+        return res
+          .status(500)
+          .json({ msg: constant.SERVER_ERROR, success: false });
+      }
+      return res.status(200).json({ data: result.rows, success: true });
+    });
+  }
+};
 
 //----------------------------------------------funcation for updating product---------------------------------
 
@@ -181,7 +216,6 @@ const getUpdateProduct = (req, res) => {
     }
   });
 };
-
 
 //------------------------------------funcation for updating the value of quantoty from user website--------------------
 
@@ -414,5 +448,6 @@ module.exports = {
   decreseProductQuantity,
   decreseProductQuantityOffline,
   increasProductQuantityOffline,
-  deletProductData ,
+  deletProductData,
+  getVegProducts,
 };

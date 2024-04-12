@@ -1,4 +1,3 @@
-
 const db = require("../../database/database.js");
 const constants = require("../../utils/constant.js");
 const {
@@ -8,7 +7,7 @@ const {
   updateTheOrder,
   orderPlaced,
   getAllOrderByOrderId,
-  getAllCompletedOrder
+  getAllCompletedOrder,
 } = require("../Query/query.js");
 
 //--------------------------------function for creating an new orderId-------------------------------------
@@ -114,8 +113,8 @@ const getAllOrderById = (req, res) => {
 
   if (orderId == undefined) {
     return res
-    .status(500)
-    .json({ msg: constants.SERVER_ERROR, success: false });
+      .status(500)
+      .json({ msg: constants.SERVER_ERROR, success: false });
   }
 
   db.pool.query(getAllOrderByOrderId, value, (err, reuslt) => {
@@ -127,7 +126,6 @@ const getAllOrderById = (req, res) => {
         .json({ msg: constants.SERVER_ERROR, success: false });
     }
 
-
     return res.status(200).json({ data: reuslt.rows, success: true });
   });
 };
@@ -135,8 +133,8 @@ const getAllOrderById = (req, res) => {
 //------------------------------funcation for placing an order in online mode-----------------------------------------
 
 const updateOrder = (req, res) => {
-  const { total_amount, status, payment_mode ,orderId } = req.body;
-  const value = [total_amount, status ,payment_mode , orderId];
+  const { total_amount, status, payment_mode, orderId } = req.body;
+  const value = [total_amount, status, payment_mode, orderId];
 
   db.pool.query(updateTheOrder, value, (err, result) => {
     if (err) {
@@ -195,8 +193,8 @@ const updateOrder = (req, res) => {
 //------------------------------funcation for placing an order in offline mode-----------------------------------------
 
 const updateOrderOffline = (req, res) => {
-  const { total_amount, status, payment_mode ,orderId } = req.body;
-  const value = [total_amount, status, payment_mode ,orderId];
+  const { total_amount, status, payment_mode, orderId } = req.body;
+  const value = [total_amount, status, payment_mode, orderId];
 
   db.pool.query(updateTheOrder, value, (err, result) => {
     if (err) {
@@ -219,5 +217,5 @@ module.exports = {
   updateOrder,
   updateOrderOffline,
   getAllOrderById,
-  getCompletedOrder
+  getCompletedOrder,
 };

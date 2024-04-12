@@ -26,6 +26,7 @@ const {
   decreseProductQuantityOffline,
   increasProductQuantityOffline,
   deletProductData,
+  getVegProducts,
   getUpdateProductOffline,
 } = require("../controller/product-controller.js");
 
@@ -64,6 +65,8 @@ Routes.get(
   tokenValidator,
   decreseProductQuantity
 );
+
+Routes.get("/getVegProduct/:data" , getVegProducts)
 
 //---------------routes for admin ---------------------------------------------------------------
 
