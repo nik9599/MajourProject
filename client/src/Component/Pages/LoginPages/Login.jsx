@@ -54,7 +54,12 @@ export default function Login() {
       <div className="signup-nav-container">
         <NavBar />
       </div>
+      <div className="login-form-container" >
+      <div className="login-text" >
+          Login to Account
+        </div>
       <div className="login-div">
+        
         <form className="login-form" onSubmit={handelLogin}>
           <label htmlFor="email">Email</label>
           <input
@@ -86,6 +91,7 @@ export default function Login() {
           )}
           <button type="submit">Login</button>
         </form>
+      </div>
       </div>
     </div>
   );

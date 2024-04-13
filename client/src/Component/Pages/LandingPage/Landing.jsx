@@ -24,29 +24,29 @@ export default function Landing() {
   const token = useSelector((state) => state.login.login.token);
 
   //----------------------fetching data from DB ------------------------------------------
+  const fetchDataMain = async () => {
+    try {
+      const resp = await getRequest(null, "/getAllProduct");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const resp = await getRequest(null, "/getAllProduct");
-
-        if (resp.success) {
-          setSampleData(resp.data);
-          setSampleData1(resp.data);
-          setMenu(resp.data);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
+      if (resp.success) {
+        setSampleData(resp.data);
+        setSampleData1(resp.data);
+        setMenu(resp.data);
+        return true;
       }
-    };
-
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return false;
+    }
+  };
+  useEffect(() => {
     //--------------------- fetching the size of cart---------------------------------------------
 
     const subscription = cartObservabel.getAllItems().subscribe((items) => {
       setCartSize(cartObservabel.getTheSizeOfCartItem());
     });
 
-    fetchData();
+    fetchDataMain();
     getExpireTime();
 
     return () => {
@@ -54,34 +54,33 @@ export default function Landing() {
     };
   }, []);
 
-//------------------------------Timer funcation for cleaning cart in given set of time--------------------
+  //------------------------------Timer funcation for cleaning cart in given set of time--------------------
   useEffect(() => {
     if (cartSize > 0) {
       // Calculate the remaining time or use the stored remaining time
       let timeLeft = remainingTime > 0 ? remainingTime : 10 * 60 * 1000; // 1 minute in milliseconds
-  
+
       // Convert milliseconds to minutes and seconds
       const minutes = Math.floor(timeLeft / (1000 * 60));
       const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-  
+
       console.log(`Remaining time: ${minutes} minutes ${seconds} seconds`);
-  
+
       const timerId = setTimeout(async () => {
         // Your action when the timer expires
-        console.log('Timer expired');
+        console.log("Timer expired");
         await decreaseQuantityInDatabase(cartObservabel.getData(), token);
         // Reset the cart or perform any other action
         window.location.reload(); // Example of resetting the cart by reloading the page
-  
+
         // Reset the remaining time
         setRemainingTime(0);
       }, timeLeft);
-  
+
       // Update the remaining time when the component unmounts or when cartSize changes
       return () => clearTimeout(timerId);
     }
   }, [cartSize, remainingTime]);
-  
 
   //------------------------fetching all the active Id----------------------------------------------
 
@@ -100,21 +99,37 @@ export default function Landing() {
 
   //----------------------sorting search on Veg/Non-Veg---------------------------------------------------------
 
-  useEffect(() => {
-    if (!sampleData) return;
-    let filteredMenu = sampleData;
+  const fetchData = async (prop) => {
+    const resp = await getRequest(null, `/getVegProduct/${prop}`, null);
+    setSampleData(resp.data);
+    setMenu(resp.data);
+  };
 
-    if (veg) {
-      filteredMenu = filteredMenu.filter((item) => item.isveged === true);
-    } else if (nonVeg) {
-      filteredMenu = filteredMenu.filter((item) => item.isnonveged === true);
-    }else{
-      filteredMenu = sampleData1
+  const isVegedDataCalling = async (prop) => {
+    if (prop == "veg") {
+      if (veg) {
+        const t = fetchDataMain();
+        if (t) {
+          setVeg(false);
+        }
+      } else {
+        setVeg(!veg);
+        setNonVeg(false);
+        fetchData(prop);
+      }
+    } else if (prop == "nonVeg") {
+      if (nonVeg) {
+        const t = fetchDataMain();
+        if (t) {
+          setNonVeg(false);
+        }
+      } else {
+        setVeg(false);
+        setNonVeg(!nonVeg);
+        fetchData(prop);
+      }
     }
-
-    setSampleData(filteredMenu);
-  
-  }, [sampleData, veg, nonVeg]);
+  };
 
   //------------------------function for Searching-------------------------------------------------
 
@@ -134,18 +149,13 @@ export default function Landing() {
 
   const categorySearch = useCallback(
     (search) => {
-      let  filteredMenu =[];
-       filteredMenu = sampleData.filter(
-        (item) => item.category === search
-      );
-      
+      let filteredMenu = [];
+      filteredMenu = sampleData.filter((item) => item.category === search);
+
       setMenu(filteredMenu);
     },
     [sampleData, setMenu]
   );
-
-
-
 
   return (
     <div className="LM">
@@ -171,7 +181,7 @@ export default function Landing() {
           <div
             className="LM1-B1"
             onClick={() => {
-              setVeg(!veg);
+              isVegedDataCalling("veg")
             }}
           >
             <p>
@@ -187,7 +197,7 @@ export default function Landing() {
           <div
             className="LM1-B2"
             onClick={() => {
-              setNonVeg(!nonVeg);
+              isVegedDataCalling("nonVeg")
             }}
           >
             {" "}

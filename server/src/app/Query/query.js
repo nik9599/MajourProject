@@ -122,11 +122,7 @@ const productQuantityDecreseQuery = `
   WHERE product_Id = $1;
 `;
 
-// const getAllTheInventory = `
-//   Select Products.product_name ,  Inventory.availabel_quantity , Inventory.hold_quantity , Inventory.product_id
-//   FROM Inventory
-//   LEFT JOIN Products On Inventory.product_id = Products.product_id
-// `
+
 const getAllTheInventory = ` 
 SELECT Products.product_name, Inventory.availabel_quantity, Inventory.hold_quantity, Inventory.product_id
 FROM Inventory

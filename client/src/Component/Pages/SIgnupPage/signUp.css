@@ -1,111 +1,137 @@
-.signUp-container{
+.signUp-bottom-container {
+    height: 450px;
+    border-radius: 10px;
+    width: 800px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100vh;
-    background-color: white;
-    font-family: Speedee, sans-serif;
-    
-}
-
-.signUp-form-container{
+    justify-content: space-between;
+    padding: 20px;
     box-shadow: 0 5px 8px 3px lightgray;
-    height: 500px;
-    background-color: white;
-    width: 400px;
-    border-radius: 20px;
+    background-color: #fbf6f0;
+  }
+
+  .signUp-text {
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+
+.signUp-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  background-color: white;
+  font-family: Speedee, sans-serif;
 }
 
-.signup-form{
+.signUp-form-container {
+  /* box-shadow: 0 5px 8px 3px lightgray; */
+  height: 300px;
+  background-color: white;
+  width: 400px;
+  border-radius: 10px;
+}
+
+.signup-form {
   padding: 20px;
   background-color: inherit;
   display: flex;
   flex-direction: column;
 }
 
-.signup-form label{
+.signup-form label {
+  width: 100%;
+  height: 30px;
+  font-size: 17px;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+.sigup-input {
+  margin-top: 1px;
+  height: 30px;
+  font-size: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 9px 1px lightgray;
+}
+
+.signup-form button {
+  margin-top: 30px;
+  height: 50px;
+  border-radius: 30px;
+  background-color: #fbf6f0;
+  font-size: 15px;
+  font-weight: 500;
+}
+.signup-form button:hover {
+  box-shadow: 0 5px 8px 3px lightgray;
+}
+
+.error-div {
+  font-size: 10px;
+  margin-top: 10px;
+  width: 100%;
+  color: red;
+}
+
+@media screen and (max-width: 600px) {
+  .signUp-bottom-container {
+    background-color: aqua;
+    height: 600px;
+    border-radius: 10px;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 8px 3px lightgray;
+    background-color: #fbf6f0;
+  }
+
+  .signUp-text {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  .signUp-form-container {
+    background-color: white;
+    width: 300px;
+    border-radius: 10px;
+  }
+
+  .signup-form {
+    padding: 20px;
+    background-color: inherit;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .signup-form label {
     width: 100%;
     height: 30px;
     font-size: 17px;
     font-weight: 500;
-   margin-top: 20px;  
-}
+    margin-top: 20px;
+  }
 
-.sigup-input{
+  .sigup-input {
     margin-top: 1px;
     height: 30px;
     font-size: 15px;
     border-radius: 10px;
-}
+    width: 80%;
+  }
 
-.signup-form button{
-    margin-top: 30px;
-    height: 50px;
-    border-radius:30px ;
-    background-color: #fbf6f0;
-    font-size: 15px;
-    font-weight: 500;
-
-}
-.signup-form button:hover{
-    box-shadow: 0 5px 8px 3px lightgray;
-}
-
-.error-div{
+  .error-div {
     font-size: 10px;
     margin-top: 10px;
     width: 100%;
     color: red;
-}
-
-@media screen and (max-width:600px) {
-    /* .signUp-container{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        height: 100vh;
-        background-color: #fbf6f0;
-        font-family: Speedee, sans-serif;
-    } */
-    
-    .signUp-form-container{
-        box-shadow: 0 5px 8px 3px lightgray;
-        height: 400px;
-        background-color: white;
-        width: 300px;
-        border-radius: 20px;
-    }
-    
-    .signup-form{
-      padding: 20px;
-      background-color: inherit;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .signup-form label{
-        width: 100%;
-        height: 30px;
-        font-size: 17px;
-        font-weight: 500;
-       margin-top: 20px;  
-    }
-    
-    .sigup-input{
-        margin-top: 1px;
-        height: 30px;
-        font-size: 15px;
-        border-radius: 10px;
-        width:80% ;
-    }
-    
- 
-   
-    
-    .error-div{
-        font-size: 10px;
-        margin-top: 10px;
-        width: 100%;
-        color: red;
-    }   
+  }
 }

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./signUp.css";
-import { Link } from "react-router-dom";
 import "../LoginPages/login.css";
 import { postRequest } from "../../API/API";
 import { useNavigate } from "react-router-dom";
@@ -44,51 +43,56 @@ export default function SignUp() {
       <div className="signup-nav-container">
         <NavBar />
       </div>
-      <div className="signUp-form-container">
-        <form className="signup-form" onSubmit={handelsignUp}>
-          <label htmlFor="username">Username</label>
-          <input
-            name="username"
-            type="text"
-            placeholder="hello"
-            className="sigup-input"
-            value={signUpData.username}
-            onChange={(e) => handelInput(e)}
-          />
-          <label htmlFor="email">Email</label>
-          <input
-            type="text"
-            name="email"
-            placeholder="exampel@gmail.com"
-            className="sigup-input"
-            onChange={(e) => handelInput(e)}
-          />
-          <label htmlFor="mobile">Mobile</label>
-          <input
-            type="text"
-            name="mobile"
-            placeholder="exampel@gmail.com"
-            className="sigup-input"
-            onChange={(e) => handelInput(e)}
-          />
-          <label htmlFor="password"> Password </label>
-          <input
-            type="text"
-            name="password"
-            placeholder="Example@123"
-            className="sigup-input"
-            onChange={(e) => handelInput(e)}
-          />
+      <div className="signUp-bottom-container" >
+         <div className="signUp-text" >
+          Create an acount
+         </div>
+        <div className="signUp-form-container">
+          <form className="signup-form" onSubmit={handelsignUp}>
+            <label htmlFor="username">Username</label>
+            <input
+              name="username"
+              type="text"
+              placeholder="hello"
+              className="sigup-input"
+              value={signUpData.username}
+              onChange={(e) => handelInput(e)}
+            />
+            <label htmlFor="email">Email</label>
+            <input
+              type="text"
+              name="email"
+              placeholder="exampel@gmail.com"
+              className="sigup-input"
+              onChange={(e) => handelInput(e)}
+            />
+            <label htmlFor="mobile">Mobile</label>
+            <input
+              type="text"
+              name="mobile"
+              placeholder="exampel@gmail.com"
+              className="sigup-input"
+              onChange={(e) => handelInput(e)}
+            />
+            <label htmlFor="password"> Password </label>
+            <input
+              type="text"
+              name="password"
+              placeholder="Example@123"
+              className="sigup-input"
+              onChange={(e) => handelInput(e)}
+            />
 
-          {isError && (
-            <div className="error-div">
-              {" "}
-              <p>{errorMessge}</p>{" "}
-            </div>
-          )}
+            {isError && (
+              <div className="error-div">
+                {" "}
+                <p>{errorMessge}</p>{" "}
+              </div>
+            )}
 
-          <button type="submit">SignUp</button>
-        </form>
+            <button type="submit">SignUp</button>
+          </form>
+        </div>
       </div>
     </div>
   );
