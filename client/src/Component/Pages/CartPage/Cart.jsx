@@ -3,17 +3,20 @@ import "./cart.css";
 import cartObservabel from "../../utils/CartObservabel/cartObservabel";
 import CartItem from "../cartItemCard/CartItem";
 import { Link } from "react-router-dom";
-import { postRequest } from "../../API/API.js";
+import { postRequest, getRequest, putRequest } from "../../API/API.js";
 import Location from "../Location/Location";
 import { useSelector } from "react-redux";
 import NavBar from "../NavBar/NavBar";
 import { useNavigate } from "react-router-dom";
 import { decreaseQuantityInDatabase } from "../../utils/CommonFunction/productUpdate.js";
+import OrderCard from "../OrderCard/OrderCard.jsx";
+import formatDate from "../../utils/CommonFunction/dateFormate.js";
 
 export default function Cart() {
   const [cartitem, setCartItem] = useState([]);
   const [price, setPrice] = useState(0);
   const [update, setUpdate] = useState(false);
+  const [approvedOrder, setApprovedOrder] = useState([]);
   const [selected, setSelected] = useState("");
   const [selectedlocation, setSelectedLocation] = useState("");
   const isUserLoggedIn = useSelector((state) => state.login.login.isLogedIn);
@@ -21,11 +24,27 @@ export default function Cart() {
   const token = useSelector((state) => state.login.login.token);
   const navigate = useNavigate();
 
+  //------------------funcation for fetchin any pending or approved order-------------------
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const resp = await getRequest(
+        null,
+        `/userOrder/pending/${userId}`,
+        token
+      );
+      console.log(resp.data);
+      if (resp.success) {
+        setApprovedOrder(resp.data);
+      }
+    };
+    fetchData();
+  }, []);
+
   //-----------------hook for fetchig all the user cart data----------------------
 
   useEffect(() => {
     setCartItem(cartObservabel.getData());
-
   }, []);
 
   //------------------fetching the total price-----------------------------------------
@@ -45,38 +64,102 @@ export default function Cart() {
 
   //--------------------placingOrder------------------------------------------------
   const placeorder = async (e) => {
-    if (price == 0) {
-      alert("your cart is empty");
-    } else {
+    const pendingOrder = await getRequest(
+      null,
+      `/pendingOrder/${userId}`,
+      token
+    );
+    console.log(pendingOrder);
+    if (pendingOrder.success && pendingOrder.data.length > 0) {
       const orderIdData = {
+        oderId: pendingOrder.data[0].orderid,
         customer_id: userId,
         total_amount: price,
         status: "pending",
+        payment_mode : "Online"
       };
+      console.log(orderIdData);
+      const updateOrder = await putRequest(orderIdData , "/updateOrder" , token );
 
-      const getOrderId = await postRequest(orderIdData, "/order", token);
-      if (getOrderId.success) {
-        const quantity = await cartObservabel.getQuantity();
-        const productId = await cartObservabel.getProductIds();
-        const price_per_Unit = await cartObservabel.getPerUnitPrice();
-        const addOrder = {
-          order_id: getOrderId.order_Id,
-          product_id: productId,
-          quantity: quantity,
-          price_per_unit: price_per_Unit,
-          total_price: cartObservabel.getTheTotal(),
+      if(updateOrder.success){
+        const data = await cartObservabel.getAllTheNewProduct();
+        const newQuantity = data.map(item=>{
+          return item.product_qantity
+        })
+        const productId = data.map(item=>{
+          return item.product_id
+          
+        })
+        const pricePerUnit = data.map(item=>{
+          return item.product_price
+
+        })
+
+        const newData = {
+          order_id: pendingOrder.data[0].orderid,
+            product_id: productId,
+            quantity: newQuantity,
+            price_per_unit: pricePerUnit,
+            total_price: cartObservabel.getTheTotal(),
+        }
+
+        const placeOrder = await postRequest(newData, "/addingItem", token);
+
+        if(placeOrder.success){
+          navigate(`/payment/${pendingOrder.data[0].orderid}`);
+        }
+      }
+
+    } else {
+      if (price == 0) {
+        alert("your cart is empty");
+      } else {
+        const orderIdData = {
+          customer_id: userId,
+          total_amount: price,
+          status: "pending",
         };
 
-        const placeOrder = await postRequest(addOrder, "/addingItem", token);
+        const getOrderId = await postRequest(orderIdData, "/order", token);
+        if (getOrderId.success) {
+          const quantity = await cartObservabel.getQuantity();
+          const productId = await cartObservabel.getProductIds();
+          const price_per_Unit = await cartObservabel.getPerUnitPrice();
+          const addOrder = {
+            order_id: getOrderId.order_Id,
+            product_id: productId,
+            quantity: quantity,
+            price_per_unit: price_per_Unit,
+            total_price: cartObservabel.getTheTotal(),
+          };
 
-        if (placeOrder.success) {
-          navigate(`/payment/${getOrderId.order_Id}`);
+          const placeOrder = await postRequest(addOrder, "/addingItem", token);
+
+          if (placeOrder.success) {
+            const data = cartObservabel.setAllProductAdd();
+            if (data) {
+              navigate(`/payment/${getOrderId.order_Id}`);
+            }
+          }
         }
       }
     }
   };
 
   const screenWidth = window.screen.width;
+
+  //------------------------------------------funcation for handling pending order-----------------------------
+
+  const handelNavigation = async (status, order) => {
+    console.log(order);
+    if (status == "pending") {
+      const orderId = order.orderid;
+      const resp = await getRequest(null, `/orderItem/${orderId}`, token);
+      console.log(resp);
+      if (resp.success) {
+      }
+    }
+  };
 
   return (
     <div className="C">
@@ -116,6 +199,31 @@ export default function Cart() {
               );
             })}
           </div>
+
+          {approvedOrder && (
+            <div className="approvedOrderContainer">
+              {approvedOrder.map((order, i) => (
+                <div
+                  style={{
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                  onClick={() => {
+                    handelNavigation(order.status, order);
+                  }}
+                >
+                  <OrderCard
+                    key={i}
+                    orderAmount={order.total_amount}
+                    orderData={formatDate(order.order_date)}
+                    orderId={order.orderid}
+                    orderStatus={order.status}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
         {screenWidth >= 440 && (
           <div className="CB-L">

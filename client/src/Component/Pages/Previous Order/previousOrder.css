@@ -1,0 +1,11 @@
+.previousOrder-container {
+}
+
+.order-list {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  align-items: center;
+  max-height: 85vh;
+  overflow-y: scroll;
+}

@@ -8,6 +8,10 @@ const {
   orderPlaced,
   getAllOrderByOrderId,
   getAllCompletedOrder,
+  getAllTheOrderByUserId,
+  getAllApprovedTheOrderByUserId,
+  getTheOrderIdProduct,
+  getPendingOrder
 } = require("../Query/query.js");
 
 //--------------------------------function for creating an new orderId-------------------------------------
@@ -130,7 +134,7 @@ const getAllOrderById = (req, res) => {
   });
 };
 
-//------------------------------funcation for placing an order in online mode-----------------------------------------
+//------------------------------function for placing an order in online mode-----------------------------------------
 
 const updateOrder = (req, res) => {
   const { total_amount, status, payment_mode, orderId } = req.body;
@@ -190,7 +194,7 @@ const updateOrder = (req, res) => {
   });
 };
 
-//------------------------------funcation for placing an order in offline mode-----------------------------------------
+//------------------------------function for placing an order in offline mode-----------------------------------------
 
 const updateOrderOffline = (req, res) => {
   const { total_amount, status, payment_mode, orderId } = req.body;
@@ -210,6 +214,102 @@ const updateOrderOffline = (req, res) => {
   });
 };
 
+//----------------------------------funcation for fetching all the order placed by the specified user------------------
+
+const getUserOrder = (req, res) => {
+  const status = req.params.status;
+  const userId = req.params.userId;
+
+  if (status == "completed") {
+    const value = [userId];
+    db.pool.query(getAllTheOrderByUserId, value, (err, result) => {
+      if (err) {
+        console.log(`Error while fetching user order => ${err.message}`);
+        return res
+          .status(500)
+          .json({ msg: constants.SERVER_ERROR, success: false });
+      }
+      return res.status(200).json({ data: result.rows, success: true });
+    });
+  } else if (status == "active"  ) {
+    const value = [userId];
+    db.pool.query(getAllApprovedTheOrderByUserId, value, (err, result) => {
+      if (err) {
+        console.log(`Error while fetching user order => ${err.message}`);
+        return res
+          .status(500)
+          .json({ msg: constants.SERVER_ERROR, success: false });
+      }
+      return res.status(200).json({ data: result.rows, success: true });
+    });
+  }else if(status == "pending"){
+    const value = [userId];
+    db.pool.query(getAllApprovedTheOrderByUserId, value, (err, result) => {
+      if (err) {
+        console.log(`Error while fetching user order => ${err.message}`);
+        return res
+          .status(500)
+          .json({ msg: constants.SERVER_ERROR, success: false });
+      }
+      return res.status(200).json({ data: result.rows, success: true });
+    });
+  }
+};
+
+
+//------------------------------------funcation for fetching orderItem fromorderId-----------------------------------
+
+const getTheOrderItemFromOrderId = (req , res)=>{
+  const orderId = req.params.orderId;
+  
+
+  if(orderId == null || undefined){
+    return res.status(404).json({msg : constants.MISSING_STATMENT , success:true})
+  }
+
+  const value  = [orderId]
+
+  db.pool.query(getTheOrderIdProduct , value , (err ,result)=>{
+    if (err) {
+      console.log(`Error while fetching  orderItem => ${err.message}`);
+      return res
+        .status(500)
+        .json({ msg: constants.SERVER_ERROR, success: false });
+    }
+
+    return res.status(200).json({data : result.rows  , success: true})
+
+  } )
+
+}
+
+
+//-------------------------------function for fetching pending order-----------------------------------------------
+
+const pendingOrder = (req , res)=>{
+  const userId = req.params.userId;
+  
+
+  if(userId == null || undefined){
+    return res.status(404).json({msg : constants.MISSING_STATMENT , success:true})
+  }
+
+  const value  = [userId]
+
+  db.pool.query(getPendingOrder , value , (err ,result)=>{
+    if (err) {
+      console.log(`Error while fetching  orderItem => ${err.message}`);
+      return res
+        .status(500)
+        .json({ msg: constants.SERVER_ERROR, success: false });
+    }
+
+    return res.status(200).json({data : result.rows  , success: true})
+
+  } )
+
+}
+
 module.exports = {
   orderId,
   addOrderItem,
@@ -218,4 +318,7 @@ module.exports = {
   updateOrderOffline,
   getAllOrderById,
   getCompletedOrder,
+  getUserOrder,
+  getTheOrderItemFromOrderId ,
+  pendingOrder
 };

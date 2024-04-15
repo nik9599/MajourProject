@@ -33,6 +33,7 @@ export default function MenuCard({
       product_id: product_id,
       product_price: product_price,
       product_qantity: 1,
+      product_add_new:true,
       isveged:isveged
     };
     const resp = await getRequest(undefined,

@@ -35,6 +35,24 @@ JOIN Products ON OrderItem.product_id = Products.product_id
 WHERE OrderItem.order_id = $1
 `;
 
+const getAllTheOrderByUserId = `
+   Select * FROM orders WHERE customer_id = $1 AND status = 'Completed' ;
+`
+const getAllApprovedTheOrderByUserId = `
+   Select * FROM orders WHERE customer_id = $1 AND status = 'Approved' OR status ='pending' ;
+`
+
+const getPendingOrder =`
+Select * FROM orders WHERE customer_id = $1 AND status ='pending' ;
+`
+
+const getTheOrderIdProduct =`
+SELECT orderitem.quantity, products.product_name, products.product_price 
+FROM orderitem
+LEFT JOIN products ON orderitem.product_id = products.product_id
+WHERE orderitem.order_id = $1;
+`
+
 //----------------------Product related Query------------------------------------------------------------
 
 const InsertProduct =
@@ -191,4 +209,8 @@ module.exports = {
   deletInventory,
   getVegProduct,
   getNonVegProduct,
+  getAllTheOrderByUserId,
+  getAllApprovedTheOrderByUserId,
+  getTheOrderIdProduct,
+  getPendingOrder
 };

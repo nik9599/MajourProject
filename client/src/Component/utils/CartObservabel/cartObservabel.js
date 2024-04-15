@@ -114,6 +114,31 @@ class CartObservabel {
     const perUnitPrice = await currentItems.map((item) => item.product_price);
     return await perUnitPrice;
   }
+
+  async setAllProductAdd() {
+    const data = this.cartItemSubject.getValue();
+
+    // Update product_add_new property of each item to false
+    const updatedData = data.map((item) => {
+      return { ...item, product_add_new: false }; // create a new object with updated property
+    });
+
+    // Update application state
+    this.cartItemSubject.next(updatedData);
+
+    // Update local storage
+    window.localStorage.setItem("cartData", JSON.stringify(updatedData));
+
+    return true;
+  }
+
+  async getAllTheNewProduct() {
+    const data = this.cartItemSubject.getValue();
+
+    const setVisited = await data.filter((item) => item.product_add_new === true);
+
+    return setVisited;
+  }
 }
 
 export default new CartObservabel();

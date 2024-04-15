@@ -15,6 +15,9 @@ const {
   updateOrderOffline,
   getAllOrderById,
   getCompletedOrder,
+  getUserOrder,
+  getTheOrderItemFromOrderId ,
+  pendingOrder
 } = require("../controller/order-controller.js");
 const {
   getAllProducts,
@@ -51,6 +54,9 @@ Routes.post("/addingItem", tokenValidator, addOrderItem);
 Routes.get("/activeOrder", tokenValidator, getActiveOrder);
 Routes.put("/updateOrder", tokenValidator, updateOrder);
 Routes.get("/completedOrder", tokenValidator, getCompletedOrder);
+Routes.get("/userOrder/:status/:userId" , tokenValidator ,getUserOrder)
+Routes.get("/orderItem/:orderId" , tokenValidator ,getTheOrderItemFromOrderId );
+Routes.get("/pendingOrder/:userId" , tokenValidator , pendingOrder)
 
 //----------product routes----------------
 Routes.get("/getAllProduct", getAllProducts);

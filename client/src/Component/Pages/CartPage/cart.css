@@ -44,8 +44,22 @@
   margin-right: 50px;
   margin-top: 10px;
   min-height:200px;
-  max-height: 500px;
+  max-height: 200px;
   overflow-y: scroll;
+}
+
+
+.approvedOrderContainer{
+  margin-left: 50px;
+  background-color: white;
+  height: 200px;
+  overflow-y: scroll;
+  margin-right: 50px;
+  margin-top :10px ;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .Empty{
@@ -199,8 +213,22 @@
     margin-left: 50px;
     margin-right: 50px;
     margin-top: 10px;
-    height: 50vh;
+    height: 10vh;
     overflow-y: scroll;
+  }
+
+
+  .approvedOrderContainer{
+    margin-left: 50px;
+    background-color: white;
+    /* max-height: 150px; */
+    overflow-y: scroll;
+    margin-right: 50px;
+    margin-top :10px ;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   .CB-L {

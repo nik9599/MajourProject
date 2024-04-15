@@ -1,0 +1,90 @@
+.orderCard-container {
+    height: 90px;
+    width: 50%;
+    margin-top: 10px;
+    background-color: #fbf6f0;
+    border-radius: 7px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.orderCard-container:hover{
+    box-shadow: 0 5px 8px 3px lightgray;
+}
+
+.orderCard-Left {
+
+
+
+}
+
+.orderId-container {
+    margin-top: 10px;
+    font-weight: 600;
+    margin-left: 10px;
+}
+
+.orderData-container {
+    margin-top: 40px;
+    margin-left: 10px;
+}
+
+.orderCard-Right {
+    margin-right: 10px;
+}
+
+.orderStatus-container {
+    margin-top: 10px;
+   color: green;
+   font-weight: 600;
+}
+
+.orderAmount-contianer {
+    margin-top: 40px;
+    color: green;
+}
+
+@media screen  and (max-width : 600px) {
+    .orderCard-container {
+        height: 130px;
+        width: 70%;
+        margin-top: 10px;
+        background-color: #fbfbfb;
+        border-radius: 7px;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .orderCard-Left {
+
+
+
+    }
+    
+    .orderId-container {
+        margin-top: 10px;
+        font-weight: 600;
+        margin-left: 10px;
+    }
+    
+    .orderData-container {
+        margin-top: 40px;
+        margin-left: 10px;
+    }
+    
+    .orderCard-Right {
+        margin-right: 10px;
+    }
+    
+    .orderStatus-container {
+        margin-top: 10px;
+       color: green;
+       font-weight: 600;
+    }
+    
+    .orderAmount-contianer {
+        margin-top: 40px;
+        color: green;
+    }
+    
+}

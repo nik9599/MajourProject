@@ -1,0 +1,253 @@
+.profile-Main-container {
+    cursor: pointer;
+}
+.navbar-container {
+}
+.Bottom-Container-Profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.profile-container {
+  background-color: #fbf6f0;
+  display: flex;
+  width: 70%;
+  height: 90px;
+  justify-content: space-between;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+.avatar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ margin-left: 30px;
+}
+
+.avatar{
+  background-color: white;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+}
+.Username-container{
+  margin-left: 20px;
+}
+.edit-button-container {
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.edit-button-container:hover{
+    color :blue;
+    height: 15px;
+}
+
+.order-history-container {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  background-color: #fbf6f0;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+.Myorder-container {
+  display: flex;
+  margin-top: 10px;
+  margin-left: 30px;
+  margin-right: 10px;
+  align-items: center;
+  height: 50px;
+  /* background-color: aqua; */
+}
+
+.Myorder-container p{
+  margin-left: 10px;
+  font-weight: 600;
+}
+.offer-container {
+  display: flex;
+  margin-top: 10px;
+  margin-left: 30px;
+  margin-right: 10px;
+  align-items: center;
+  height: 50px;
+}
+.offer-container p{
+  margin-left: 10px;
+  font-weight: 600;
+}
+.setting-container {
+  display: flex;
+  margin-top: 10px;
+  margin-left: 30px;
+  margin-right: 10px;
+  align-items: center;
+  height: 50px;
+}
+.setting-container p{
+  margin-left: 10px;
+  font-weight: 600;
+}
+.bottom-container {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  background-color: #fbf6f0;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+.about-container {
+  display: flex;
+  margin-top: 10px;
+  margin-left: 30px;
+  margin-right: 10px;
+  align-items: center;
+  height: 50px;
+}
+
+.about-container p{
+  margin-left: 10px;
+  font-weight: 600;
+}
+
+.logOut-container {
+  display: flex;
+  margin-top: 10px;
+  margin-left: 30px;
+  margin-right: 10px;
+  align-items: center;
+  height: 50px;
+}
+.logOut-container p{
+  margin-left: 10px;
+  font-weight: 600;
+}
+@media screen and  (max-width : 600px) {
+  .profile-Main-container {
+  }
+  .navbar-container {
+  }
+  .Bottom-Container-Profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .profile-container {
+    background-color: #fbf6f0;
+    display: flex;
+    width: 70%;
+    height: 90px;
+    justify-content: space-between;
+    border-radius: 10px;
+    margin-top: 10px;
+  }
+  .avatar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   margin-left: 10px;
+
+  }
+  .avatar{
+    background-color: white;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+  }
+  .Username-container{
+    margin-left: 20px;
+  }
+  .edit-button-container {
+    margin-top: 10px;
+    margin-right: 10px;
+  }
+  .order-history-container {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    background-color: #fbf6f0;
+    margin-top: 10px;
+    border-radius: 10px;
+  }
+  .Myorder-container {
+    display: flex;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    align-items: center;
+    height: 50px;
+    /* background-color: aqua; */
+  }
+
+  .Myorder-container p{
+    margin-left: 10px;
+    font-weight: 600;
+  }
+  .offer-container {
+    display: flex;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    align-items: center;
+    height: 50px;
+  }
+  .offer-container p{
+    margin-left: 10px;
+    font-weight: 600;
+  }
+  .setting-container {
+    display: flex;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    align-items: center;
+    height: 50px;
+  }
+  .setting-container p{
+    margin-left: 10px;
+    font-weight: 600;
+  }
+  .bottom-container {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    background-color: #fbf6f0;
+    margin-top: 10px;
+    border-radius: 10px;
+  }
+  .about-container {
+    display: flex;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    align-items: center;
+    height: 50px;
+  }
+
+  .about-container p{
+    margin-left: 10px;
+    font-weight: 600;
+  }
+
+  .logOut-container {
+    display: flex;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    align-items: center;
+    height: 50px;
+  }
+  .logOut-container p{
+    margin-left: 10px;
+    font-weight: 600;
+  }
+}
