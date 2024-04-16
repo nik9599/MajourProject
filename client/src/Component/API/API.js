@@ -4,7 +4,7 @@ import axios from "axios";
 
 const baseUrl = "https://server-omega-fawn.vercel.app/api/v1"
 
-// const baseUrl = "http://localhost:3000/api/v1"
+// const baseUrl = "http://localhost:5000/api/v1"
 
 // Function for making GET requests
 export const getRequest = async (param = null, url, token = null) => {

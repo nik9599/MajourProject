@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:8080/api/v1";
+// const baseUrl = "http://localhost:8080/api/v1";
+const baseUrl = "https://server-omega-fawn.vercel.app/api/v1"
 
 // Function for making GET requests
 export const getRequest = async (param = null, url, token = null) => {  
