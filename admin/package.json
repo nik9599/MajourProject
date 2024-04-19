@@ -7,7 +7,10 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@vercel/blob": "^0.22.3",
     "axios": "^1.6.7",
+    "dotenv": "^16.4.5",
+    "firebase": "^10.11.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-loading-skeleton": "^3.4.0",
@@ -16,6 +19,7 @@
     "react-scripts": "5.0.1",
     "rxjs": "^7.8.1",
     "socket.io-client": "^4.7.5",
+    "uuid": "^9.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

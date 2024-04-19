@@ -4,6 +4,19 @@ import CategoryDropDown from "../CateGoryDropDown/CategoryDropDown";
 import SideNavBar from "../SideNavBar/SidenavBar.jsx";
 import { getRequest, postRequest } from "../../API/API.js";
 
+import { initializeApp } from "firebase/app";
+import {
+  getStorage,
+  ref,
+  getDownloadURL,
+  uploadBytesResumable,
+  uploadBytes,
+} from "firebase/storage";
+
+import { v4 } from "uuid";
+
+import firebaseConfig from "../../utils/common/firebaseConfig.js";
+
 const productlayout = {
   product_name: "",
   product_image: "",
@@ -19,27 +32,78 @@ export default function InsertData() {
   const [isVeged, setisVeged] = useState(false);
   const [isNonVeged, setIsNonVegeed] = useState(false);
   const [input, setInput] = useState(productlayout);
-  const [file, setFile] = useState("");
+  const [file, setFile] = useState();
   const [image, setImage] = useState("");
-
 
   //----------------------useEffect for uploading Image---------------------
 
   useEffect(() => {
+    const giveCurrentDateTime = () => {
+      const today = new Date();
+      const date =
+        today.getFullYear() +
+        "-" +
+        (today.getMonth() + 1) +
+        "-" +
+        today.getDate();
+      const time =
+        today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      const dateTime = date + "/" + time;
+      return dateTime;
+    };
+
     const getImage = async () => {
       if (file) {
-        const data = new FormData();
-        data.append("name", file.name);
-        data.append("productImage", file);
+        const t = initializeApp(firebaseConfig.firebaseConfig);
+        const storage = getStorage(t);
 
-        //API calling
+        const dateTime = giveCurrentDateTime();
 
-        const resp = await postRequest(data, "/upload");
+        // const storageRef = ref(
+        //   firebaseConfig,
+        //   `files/${file}`
+        // );
 
-        if (resp.success) {
-          console.log(resp.url);
-          setImage(resp.url);
+        // const snapshot = await uploadBytesResumable(
+        //   storageRef,
+        //   file
+        // );
+
+        console.log(file);
+
+        const imgRef = ref(storage, `files/${file.name + "-" + dateTime}`);
+        const d = await uploadBytes(imgRef, file);
+
+        const downloadURL = await getDownloadURL(d.ref);
+
+        console.log(downloadURL);
+
+        if (downloadURL) {
+          setImage(downloadURL);
         }
+
+        // Read the file as a data URL
+        // const reader = new FileReader();
+        // reader.onload = async () => {
+        //   const base64Data = reader.result;
+        //   const data = {
+        //     fileName: file.name,
+        //     fileData: base64Data
+        //   };
+
+        //   const jsonData = JSON.stringify(data);
+
+        //   console.log(jsonData);
+
+        //   // Send the data to the server
+        //   const resp = await postRequest(data, "/upload", null);
+
+        //   if (resp.success) {
+        //     console.log(resp.url);
+        //     setImage(resp.url);
+        //   }
+        // };
+        // reader.readAsDataURL(file); // Read the file as a data URL
       }
     };
     getImage();
@@ -67,7 +131,7 @@ export default function InsertData() {
     [setisVeged, setisVeged]
   );
 
-//-----------------------------------funcation for uploading product detail to DB---------------------------------
+  //-----------------------------------funcation for uploading product detail to DB---------------------------------
 
   const uploadData = async (e) => {
     e.preventDefault();
@@ -79,7 +143,7 @@ export default function InsertData() {
       Category: category,
       isVeged: isVeged,
       isNonVeged: isNonVeged,
-    };
+    };    
 
     const resp = await postRequest(productDetail, "/insertProduct");
 

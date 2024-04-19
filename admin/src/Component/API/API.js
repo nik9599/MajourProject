@@ -1,6 +1,6 @@
 import axios from "axios";
 
-// const baseUrl = "http://localhost:8080/api/v1";
+// const baseUrl = "http://localhost:3000/api/v1";
 const baseUrl = "https://server-omega-fawn.vercel.app/api/v1"
 
 // Function for making GET requests
@@ -20,6 +20,8 @@ export const getRequest = async (param = null, url, token = null) => {
 
 // Function for making POST requests
 export const postRequest = async (data, url, token = null) => {
+
+  console.log(data);
 
   try {
     const config = token ? { headers: { authorization: `Bearer ${token}` } } : {};
