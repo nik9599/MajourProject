@@ -3,7 +3,7 @@ import Cart from "./Component/Pages/CartPage/Cart";
 import Landing from "./Component/Pages/LandingPage/Landing";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { SkeletonTheme } from "react-loading-skeleton";
-import SignUp from "./Component/Pages/SIgnupPage/SignUp";
+import SignUp from "./Component/Pages/SIgnupPage/SignUp.jsx";
 import Login from "./Component/Pages/LoginPages/Login";
 import Payment from "./Component/Pages/Payment/Payment";
 import Profile from "./Component/Pages/ProfilePage/Profile";
