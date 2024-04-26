@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:8080/api/v1";
+// const baseUrl = "http://localhost:8080/api/v1";
 
-// const baseUrl = "https://server-omega-fawn.vercel.app/api/v1"
+const baseUrl = "https://server-omega-fawn.vercel.app/api/v1"
 
 // const baseUrl = "http://localhost:5000/api/v1"
 
