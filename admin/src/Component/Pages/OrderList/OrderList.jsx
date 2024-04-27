@@ -4,11 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { OrdeerDetail } from "../../utils/Redux/slice/stateSlice/stateSlice.js";
 import "./orderList.css";
 import OrderListShimmer from "../ShimmerCard/OrderListShimmer/OrderListShimmer";
-import { io } from "socket.io-client";
+import { getRequest } from "../../API/API.js";
 
-// making connection witrh socket-server
-
-const socket = io.connect("http://localhost:8080");
 
 export default function OrderList() {
   const [selectedOrderId, setSelectedOrderId] = useState(null);
@@ -18,18 +15,21 @@ export default function OrderList() {
 
   useEffect(() => {
     const fetchData = async () => {
-      socket.on("new-order", (order) => setOrderList(order));
-      if (orderList.length == 0) {
-        socket.emit("get-the-order");
-        socket.on("new-order1", (order) => setOrderList(order));
+      const resp = await getRequest(null, "/activeOrder", token);
+  
+      if (resp.success) {
+        setOrderList(resp.data);
       }
     };
-
+  
+    // Initial call
     fetchData();
-
-    return () => {
-      socket.off("new-order");
-    };
+  
+    // Setup interval to fetch data every 5 minutes
+    const intervalId = setInterval(fetchData, 5 * 60 * 1000); // 5 minutes in milliseconds
+  
+    // Cleanup function to clear interval
+    return () => clearInterval(intervalId);
   }, [token]);
 
   const handleCardClick = (orderId, customer_id) => {

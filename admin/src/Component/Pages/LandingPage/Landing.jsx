@@ -7,7 +7,7 @@ import cartObservabel from "../../utils/CartObservabel/cartObservabel.js";
 import Cart from "../CartPage/Cart.jsx";
 import ShimmerCard from "../ShimmerCard/MenuShimmer/ShimmerCard.jsx";
 import { getRequest } from "../../API/API.js";
-import { useSelector } from "react-router-dom";
+
 
 export default function Landing() {
   const [cartSize, setCartSize] = useState(0);
@@ -17,7 +17,7 @@ export default function Landing() {
   const [activeId, setActiveId] = useState([]);
   const [callCart, setCallCart] = useState(false);
   const [sampleData, setSampleData] = useState([]);
-  // const [sampleData1, setSampleData1] = useState([]);
+
 
   //------------------------fetching total price-----------------------------------------------
 
