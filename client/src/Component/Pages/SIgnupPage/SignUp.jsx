@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./signUp.css";
 import signUp from "./signup.js";
 import "../LoginPages/login.css";
-import { postRequest } from "../../API/API";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
 
