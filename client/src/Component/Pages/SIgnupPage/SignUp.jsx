@@ -96,8 +96,11 @@ export default function SignUp() {
             <input
               style={{
                 boxShadow: userNameUnique
-                  ? "0 2px 9px 1px red"
+                  ? "0 1px 5px 0.5px red"
                   : "0 2px 9px 1px lightgray",
+                  color: userNameUnique
+                  ? " red"
+                  : "black",
               }}
               name="username"
               type="text"
