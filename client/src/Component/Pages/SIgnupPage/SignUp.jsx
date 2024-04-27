@@ -143,7 +143,7 @@ export default function SignUp() {
             <input
               type="number"
               name="mobile"
-              placeholder="exampel@gmail.com"
+              placeholder="+91"
               className="sigup-input"
               onChange={(e) => {
                 setMobile(e.target.value);
