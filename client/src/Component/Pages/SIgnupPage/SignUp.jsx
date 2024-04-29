@@ -65,7 +65,7 @@ export default function SignUp() {
 
   useEffect(() => {
     const startTimer = setTimeout(async () => {
-      setMobileVerified(await signUp.confirmPassword(password, confirmPassword));
+      setMobileVerified(await signUp.mobileValidator(mobile));
     }, 2000);
 
     return () => clearTimeout(startTimer);
@@ -176,8 +176,12 @@ export default function SignUp() {
 
             <label htmlFor="mobile">Mobile</label>
             <input
-              style={{ border: "1px solid lightgray" }}
-              type="number"
+               style={{
+                border: mobileVerified
+                  ? " 1px solid red"
+                  : "1px solid lightgray",
+              }}
+              type="text"
               name="mobile"
               placeholder="+91"
               className="sigup-input"
@@ -187,6 +191,19 @@ export default function SignUp() {
               }}
               value={mobile}
             />
+
+<p
+              style={{
+                fontSize: "10px",
+                marginTop: "5px",
+                color: "red",
+                height: "10px",
+              }}
+              
+            >
+              {mobileVerified && "Please Enter the valid Number"} 
+            </p>
+
             <label htmlFor="password"> Password </label>
             <input
               style={{

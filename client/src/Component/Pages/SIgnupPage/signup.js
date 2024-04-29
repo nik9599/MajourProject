@@ -66,7 +66,7 @@ class signup {
   }
 
   async confirmPassword(password = "empty", confirmPassword) {
-    console.log(password, confirmPassword);
+   
 
     if (password == null) {
       return false;
@@ -81,7 +81,7 @@ class signup {
   }
 
   async registeredData(signUpData) {
-    console.log(signUpData);
+    
     const res = await postRequest(signUpData, "/signUp");
     if (res.success) {
       return { success: true };
@@ -90,17 +90,15 @@ class signup {
     }
   }
 
-  async mobileValidator(mobile){
+  async mobileValidator(mobile) {
     const num = Number(mobile);
 
-    if(num == NaN){
-      return true
-    }else{
-      return false
+    if (isNaN(num)) {
+      return true;
+    } else {
+      return false;
     }
-
   }
-
 }
 
 export default new signup();
