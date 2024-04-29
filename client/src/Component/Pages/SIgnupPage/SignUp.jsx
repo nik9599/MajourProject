@@ -16,16 +16,17 @@ const signUpDataLayout = {
 export default function SignUp() {
   const [signUpData, setSignUpData] = useState(signUpDataLayout);
   const [isError, setIsError] = useState(false);
-  const [errorMessge, setErrorMessage] = useState("This is testing");
+  const [errorMessge, setErrorMessage] = useState("");
   const [UserName, setUserName] = useState("");
   const [userNameUnique, isUSerNameUnique] = useState(false);
   const [email, setEmail] = useState("");
   const [emailVerified, isEmailVerified] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState(null);
   const [checkPassword, setCheckPassword] = useState(false);
   const [verifiedPassword, setVerifiedPassword] = useState(false);
   const [mobile, setMobile] = useState("");
+  const [mobileVerified , setMobileVerified] = useState(false);
 
   const navigator = useNavigate();
 
@@ -40,7 +41,7 @@ export default function SignUp() {
   useEffect(() => {
     const startTimer = setTimeout(async () => {
       isEmailVerified(await signUp.emailValidator(email));
-    }, 3000);
+    }, 2000);
 
     return () => clearTimeout(startTimer);
   }, [email]);
@@ -48,7 +49,7 @@ export default function SignUp() {
   useEffect(() => {
     const startTimer = setTimeout(async () => {
       setVerifiedPassword(await signUp.passwordValidator(password));
-    }, 3000);
+    }, 2000);
 
     return () => clearTimeout(startTimer);
   }, [password]);
@@ -56,10 +57,20 @@ export default function SignUp() {
   useEffect(() => {
     const startTimer = setTimeout(async () => {
       setCheckPassword(await signUp.confirmPassword(password, confirmPassword));
-    }, 3000);
+    }, 2000);
 
     return () => clearTimeout(startTimer);
-  }, [confirmPassword]);
+  }, [confirmPassword ,password]);
+
+
+  useEffect(() => {
+    const startTimer = setTimeout(async () => {
+      setMobileVerified(await signUp.confirmPassword(password, confirmPassword));
+    }, 2000);
+
+    return () => clearTimeout(startTimer);
+  }, [mobile]);
+
 
   const handelInput = (e) => {
     setSignUpData({
@@ -92,15 +103,19 @@ export default function SignUp() {
         <div className="signUp-text">Create an acount</div>
         <div className="signUp-form-container">
           <form className="signup-form" onSubmit={handelsignUp}>
-            <label htmlFor="username">Username</label>
+            <label
+              style={{
+                color: userNameUnique ? "red" : "black",
+              }}
+              htmlFor="username"
+            >
+              Username
+            </label>
             <input
               style={{
-                boxShadow: userNameUnique
-                  ? "0 1px 5px 0.5px red"
-                  : "0 2px 9px 1px lightgray",
-                  color: userNameUnique
-                  ? " red"
-                  : "black",
+                border: userNameUnique
+                  ? "1px solid #e03546"
+                  : "2px solid lightgray",
               }}
               name="username"
               type="text"
@@ -112,17 +127,29 @@ export default function SignUp() {
                 handelInput(e);
               }}
             />
-            {userNameUnique && (
-              <p style={{ fontSize: "10px", marginTop: "10px", color: "red" }}>
-                Username already taken
-              </p>
-            )}
-            <label htmlFor="email">Email</label>
+
+            <p
+              style={{
+                fontSize: "10px",
+                marginTop: "5 px",
+                color: "red",
+                height: "10px",
+              }}
+            >
+              {userNameUnique && "Username already taken"}
+            </p>
+
+            <label
+              style={{ color: emailVerified ? "red" : "black" }}
+              htmlFor="email"
+            >
+              Email
+            </label>
             <input
               style={{
-                boxShadow: emailVerified
-                  ? "0 2px 9px 1px red"
-                  : "0 2px 9px 1px lightgray",
+                border: emailVerified
+                  ? " 1px solid red"
+                  : "1px solid lightgray",
               }}
               type="text"
               name="email"
@@ -134,13 +161,22 @@ export default function SignUp() {
                 handelInput(e);
               }}
             />
-            {emailVerified && (
-              <p style={{ fontSize: "10px", marginTop: "10px", color: "red" }}>
-                Already in use
-              </p>
-            )}
+
+            <p
+              style={{
+                fontSize: "10px",
+                marginTop: "5px",
+                color: "red",
+                height: "10px",
+              }}
+              id="emailError"
+            >
+              
+            </p>
+
             <label htmlFor="mobile">Mobile</label>
             <input
+              style={{ border: "1px solid lightgray" }}
               type="number"
               name="mobile"
               placeholder="+91"
@@ -154,9 +190,9 @@ export default function SignUp() {
             <label htmlFor="password"> Password </label>
             <input
               style={{
-                boxShadow: !verifiedPassword
-                  ? "0 2px 9px 1px red"
-                  : "0 2px 9px 1px lightgray",
+                border: verifiedPassword
+                  ? " 1px solid red"
+                  : "1px solid lightgray",
               }}
               type="text"
               name="password"
@@ -168,17 +204,23 @@ export default function SignUp() {
               }}
               value={password}
             />
-            {!verifiedPassword && (
-              <p style={{ fontSize: "10px", marginTop: "10px", color: "red" }}>
-                Password is weak
-              </p>
-            )}
+
+            <p
+              style={{
+                fontSize: "10px",
+                marginTop: "1px",
+                color: "red",
+                height: "10px",
+              }}
+              id="errorMessage"
+            ></p>
+
             <label htmlFor="password"> Confirm Password </label>
             <input
               style={{
-                boxShadow: !checkPassword
-                  ? "0 2px 9px 1px red"
-                  : "0 2px 9px 1px lightgray",
+                border: checkPassword
+                  ? " 1px solid red"
+                  : " 1px solid lightgray",
               }}
               type="text"
               name="confirmPassword"
@@ -190,11 +232,10 @@ export default function SignUp() {
               }}
               value={confirmPassword}
             />
-            {!checkPassword && (
-              <p style={{ fontSize: "10px", marginTop: "10px", color: "red" }}>
-                Password not match
-              </p>
-            )}
+
+            <p style={{ fontSize: "10px", marginTop: "10px", color: "red" }}>
+              {checkPassword && "Password not match"}
+            </p>
 
             {isError && (
               <div className="error-div">

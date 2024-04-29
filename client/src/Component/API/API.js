@@ -1,8 +1,8 @@
 import axios from "axios";
 
-// const baseUrl = "http://localhost:8080/api/v1";
+const baseUrl = "http://localhost:8080/api/v1";
 
-const baseUrl = "https://server-alpha-ruby.vercel.app/api/v1"
+// const baseUrl = "https://server-alpha-ruby.vercel.app/api/v1"
 
 // const baseUrl = "http://localhost:5000/api/v1"
 
@@ -47,6 +47,11 @@ export const putRequest = async (data, url, token) => {
 
 // Helper function to handle request errors
 const handleRequestError = (error) => {
+
+  if (error.response.status === 422) {
+       return error.response.data
+  }
+
   if (error.response && (error.response.status === 500 || error.response.status === 400 || error.response.status === 404 )) {
     const errorMessage = error.response.data.msg;
     return { success: false, msg: errorMessage };

@@ -9,16 +9,24 @@ class signup {
   }
 
   async passwordValidator(password) {
-    if (password == "") {
+    if (password == null) {
       password = "empty";
     }
     const resp = await getRequest(null, `/verifyPassword/${password}`, null);
 
-    if (resp.validPassword) {
-      return true;
-    } else {
-      return false;
+    if (resp.error) {
+      const errorTag = document.getElementById("errorMessage");
+
+      errorTag.innerHTML = resp.msg;
     }
+
+    if (!resp.error) {
+      const errorTag = document.getElementById("errorMessage");
+
+      errorTag.innerHTML = "";
+    }
+
+    return resp.error;
   }
 
   async userNameUnique(username) {
@@ -41,21 +49,34 @@ class signup {
     }
     const resp = await getRequest(null, `/verifyEmail/${email}`, null);
 
-    if (!resp.uniqueEmail) {
+    if (resp.error) {
       this.emailVerified = true;
+
+      const getErrorTag = document.getElementById("emailError");
+      getErrorTag.innerHTML = resp.msg;
+
       return true;
     } else {
       this.emailVerified = false;
+
+      const getErrorTag = document.getElementById("emailError");
+      getErrorTag.innerHTML = "";
       return false;
     }
   }
 
-  async confirmPassword(password, confirmPassword) {
-    if (password === confirmPassword) {
-      this.passwordValidate = true;
-      return true;
-    } else {
+  async confirmPassword(password = "empty", confirmPassword) {
+    console.log(password, confirmPassword);
+
+    if (password == null) {
       return false;
+    }
+
+    if (password == confirmPassword) {
+      this.passwordValidate = true;
+      return false;
+    } else {
+      return true;
     }
   }
 
@@ -63,11 +84,23 @@ class signup {
     console.log(signUpData);
     const res = await postRequest(signUpData, "/signUp");
     if (res.success) {
-      return {success :true};
+      return { success: true };
     } else {
       return { msg: "Signup failed", success: false };
     }
   }
+
+  async mobileValidator(mobile){
+    const num = Number(mobile);
+
+    if(num == NaN){
+      return true
+    }else{
+      return false
+    }
+
+  }
+
 }
 
 export default new signup();
