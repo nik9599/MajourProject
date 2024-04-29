@@ -66,7 +66,7 @@ export default function SignUp() {
   useEffect(() => {
     const startTimer = setTimeout(async () => {
       setMobileVerified(await signUp.mobileValidator(mobile));
-    }, 2000);
+    }, 1000);
 
     return () => clearTimeout(startTimer);
   }, [mobile]);
